@@ -3,7 +3,7 @@ import React from 'react';
 const NewFile = () => {
   return (
     <div>
-      Add New files PAGE
+      <h1>Add New files PAGE</h1>
     </div>
   )
 };

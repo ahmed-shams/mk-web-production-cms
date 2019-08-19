@@ -36,7 +36,7 @@ class MainNav extends Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link href='/profile'>
+            <Link href='/user/profile'>
               <a>
                 <Icon type="profile" />
                 <span>Profile</span>
@@ -48,6 +48,14 @@ class MainNav extends Component {
               <a>
                 <Icon type="plus" />
                 <span>Add New</span>
+              </a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="34">
+            <Link href='/all_files'>
+              <a>
+                <Icon type="file" />
+                <span>All Files</span>
               </a>
             </Link>
           </Menu.Item>
