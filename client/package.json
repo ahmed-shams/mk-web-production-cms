@@ -9,7 +9,7 @@
     "start": "next start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Sehwan Choi",
+  "author": "Sehwan Choi, Ahmed Shams",
   "license": "ISC",
   "dependencies": {
     "antd": "^3.20.2",
