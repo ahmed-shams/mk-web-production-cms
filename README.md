@@ -5,9 +5,9 @@ Development is a breeze. Once you have installed all your dependencies all the c
 ```
 1. Checkout the respective branch from mk-web repo
 2. ---CLIENT: CD into client folder and run 'npm install'
-3. Execute ‘npm rund dev’ inside client folder to run client side app. Access the following URL in the browser. http://localhost:3000/
-4. ---SERVER: To start the server, cd into server folder.
-5. execute ‘node index.js’ 
+3. Execute ‘npm run dev’ inside client folder to run client side app. Access the following URL in the browser. http://localhost:3000/
+4. ---SERVER: To start the server, cd into server and run 'npm install'.
+5. execute ‘node run dev’ 
 6. Access the following URL in the browser. http://localhost:3001/
 ```
 
@@ -30,22 +30,8 @@ make it very fun and easy to write **predictable** code! There's a ton of reason
 
 
 ### Unit Tests
-Testing with:
-- `karma` as test runner
-  - `karma.conf.js` for the main karma configuration (it has webpack configurations)
-  - `tests.webpack.js` which is the single entry file. It uses `webpack`'s require API to find all the files we need that have a `-test.js` suffix.
-- `mocha` as the test framework
-- `jsdom` as my test environment
-
-```bash
-
-#### Run test once
-npm test
-
-#### Run in watch mode
-npm test:watch
-```
-Unit tests for async (redux) actions, reducers, and components.
+Testing with: Enzyme and Jest
+TO BE UPDATED SOON
 
 
 ## Build and Deployment
