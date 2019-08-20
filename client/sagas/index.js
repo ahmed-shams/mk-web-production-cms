@@ -4,7 +4,7 @@ import user from './user';
 
 export default function* rootSaga() {
   yield all([
-    call(post),
+    call(file),
     call(user)
   ]);
 };
