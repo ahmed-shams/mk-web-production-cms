@@ -12,6 +12,11 @@ import {
   SIGN_UP_SUCCESS,
 } from '../reducers/user';
 
+const dummyUser = {
+  id: 1,
+  username: 'sehwan'
+}
+
 function logInAPI(loginData) {
   return axios.post('/user/login', loginData, {
     withCredentials: true,
@@ -19,11 +24,13 @@ function logInAPI(loginData) {
 }
 
 function* logIn(action) {
+  console.log("login updata: ", action.data);
   try {
     // const result = yield call(logInAPI, action.data);
     yield delay(2000);
     yield put({ 
       type: LOG_IN_SUCCESS,
+      data: dummyUser
       // data: result.data,
     });
   } catch (e) { 

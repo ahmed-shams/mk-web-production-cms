@@ -1,7 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { Input, Button, Form } from 'antd';
 import styled from 'styled-components';
+import { LOG_IN_REQUEST } from '../../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 // custom hook for making useState easier
@@ -18,10 +20,25 @@ export const useInput = (initialValue = null) => {
 const Login = () => {
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
+  const dispatch = useDispatch();
+  const { isLoggingIn, me } = useSelector(state => state.user);
+
+  useEffect(() => {
+    if (me) {
+      alert("Navigating back to main page after login");
+      Router.push('/')
+    }
+  }, [me && me.id])
 
   const onSubmitForm = useCallback((e) => {
     e.preventDefault();
-    console.log({id, password});
+    dispatch({
+      type: LOG_IN_REQUEST,
+      data: {
+        userId: id,
+        password
+      }
+    })
   }, [id, password])
 
   return (
@@ -35,10 +52,10 @@ const Login = () => {
         <div>
           <label htmlFor='user-password'>Password</label>
           <br />
-          <Input name='user-password' value={password} onChange={onChangePassword} required />
+          <Input name='user-password' type='password' value={password} onChange={onChangePassword} required />
         </div>
         <div style={{marginTop: '10px'}}>
-          <Button type='primary' htmlType='submit'>Login</Button>
+          <Button type='primary' htmlType='submit' loading={isLoggingIn}>Login</Button>
           <Link href='/signup'><a><Button>Sign Up</Button></a></Link>
         </div>
       </Form>

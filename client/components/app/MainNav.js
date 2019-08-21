@@ -13,7 +13,7 @@ class MainNav extends Component {
       collapsed: !this.state.collapsed,
     });
   };
-
+  // TODO: render dynamically based on data. Recusively create a tree
   render() {
     return (
       <div style={{ maxWidth: 256 }}>
