@@ -4,7 +4,7 @@ import { Input, Button, Form } from 'antd';
 import styled from 'styled-components';
 import { LOG_IN_REQUEST } from '../../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
-
+import Router from 'next/router';
 
 // custom hook for making useState easier
 export const useInput = (initialValue = null) => {
@@ -25,6 +25,7 @@ const Login = () => {
 
   useEffect(() => {
     if (me) {
+      console.log("me nickname: ", me.nickname);
       alert("Navigating back to main page after login");
       Router.push('/')
     }

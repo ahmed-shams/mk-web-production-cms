@@ -30,7 +30,7 @@ function* logIn(action) {
     yield delay(2000);
     yield put({ 
       type: LOG_IN_SUCCESS,
-      data: dummyUser
+      // data: dummyUser
       // data: result.data,
     });
   } catch (e) { 
