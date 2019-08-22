@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
   // Define relationship with other Models
   User.associate = (db) => {
     db.User.hasMany(db.File, { as: "Files" });
+    db.User.hasMany(db.Revision);
   }
 
   return User;
