@@ -1,7 +1,10 @@
-/client/node_modules
+# Dependency directories
 client/node_modules
-/server/node_modules
 server/node_modules
-/client/.next
+
+# dotenv environment variables file
+.env
+
+# next build output
 client/.next
 
