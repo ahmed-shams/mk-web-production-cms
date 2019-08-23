@@ -5,7 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const passport = require('passport');
-// const passportConfig = require('./passport');
+const passportConfig = require('./passport');
 
 const dotenv = require('dotenv');
 const db = require('./models');
@@ -15,7 +15,7 @@ const fileAPIRouter = require('./routes/file');
 dotenv.config();
 const app = express();
 db.sequelize.sync();
-// passportConfig();
+passportConfig();
 
 app.use(morgan('dev'));
 app.use(cors({  // origin and credentials settings are needed to exchange cookies between frontend and backend.. axios withcredentials setting is needed in frontend code
@@ -30,14 +30,14 @@ app.use(expressSession({
   saveUninitialized: false,
   secret: process.env.COOKIE_SECRET,
   cookie: {
-    httpOnly: true, // hacker can't access cookie with Javascript if this is set to true
-    secure: false, // https를 쓸 때 true
+    httpOnly: true, 
+    secure: false,
   },
   name: 'rnbck', // to change the cookie name in the front end dev tool
-//   store: redisStore - setup redis to prevent the session loss when server restart
+//   store: redisStore - TODO: setup redis to prevent the session loss when server restart
 }));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // API routes
 app.use('/api/user', userAPIRouter);

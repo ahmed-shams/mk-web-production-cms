@@ -18,20 +18,20 @@ const dummyUser = {
 }
 
 function logInAPI(loginData) {
-  return axios.post('/user/login', loginData, {
+  console.log("loginData: ", loginData);
+  return axios.post('http://localhost:3001/api/user/login', loginData, {
     withCredentials: true,
   });
 }
 
 function* logIn(action) {
-  console.log("login updata: ", action.data);
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(2000);
+    const result = yield call(logInAPI, action.data);
+    // yield delay(2000);
     yield put({ 
       type: LOG_IN_SUCCESS,
       // data: dummyUser
-      // data: result.data,
+      data: result.data,
     });
   } catch (e) { 
     console.error(e);

@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     roleId: {
-        type: DataTypes.INTEGER
+      type: DataTypes.INTEGER
     }
   }, {
     charset: 'utf8',
