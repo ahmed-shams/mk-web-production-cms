@@ -14,8 +14,9 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [termError, setTermError] = useState(false);
   const [id, onChangeId] = useInput('');
-  const [nick, onChangeNick] = useInput('');
+  // const [nick, onChangeNick] = useInput('');
   const [password, onChangePassword] = useInput('');
+  const [email, onChangeEmail] = useInput('');
   const dispatch = useDispatch();
   const { isSigningUp, me } = useSelector(state => state.user);
 
@@ -34,16 +35,15 @@ const SignUp = () => {
     if (!term) {
       return setTermError(true);
     }
-    console.log({id, nick, password});
     return dispatch({
       type: SIGN_UP_REQUEST,
       data: {
         userId: id,
         password,
-        nickname: nick
+        email
       }
     })
-  }, [id, nick, password, passwordCheck, term])
+  }, [id, email, password, passwordCheck, term])
 
   const onChangePasswordCheck = useCallback((e) => {
     setPasswordError(e.target.value !== password);
@@ -64,10 +64,15 @@ const SignUp = () => {
           <Input name='user-id' value={id} required onChange={onChangeId} />
         </div>
         <div>
+          <label htmlFor="user-email">Email</label>
+            <br />
+            <Input name="user-email" value={email} required onChange={onChangeEmail} />
+        </div>
+        {/* <div>
           <label htmlFor="user-nick">Nickname</label>
             <br />
             <Input name="user-nick" value={nick} required onChange={onChangeNick} />
-          </div>
+        </div> */}
         <div>
           <label htmlFor='user-password'>Password</label>
           <br />

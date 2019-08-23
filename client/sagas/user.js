@@ -46,15 +46,16 @@ function* watchLogIn() {
 }
 
 function signUpAPI(signUpData) {
-  return axios.post('/user/', signUpData);
+  console.log("signup data in saga: ", signUpData);
+  return axios.post('http://localhost:3001/api/user', signUpData);
 }
 
 function* signUp(action) {
   try {
-    // yield call(signUpAPI);
     yield call(signUpAPI, action.data);
     yield put({ 
       type: SIGN_UP_SUCCESS,
+
     });
   } catch (e) { 
     console.error(e);
