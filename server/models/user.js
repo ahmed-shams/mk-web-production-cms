@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     nikcname: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      defaultValue: 'user'
     },
     userId: {
       type: DataTypes.STRING(20),

@@ -6,8 +6,9 @@ router.get('/', (req, res) => { // get my profile
 });
 
 router.post('/', async (req, res, next) => { // sign up
+  console.log("hitting this route");
   console.log("data from client: ", req.body);
-  return 
+  return res.status(200).json(newUser);
 });
 
 router.post('/:id', (req, res) => { // get other user's info
@@ -15,7 +16,7 @@ router.post('/:id', (req, res) => { // get other user's info
 });
 
 router.post('/login', (req, res, next) => {
-
+  console.log("data here in login: ", req.body);
 });
 
 router.post('/logout', (req, res) => {
