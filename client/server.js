@@ -29,10 +29,11 @@ app.prepare().then(() => {
     }
   }));
 
+
   // dynamic routing -- next can't handle dynamic routing. 
-//   server.get('/user/:id', (req, res) => {
-//     return app.render(req, res, '/user', { id: req.params.id });
-//   });
+  server.get('/file/:id', (req, res) => {
+    return app.render(req, res, '/file', { id: req.params.id });
+  })
 
   server.get('*', (req, res) => {
     return handle(req, res);

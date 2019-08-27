@@ -9,7 +9,7 @@ import reducer from '../reducers';
 import createSagaMiddleWare from 'redux-saga';
 import rootSaga from '../sagas';
 
-const Layout = ({ Component, store }) => {
+const Layout = ({ Component, store, pageProps }) => {
   return (
     <Provider store={store}>
       <Head>
@@ -17,7 +17,7 @@ const Layout = ({ Component, store }) => {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.20.1/antd.css" />
       </Head>
       <AppLayout>
-        <Component />
+        <Component {...pageProps} />
       </AppLayout>
     </Provider>
   );
@@ -25,9 +25,19 @@ const Layout = ({ Component, store }) => {
 
 Layout.proptypes = {
   Component: Proptypes.elementType,
-  store: Proptypes.object
+  store: Proptypes.object,
+  pageProps: Proptypes.object
 }
 
+Layout.getInitialProps = async (context) => {
+  console.log("context: ", context);
+  const { ctx, Component } = context;
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+  return { pageProps }
+}
 
 const configureStore = (initialState, options) => {
   const sagaMiddleware = createSagaMiddleWare();
