@@ -17,7 +17,7 @@ function* loadFile() {
   try {
     // const result = yield call(addFileAPI, action.data);
     console.log("in saga load file");
-    yield delay(2000);
+    // yield delay(2000);
     yield put({
       type: LOAD_ALL_FILE_SUCCESS
     });

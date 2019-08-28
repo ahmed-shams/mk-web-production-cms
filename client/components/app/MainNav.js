@@ -13,10 +13,9 @@ class MainNav extends Component {
       collapsed: !this.state.collapsed,
     });
   };
-  // TODO: render dynamically based on data. Recusively create a tree
   render() {
     return (
-      <div style={{ maxWidth: 256 }}>
+      <div>
         <Button type="primary" onClick={this.toggleCollapsed} style={{ width: '100%' }}>
           <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
         </Button>
