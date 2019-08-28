@@ -22,7 +22,7 @@ const AllFiles = () => {
     setData(Files);
   }, [Files])
 
-  const onToggle = (node, toggled) => { // this is getting called on click event on any node. 
+  const onToggle = (node, toggled) => {
     if (cursor) {
       cursor.active = false;
     }
@@ -33,10 +33,6 @@ const AllFiles = () => {
     setCursor(node);
     setData(Object.assign({}, data))
 
-    // if node is file (has no children)
-    // fetch the data and set up the data 
-    // fake api 
-    console.log(node);
     setJson(node);
     // dispatch({
     //   type: GET_A_FILE_REQUEST,
@@ -75,17 +71,3 @@ const AllFiles = () => {
 };
 
 export default AllFiles;
-
-
-// function printName (obj) {
-//   if (obj.children) {
-//     console.log("folder: ", obj.name);
-//   } else {
-//     console.log("file: ", obj.name);
-//   }
-//   if (obj.children) {
-//     for (ele of obj.children) {
-//       printName(ele)
-//     }
-//   }
-// };
