@@ -77,7 +77,7 @@ const NewFile = () => {
 
   return (
     <div>
-      <h1>All Files</h1>      
+      <h1>Add New File</h1>      
       <Layout>
         <Sider>
           {Files && <Treebeard data={data} onToggle={onToggle} />}
