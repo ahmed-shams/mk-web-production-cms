@@ -67,7 +67,7 @@ function* signUp(action) {
 }
 
 function* watchSignUp() {
-  yield takeEvery(SIGN_UP_REQUEST, signUp);
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
 function logOutAPI() {
