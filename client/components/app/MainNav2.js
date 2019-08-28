@@ -34,18 +34,45 @@ class MainNav2 extends React.Component {
             </a>
           </Link>
         </Menu.Item>
-        <Menu.Item key="3">
-          <Link href='/add_new'>
-            <a>
+        <SubMenu
+          title={
+            <span className="submenu-title-wrapper">
               <Icon type="plus" />
-              <span>Add New</span>
+              Add New
+            </span>
+          }
+        >
+          <Menu.Item key="setting:1">
+            <Link href='/add_new'>
+              <a>
+              <Icon type="file" />
+              <span>Add New File</span>
             </a>
-          </Link>
-        </Menu.Item>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="setting:1">
+            <Link href='/add_new_folder'>
+              <a>
+              <Icon type="folder" />
+              <span>Add New Folder</span>
+            </a>
+            </Link>
+          </Menu.Item>
+          
+        </SubMenu>
+
         <Menu.Item key="4">
           <Link href='/all_files'>
             <a>
-              <Icon type="plus" />
+              <Icon type="file-text" />
+              <span>All Files</span>
+            </a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="5">
+          <Link href='/user/logout'>
+            <a>
+              <Icon type="logout" />
               <span>Sign Out</span>
             </a>
           </Link>

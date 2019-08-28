@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_ALL_FILE_REQUEST } from '../reducers/file';
+import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
 const { Content, Sider } = Layout;
@@ -35,12 +35,12 @@ const NewFile = () => {
 
 
     if (importMode === 'json') {
-      alert("json mode..")
+      console.log("json mode: --- do nothing")
     } else if (importMode === 'import') {
+      console.log("import mode - get content.. not node")
       setFilename(node.name);
       setFileContent(JSON.stringify(node, null, 4));
     }
-    
 
     // setJson(node);
     // dispatch({
@@ -65,6 +65,11 @@ const NewFile = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     alert(e.target)
+    dispatch({
+      type: ADD_FILE_REQUEST,
+      // data: {
+      // }
+    })
   }
 
   const copyText = () => {
@@ -100,9 +105,6 @@ const NewFile = () => {
             <Button htmlType='submit'>Save</Button>
           </Form>
         </Content>
-        <Sider>
-          <h2 style={{color: "white", textAlign: "center"}}>Create a category</h2>
-        </Sider>
       </Layout>
     </div>
   );
