@@ -1,6 +1,37 @@
-import { all, fork, takeLatest, put, delay } from 'redux-saga/effects';
-import { ADD_FILE_FAILURE, ADD_FILE_REQUEST, ADD_FILE_SUCCESS } from '../reducers/file';
+import { all, fork, takeLatest, put, delay, actionChannel } from 'redux-saga/effects';
+import { 
+  ADD_FILE_FAILURE, 
+  ADD_FILE_REQUEST, 
+  ADD_FILE_SUCCESS,
+  LOAD_ALL_FILE_FAILURE,
+  LOAD_ALL_FILE_REQUEST,
+  LOAD_ALL_FILE_SUCCESS
+} from '../reducers/file';
 import axios from 'axios';
+
+function loadFileAPI() {
+  return axios.get('/files')
+}
+
+function* loadFile() {
+  try {
+    // const result = yield call(addFileAPI, action.data);
+    console.log("in saga load file");
+    yield delay(2000);
+    yield put({
+      type: LOAD_ALL_FILE_SUCCESS
+    });
+  } catch (e) {
+    yield put({
+      type: LOAD_ALL_FILE_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchLoadFile() {
+  yield takeLatest(LOAD_ALL_FILE_REQUEST, loadFile);
+}
 
 function addFileAPI() {
   return axios.post('/file', fileData)
@@ -11,7 +42,7 @@ function* addFile() {
     // const result = yield call(addFileAPI, action.data);
     yield delay(2000);
     yield put({
-      type: ADD_FILE_SUCCESS,
+      type: ADD_FILE_SUCCESS
     });
   } catch (e) {
     yield put({
@@ -27,6 +58,7 @@ function* watchAddFile() {
 
 export default function* fileSaga() {
   yield all([
-    fork(watchAddFile)
+    fork(watchAddFile),
+    fork(watchLoadFile)
   ]);
 }
