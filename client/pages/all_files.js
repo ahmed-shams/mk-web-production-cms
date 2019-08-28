@@ -42,7 +42,7 @@ const AllFiles = () => {
     //   data: node.id
     // })
     setFilename(node.name);
-    setFileContent(JSON.stringify(node, null, 4));
+    if (node.content) { setFileContent(JSON.stringify(node.content, null, 4));}
   }
   
   const onChangeFileName = useCallback((e) => {
