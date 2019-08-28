@@ -16,31 +16,31 @@ export const LOAD_ALL_FILE_SUCCESS = 'LOAD_ALL_FILE_SUCCESS';
 export const LOAD_ALL_FILE_FAILURE = 'LOAD_ALL_FILE_FAILURE';
 
 const dummyFile = {
-  "name": "react-treebeard",
+  "name": "Root-FRC-Folder",
   "toggled": false,
   "userId": 1,
   "children": [
     {
-      "name": "example",
+      "name": "EN_US",
       "children": [
         {
-          "name": "app.js",
+          "name": "women.js",
           "userId": 3
         },
         {
-          "name": "data.js",
+          "name": "men.js",
           "userId": 2
         },
         {
-          "name": "index.html",
+          "name": "sale.html",
           "userId": 1
         },
         {
-          "name": "styles.js",
+          "name": "handbag.js",
           "userId": 3
         },
         {
-          "name": "webpack.config.js",
+          "name": "wallet.js",
           "userId": 2
         }
       ],
@@ -49,13 +49,13 @@ const dummyFile = {
       "userId": 2
     },
     {
-      "name": "node_modules",
+      "name": "gifts",
       "loading": true,
       "children": [],
       "userId": 3,
     },
     {
-      "name": "src",
+      "name": "collection",
       "userId": 1,
       "children": [
         {
@@ -63,31 +63,31 @@ const dummyFile = {
           "userId": 1,
           "children": [
             {
-              "name": "decorators.js",
+              "name": "Fall 2019.js",
               "userId": 2
             },
             {
-              "name": "treebeard.js",
+              "name": "Michael's World.js",
               "userId": 1
             }
           ]
         },
         {
-          "name": "index.js",
+          "name": "Clothing.js",
           "userId": 3
         }
       ]
     },
     {
-      "name": "themes",
+      "name": "Watches",
       "userId": 1,
       "children": [
         {
-          "name": "animations.js",
+          "name": "smartwatches.js",
           "userId": 1
         },
         {
-          "name": "default.js",
+          "name": "Sophie.js",
           "userId": 2
         }
       ],
@@ -95,15 +95,15 @@ const dummyFile = {
       "toggled": true
     },
     {
-      "name": "Gulpfile.js",
+      "name": "men.js",
       "userId": 1
     },
     {
-      "name": "index.js",
+      "name": "women.js",
       "userId": 2
     },
     {
-      "name": "package.json",
+      "name": "Any File.json",
       "userId": 1
     }
   ],

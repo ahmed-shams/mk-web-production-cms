@@ -68,9 +68,7 @@ const AllFiles = () => {
     
   return (
     <div>
-      <h1>All Files</h1>
-      <hr />
-      
+      <h1>All Files</h1>      
       <Layout>
         <Sider>
           {Files && <Treebeard data={data} onToggle={onToggle} />}
@@ -82,11 +80,17 @@ const AllFiles = () => {
             <Input value={filename} onChange={onChangeFileName} />
             <label>Content</label>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
+            <Button type='primary'  style={{marginRight: '10px'}}>Preview</Button>
+            <Button type='danger'  style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
+            <Button htmlType='submit'>Save</Button>
           </Form>
-          <Button type='primary'  style={{marginRight: '10px'}}>Preview</Button>
-          <Button type='danger'  style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
-          <Button htmlType='submit'>Save</Button>
+
+          <h2 style={{paddingTop: '50px'}} >Revision History</h2>
+          <div>
+            hey 
+          </div>
         </Content>
+
       </Layout>
     </div>
   );
