@@ -1,29 +1,21 @@
-
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
+import Modal from  '../components/app/Modal.jsx'
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
-import Modal from  '../components/app/Modal.jsx'
-
 
 const NewFile = () => {
   const dispatch = useDispatch();
-  const [showModal, setModal] = useState(false);
-
-  const onPreviewClick = useCallback((e) => {
-    console.log('onPreviewClick in add_new');
-    setModal(!showModal);
-  }, [showModal]);
-
   const { Files } = useSelector(state => state.file);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
   const [importMode, setImportMode] = useState('json');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
+  const [showModal, setShowModal] = useState(false);
   
   useEffect(() => {
     dispatch({
@@ -31,6 +23,15 @@ const NewFile = () => {
     })
     setData(Files);
   }, [Files])
+
+  const onPreviewClick = useCallback((e) => {
+    console.log('onPreviewClick in add_new');
+    setShowModal(!showModal);
+  }, [showModal])
+
+  const toggleModal = (e) => {
+    setShowModal(!showModal);
+  }
 
   const onToggle = (node, toggled) => {
     if (cursor) {
@@ -63,7 +64,6 @@ const NewFile = () => {
     setFilename(e.target.value);
   });
 
-
   const onChangeFileContent = useCallback((e) => {
     setFileContent(e.target.value);
   });
@@ -91,13 +91,6 @@ const NewFile = () => {
     })
   }
 
-  useEffect(() => {
-    if (me) {
-      alert("Navigating back to main page after sign up");
-      Router.push('/')
-    }
-  }, [me, me.id])
-
   return (
     <div>
       <h1>Add New File</h1>      
@@ -118,13 +111,13 @@ const NewFile = () => {
               </Radio.Group>
             </div>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary' style={{marginRight: '10px'}}>Preview</Button>
+            <Button type='primary' style={{marginRight: '10px'}} onClick={onPreviewClick}>Preview</Button>
             <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
             <Button htmlType='submit'>Save</Button>
           </Form>
         </Content>
       </Layout>
-      <Modal show={showModal} /> 
+      <Modal show={showModal} onClose={toggleModal}/> 
     </div>
   );
 };
