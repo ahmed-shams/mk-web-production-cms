@@ -6,7 +6,7 @@ import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
-import Modal from  './client/components/app/modal.jsx'
+import Modal from  '../components/app/Modal.jsx'
 
 
 const NewFile = () => {

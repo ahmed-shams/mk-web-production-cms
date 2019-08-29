@@ -1,12 +1,15 @@
+import React from 'react';
+import styled from 'styled-components';
+
 
 const ModalContainer = styled.div`
  ${props => props.show && css`
  	 display: block;
-  }
+  `}
 
   ${props => !props.show && css`
   	 display: none;
-  }
+  `}
   width: 100%;
   height: 100%;
   position: absolute;
