@@ -25,30 +25,36 @@ const dummyFile = {
     {
       "name": "EN_US",
       "fileId": 34,
+      "content": [],
       "children": [
         {
           "name": "women.js",
           "fileId": 35,
-          "userId": 3
+          "userId": 3,
+          "content": []
         },
         {
           "name": "men.js",
           "fileId": 36,
+          "content": [],
           "userId": 2
         },
         {
           "name": "sale.html",
           "fileId": 37,
+          "content": [],
           "userId": 1
         },
         {
           "name": "handbag.js",
           "fileId": 38,
+          "content": [],
           "userId": 3
         },
         {
           "name": "wallet.js",
           "fileId": 39,
+          "content": [],
           "userId": 2
         }
       ],
@@ -61,21 +67,25 @@ const dummyFile = {
       "fileId": 40,
       "loading": true,
       "children": [],
+      "content": [],
       "userId": 3,
     },
     {
       "name": "collection",
       "fileId": 41,
       "userId": 1,
+      "content": [],
       "children": [
         {
           "name": "components",
           "userId": 1,
           "fileId": 42,
+          "content": [],
           "children": [
             {
               "name": "Fall 2019.js",
               "fileId": 43,
+              "content": [],
               "userId": 2
             },
             {
@@ -248,6 +258,7 @@ const dummyFile = {
         {
           "name": "Clothing.js",
           "fileId": 45,
+          "content": [],
           "userId": 3
         }
       ]
@@ -255,16 +266,19 @@ const dummyFile = {
     {
       "name": "Watches",
       "fileId": 46,
+      "content": [],
       "userId": 1,
       "children": [
         {
           "name": "smartwatches.js",
           "fileId": 47,
+          "content": [],
           "userId": 1
         },
         {
           "name": "Sophie.js",
           "fileId": 48,
+          "content": [],
           "userId": 2
         }
       ],
@@ -274,16 +288,19 @@ const dummyFile = {
     {
       "name": "men.js",
       "fileId": 49,
+      "content": [],
       "userId": 1
     },
     {
       "name": "women.js",
       "fileId": 50,
+      "content": [],
       "userId": 2
     },
     {
       "name": "Any File.json",
       "fileId": 51,
+      "content": [],
       "userId": 1
     }
   ],

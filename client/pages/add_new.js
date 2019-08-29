@@ -40,7 +40,7 @@ const NewFile = () => {
     } else if (importMode === '2') {
       console.log("import mode - set content")
       setFilename(node.name);
-      setFileContent(JSON.stringify(node, null, 4));
+      setFileContent(JSON.stringify(node.content, null, 4));
       setFileId(node.fileId);
     }
   }
