@@ -30,7 +30,6 @@ Layout.proptypes = {
 }
 
 Layout.getInitialProps = async (context) => {
-  console.log("context: ", context);
   const { ctx, Component } = context;
   let pageProps = {};
   if (Component.getInitialProps) {

@@ -15,6 +15,7 @@ const NewFile = () => {
   const [importMode, setImportMode] = useState('1');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
+  const [fileId, setFileId] = useState('');
   
   useEffect(() => {
     dispatch({
@@ -34,20 +35,14 @@ const NewFile = () => {
     setCursor(node);
     setData(Object.assign({}, data))
 
-
     if (importMode === '1') {
-      console.log("json mode: --- do nothing")
+      console.log("json mode")
     } else if (importMode === '2') {
-      console.log("import mode - get content.. not node")
+      console.log("import mode - set content")
       setFilename(node.name);
       setFileContent(JSON.stringify(node, null, 4));
+      setFileId(node.fileId);
     }
-
-    // setJson(node);
-    // dispatch({
-    //   type: GET_A_FILE_REQUEST,
-    //   data: node.id
-    // })
   }
   
   const onChangeFileName = useCallback((e) => {
@@ -59,30 +54,33 @@ const NewFile = () => {
   });
 
   const onChangeRadio = useCallback((e) => {
-    alert(e.target.value);
+    if (e.target.value === '1') {
+      alert("JSON mode selected");
+    } else if (e.target.value === '2') {
+      alert("Import mode selected")
+    }
     setImportMode(e.target.value);
   })
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    alert(e.target)
-    // add JSON validator logic here before SAVE + PREVIEW
-    jsonValidator()
-    
+    // TODO: add JSON validator logic here before SAVE + PREVIEW
+    // UserId will be '1' in the testing phase so we can pass fake userId to db
+    // jsonValidator()
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
         parentId: fileId,
         name: filename,
         content: [fileContent],
-        userId: userId
+        userId: '1'
       }
     })
-  }
+  }, [fileId, filename, fileContent, userId])
 
-  const jsonValidator = (content) => {
-    console.log(content)
-  }
+  // const jsonValidator = (content) => {
+  //   console.log(content)
+  // }
 
   const copyText = () => {
     navigator.clipboard.writeText(fileContent).then(()=>{
