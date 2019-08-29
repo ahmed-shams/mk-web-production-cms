@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { Form, Input, Button } from 'antd';
-import { useInput } from './user/login';
-import styled from 'styled-components';
-import Modal from  './client/components/app/modal.jsx'
-=======
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
@@ -13,7 +6,8 @@ import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
->>>>>>> master
+import Modal from  './client/components/app/modal.jsx'
+
 
 const NewFile = () => {
   const dispatch = useDispatch();
