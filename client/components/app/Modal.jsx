@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import banner16by9 from '../frc/banner/banner16by9/index.jsx';
+import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
 
 
 
