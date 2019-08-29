@@ -9,9 +9,10 @@ const { TextArea } = Input;
 const NewFile = () => {
   const dispatch = useDispatch();
   const { Files } = useSelector(state => state.file);
+  const { userId } = useSelector(state => state.user);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
-  const [importMode, setImportMode] = useState('json');
+  const [importMode, setImportMode] = useState('1');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
   
@@ -34,9 +35,9 @@ const NewFile = () => {
     setData(Object.assign({}, data))
 
 
-    if (importMode === 'json') {
+    if (importMode === '1') {
       console.log("json mode: --- do nothing")
-    } else if (importMode === 'import') {
+    } else if (importMode === '2') {
       console.log("import mode - get content.. not node")
       setFilename(node.name);
       setFileContent(JSON.stringify(node, null, 4));
@@ -65,11 +66,22 @@ const NewFile = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     alert(e.target)
+    // add JSON validator logic here before SAVE + PREVIEW
+    jsonValidator()
+    
     dispatch({
       type: ADD_FILE_REQUEST,
-      // data: {
-      // }
+      data: {
+        parentId: fileId,
+        name: filename,
+        content: [fileContent],
+        userId: userId
+      }
     })
+  }
+
+  const jsonValidator = (content) => {
+    console.log(content)
   }
 
   const copyText = () => {
@@ -82,7 +94,6 @@ const NewFile = () => {
 
   return (
     <div>
-      <h1>Add New File</h1>      
       <Layout>
         <Sider>
           {Files && <Treebeard data={data} onToggle={onToggle} />}
@@ -95,8 +106,8 @@ const NewFile = () => {
             <label><strong>Content</strong></label>
             <div style={{padding: '10px 0'}}>
               <Radio.Group defaultValue="a" buttonStyle="solid" onChange={onChangeRadio}>
-                <Radio.Button value="json">JSON MODE</Radio.Button>
-                <Radio.Button value="import">Import Mode</Radio.Button>
+                <Radio.Button value="1">JSON MODE</Radio.Button>
+                <Radio.Button value="2">Import Mode</Radio.Button>
               </Radio.Group>
             </div>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />

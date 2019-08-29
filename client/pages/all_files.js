@@ -68,7 +68,6 @@ const AllFiles = () => {
     
   return (
     <div>
-      <h1>All Files</h1>      
       <Layout>
         <Sider>
           {Files && <Treebeard data={data} onToggle={onToggle} />}
@@ -90,7 +89,6 @@ const AllFiles = () => {
             <p>Editted | </p>
           </div>
         </Content>
-
       </Layout>
     </div>
   );

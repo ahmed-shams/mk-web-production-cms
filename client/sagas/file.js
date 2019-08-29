@@ -33,11 +33,12 @@ function* watchLoadFile() {
   yield takeLatest(LOAD_ALL_FILE_REQUEST, loadFile);
 }
 
-function addFileAPI() {
+function addFileAPI(fileData) {
   return axios.post('/file', fileData)
 }
 
-function* addFile() {
+function* addFile(action) {
+  console.log("file: ", action.data);
   try {
     // const result = yield call(addFileAPI, action.data);
     yield delay(2000);
