@@ -3,12 +3,19 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { useInput } from './user/login';
 import styled from 'styled-components';
+import Modal from  './client/components/app/modal.jsx'
 
 const NewFile = () => {
   const [filename, onChangeFilename] = useInput('');
   const [json, onChangeJson] = useInput('');
   const [category, onChangeCategory] = useInput('');
   const dispatch = useDispatch();
+  const [showModal, setModal] = useState(false);
+
+  const onPreviewClick = useCallback((e) => {
+    console.log('onPreviewClick in add_new');
+    setModal(!showModal);
+  }, [showModal]);
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
@@ -21,6 +28,13 @@ const NewFile = () => {
       }
     })
   }, [filename, json, category]);
+
+  useEffect(() => {
+    if (me) {
+      alert("Navigating back to main page after sign up");
+      Router.push('/')
+    }
+  }, [me, me.id])
 
   return (
     <Container>
@@ -42,10 +56,12 @@ const NewFile = () => {
         </div>
         <div style={{marginTop: '15px'}}>
           <Button type='primary' htmlType='submit'>Save</Button>
-          <Button>Preview</Button>
+          <Button onClick={onPreviewClick} showModal={showModal}>Preview</Button>
         </div>
       </Form>
     </Container>
+    <Modal show={showModal}> 
+    </Modal>
   )
 };
 
