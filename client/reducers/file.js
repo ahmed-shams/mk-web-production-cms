@@ -17,31 +17,38 @@ export const LOAD_ALL_FILE_FAILURE = 'LOAD_ALL_FILE_FAILURE';
 
 const dummyFile = {
   "name": "Root-FRC-Folder",
+  "fileId": 33,
   "toggled": false,
   "userId": 1,
   "content": [],
   "children": [
     {
       "name": "EN_US",
+      "fileId": 34,
       "children": [
         {
           "name": "women.js",
+          "fileId": 35,
           "userId": 3
         },
         {
           "name": "men.js",
+          "fileId": 36,
           "userId": 2
         },
         {
           "name": "sale.html",
+          "fileId": 37,
           "userId": 1
         },
         {
           "name": "handbag.js",
+          "fileId": 38,
           "userId": 3
         },
         {
           "name": "wallet.js",
+          "fileId": 39,
           "userId": 2
         }
       ],
@@ -51,24 +58,29 @@ const dummyFile = {
     },
     {
       "name": "gifts",
+      "fileId": 40,
       "loading": true,
       "children": [],
       "userId": 3,
     },
     {
       "name": "collection",
+      "fileId": 41,
       "userId": 1,
       "children": [
         {
           "name": "components",
           "userId": 1,
+          "fileId": 42,
           "children": [
             {
               "name": "Fall 2019.js",
+              "fileId": 43,
               "userId": 2
             },
             {
               "name": "16x9-banner.js",
+              "fileId": 44,
               "userId": 1,
               "content": [{
                 "componentId": "banner16by9",
@@ -235,20 +247,24 @@ const dummyFile = {
         },
         {
           "name": "Clothing.js",
+          "fileId": 45,
           "userId": 3
         }
       ]
     },
     {
       "name": "Watches",
+      "fileId": 46,
       "userId": 1,
       "children": [
         {
           "name": "smartwatches.js",
+          "fileId": 47,
           "userId": 1
         },
         {
           "name": "Sophie.js",
+          "fileId": 48,
           "userId": 2
         }
       ],
@@ -257,14 +273,17 @@ const dummyFile = {
     },
     {
       "name": "men.js",
+      "fileId": 49,
       "userId": 1
     },
     {
       "name": "women.js",
+      "fileId": 50,
       "userId": 2
     },
     {
       "name": "Any File.json",
+      "fileId": 51,
       "userId": 1
     }
   ],
@@ -303,10 +322,14 @@ export default (state = initialState, action) => {
       };
     };
     case ADD_FILE_SUCCESS: {
+      console.log("here")
       return {
         ...state,
         isAddingFile: false,
         fileAdded: true,
+        // File: {
+        //   ...dummyFile
+        // }
         File: dummyFile
       }
     };
@@ -323,5 +346,26 @@ export default (state = initialState, action) => {
         ...state
       }
     }
+  }
+}
+
+
+const findNode = (id, currentNode) => {
+  var i,
+      currentChild,
+      result;
+  if (id == currentNode.fileId) {
+    return currentNode;
+  } else {
+    if (currentNode.children) {
+      for (i = 0; i < currentNode.children.length; i += 1) {
+        currentChild = currentNode.children[i];
+        result = findNode(id, currentChild);
+        if (result !== false) {
+          return result;
+        }
+      }
+    }
+    return false;
   }
 }

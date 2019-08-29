@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainNav from './MainNav';
-import MainNav2 from './MainNav2';
-// import FakeNav from './FakeNav';
+import MainNavigation from './main-navigation';
 import styled from 'styled-components';
 
 const AppLayout = ({ children }) => {
   return (
     <div>
-      <MainNav2 />
+      <MainNavigation />
       <MainContentGrid>
-        {/* <FakeNav /> */}
         { children }
       </MainContentGrid>
     </div>

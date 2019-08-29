@@ -3,13 +3,12 @@ import { Menu, Icon } from 'antd';
 import Link from 'next/link';
 const { SubMenu } = Menu;
 
-class MainNav2 extends React.Component {
+class MainNavigation extends React.Component {
   state = {
-    current: 'mail',
+    current: '',
   };
 
   handleClick = e => {
-    console.log('click ', e);
     this.setState({
       current: e.key,
     });
@@ -58,7 +57,6 @@ class MainNav2 extends React.Component {
             </a>
             </Link>
           </Menu.Item>
-          
         </SubMenu>
 
         <Menu.Item key="4">
@@ -77,11 +75,9 @@ class MainNav2 extends React.Component {
             </a>
           </Link>
         </Menu.Item>
-        
-        {/* show log out menu*/}
       </Menu>
     );
   }
 }
 
-export default MainNav2;
+export default MainNavigation;

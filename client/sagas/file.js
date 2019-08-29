@@ -38,7 +38,8 @@ function addFileAPI() {
   return axios.post('http://localhost:3001/api/file', fileData)
 }
 
-function* addFile() {
+function* addFile(action) {
+  console.log("file: ", action.data);
   try {
     const result = yield call(addFileAPI, action.data);
     yield delay(2000);
