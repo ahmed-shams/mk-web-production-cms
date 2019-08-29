@@ -13,7 +13,7 @@ const AllFiles = () => {
   const { Files } = useSelector(state => state.file);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
-  const [json, setJson] = useState({});
+  // const [json, setJson] = useState({});
   // const [filename, onChangeFileName] = useInput('');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
@@ -36,13 +36,13 @@ const AllFiles = () => {
     setCursor(node);
     setData(Object.assign({}, data))
 
-    setJson(node);
+    // setJson(node);
     // dispatch({
     //   type: GET_A_FILE_REQUEST,
     //   data: node.id
     // })
     setFilename(node.name);
-    setFileContent(JSON.stringify(node, null, 4));
+    if (node.content) { setFileContent(JSON.stringify(node.content, null, 4));}
   }
   
   const onChangeFileName = useCallback((e) => {
@@ -80,14 +80,14 @@ const AllFiles = () => {
             <Input value={filename} onChange={onChangeFileName} />
             <label>Content</label>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary'  style={{marginRight: '10px'}}>Preview</Button>
-            <Button type='danger'  style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
+            <Button type='primary' style={{marginRight: '10px'}}>Preview</Button>
+            <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
             <Button htmlType='submit'>Save</Button>
           </Form>
 
           <h2 style={{paddingTop: '50px'}} >Revision History</h2>
           <div>
-            hey 
+            <p>Editted | </p>
           </div>
         </Content>
 
