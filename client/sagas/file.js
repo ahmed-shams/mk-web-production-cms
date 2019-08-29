@@ -1,7 +1,7 @@
 import { all, fork, takeLatest, put, delay, actionChannel } from 'redux-saga/effects';
-import { 
-  ADD_FILE_FAILURE, 
-  ADD_FILE_REQUEST, 
+import {
+  ADD_FILE_FAILURE,
+  ADD_FILE_REQUEST,
   ADD_FILE_SUCCESS,
   LOAD_ALL_FILE_FAILURE,
   LOAD_ALL_FILE_REQUEST,
@@ -34,12 +34,13 @@ function* watchLoadFile() {
 }
 
 function addFileAPI() {
-  return axios.post('/file', fileData)
+  console.log("inside addfileapi")
+  return axios.post('http://localhost:3001/api/file', fileData)
 }
 
 function* addFile() {
   try {
-    // const result = yield call(addFileAPI, action.data);
+    const result = yield call(addFileAPI, action.data);
     yield delay(2000);
     yield put({
       type: ADD_FILE_SUCCESS
