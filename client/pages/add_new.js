@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
-import Modal from  '../components/app/Modal.jsx'
+import Modal from  '../components/app/Modal.jsx';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
 
@@ -25,11 +25,6 @@ const NewFile = () => {
     })
     setData(Files);
   }, [Files])
-
-  const onPreviewClick = useCallback((e) => {
-    console.log('onPreviewClick in add_new');
-    setShowModal(!showModal);
-  }, [showModal])
 
   const toggleModal = (e) => {
     setShowModal(!showModal);
@@ -120,13 +115,13 @@ const NewFile = () => {
               </Radio.Group>
             </div>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary' style={{marginRight: '10px'}} onClick={onPreviewClick}>Preview</Button>
+            <Button type='primary' style={{marginRight: '10px'}} onClick={toggleModal}>Preview</Button>
             <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
             <Button htmlType='submit'>Save</Button>
           </Form>
         </Content>
       </Layout>
-      <Modal show={showModal} onClose={toggleModal}/> 
+      <Modal show={showModal} onClose={toggleModal} fileContent={fileContent}/> 
     </div>
   );
 };
