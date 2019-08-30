@@ -174,6 +174,7 @@ const renderJSONComponents = (dataObj, isMobile, key, ref) => {
     return compsArr;
   }
 
+//mk-style.min has css rules that are necessary for proper component rendering i.e. picture>img width: 100%
 
 const Modal = ({ show = false, onClose, fileJson }) => {
   const ContentContainer = useRef(null);
