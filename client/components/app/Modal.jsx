@@ -208,7 +208,7 @@ const Modal = ({ show = false, onClose, fileJson }) => {
   }
 
   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
-  console.log('json ', json);
+
   // console.log('fileJson ', JSON.parse(fileJson));
 // if(fileJson) {
 //   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
