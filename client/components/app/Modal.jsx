@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
 
@@ -16,6 +16,7 @@ const ModalContainer = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
+  padding-top: 300px;
   top: 0;
   left: 0;
   z-index: 10000;
@@ -24,9 +25,23 @@ const ModalContainer = styled.div`
   align-items: center;
 `;
 
+const ModalHeader= styled.div`
+  display: flex;
+   justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  font-weight: bold;
+  background-color: lightblue;
+  color: black;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 200px;
+`
 
-
-const ModalClose = styled.button`  
+const ModalClose = styled.div`  
   position: absolute;
   top: 20px;
   right: 20px;
@@ -41,6 +56,11 @@ const ModalClose = styled.button`
   }
 `;
 
+
+const PreviewContent = styled.div`
+  position: absolute;
+  top: 200px;
+`
 
 
 const renderJSONComponents = (dataObj) => {
@@ -57,6 +77,20 @@ const renderJSONComponents = (dataObj) => {
 
 
 const Modal = ({ show = false, onClose, fileJson }) => {
+  const ContentContainer = useRef(null);
+  let previewHTML='';
+
+    useEffect(() => {
+    // Update the document title using the browser API
+   
+    if(ContentContainer && ContentContainer.current && ContentContainer.current.innerHTML) {
+      previewHTML = ContentContainer.current.innerHTML;
+    }
+
+    console.log('previewHTML ', previewHTML)
+  });
+
+
   if(!fileJson) {
     return (
       <ModalContainer show={show}>
@@ -73,15 +107,20 @@ const Modal = ({ show = false, onClose, fileJson }) => {
   }
 
   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
+  console.log('json ', json);
   // console.log('fileJson ', JSON.parse(fileJson));
 // if(fileJson) {
 //   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
 // }
   return (
+    <div>
+    
   	<ModalContainer show={show}>
+    <ModalHeader>PREVIEW</ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
-      {json}
+      <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
     </ModalContainer>
+    </div>
   );
 
 }
