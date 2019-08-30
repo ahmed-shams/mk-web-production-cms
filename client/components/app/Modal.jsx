@@ -82,6 +82,7 @@ const PreviewContent = styled.div`
 const renderJSONComponents = (dataObj) => {
   const compsArr = [];
   console.log('dataObj ', dataObj);
+  if(!dataObj[0]) return;
     switch (dataObj[0].componentId) {
       case 'banner16by9':
         compsArr.push(<DefaultBanner data={dataObj[0]} key="1" contained />);
@@ -96,7 +97,7 @@ const Modal = ({ show = false, onClose, fileJson }) => {
   const ContentContainer = useRef(null);
 
   const copyHtml = () => {
-    console.log('in copy html');
+    console.log('in copyHtml ---->');
     let previewHTML='';
     if(ContentContainer && ContentContainer.current && ContentContainer.current.innerHTML) {
       previewHTML = ContentContainer.current.innerHTML;
@@ -120,7 +121,8 @@ const Modal = ({ show = false, onClose, fileJson }) => {
   // console.log('fileJson ', fileJson);
   console.log('rendering modal ssv ', fileJson);
   if(fileJson) {
-    console.log('fileJson ', JSON.parse(fileJson.toString()));
+    console.log('in if', fileJson);
+    console.log('fileJson ', JSON.parse(fileJson));
   }
 
   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
