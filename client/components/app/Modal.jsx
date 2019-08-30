@@ -3,9 +3,6 @@ import styled, { css } from 'styled-components';
 import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
 
 
-
-
-
 const ModalContainer = styled.div`
  ${props => props.show && css`
    display: flex;
@@ -81,8 +78,6 @@ const Modal = ({ show = false, onClose, fileJson }) => {
   let previewHTML='';
 
     useEffect(() => {
-    // Update the document title using the browser API
-   
     if(ContentContainer && ContentContainer.current && ContentContainer.current.innerHTML) {
       previewHTML = ContentContainer.current.innerHTML;
     }
