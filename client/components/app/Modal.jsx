@@ -28,14 +28,32 @@ const ModalHeader= styled.div`
   align-items: center;
   font-size: 45px;
   font-weight: bold;
-  background-color: lightblue;
-  color: black;
+  background-color: black;
+  color: white;
   align-items: center;
   position: absolute;
   top: 0;
   width: 100%;
   left: 0;
   height: 200px;
+`
+
+const CopyHtml = styled.button`
+  position: absolute;
+  z-index: 999;
+  top: 35px;
+  left: 25px;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+    &:hover {
+    cursor: pointer;
+  } 
 `
 
 const ModalClose = styled.div`  
@@ -47,6 +65,7 @@ const ModalClose = styled.div`
   align-items: center;
   border: none;
   font-size: 50px;
+  color: white;
 
   &:hover {
     cursor: pointer;
@@ -75,16 +94,19 @@ const renderJSONComponents = (dataObj) => {
 
 const Modal = ({ show = false, onClose, fileJson }) => {
   const ContentContainer = useRef(null);
-  let previewHTML='';
 
-    useEffect(() => {
+  const copyHtml = () => {
+    console.log('in copy html');
+    let previewHTML='';
     if(ContentContainer && ContentContainer.current && ContentContainer.current.innerHTML) {
       previewHTML = ContentContainer.current.innerHTML;
     }
-
-    console.log('previewHTML ', previewHTML)
-  });
-
+    navigator.clipboard.writeText(previewHTML).then(()=>{
+      alert('Copying to clipboard was successful');
+    }, (e) => {
+      alert('error happened while trying to copy josn. please try again');
+    })
+  }
 
   if(!fileJson) {
     return (
@@ -108,14 +130,14 @@ const Modal = ({ show = false, onClose, fileJson }) => {
 //   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
 // }
   return (
-    <div>
-    
+  <div>  
   	<ModalContainer show={show}>
+    <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
     <ModalHeader>PREVIEW</ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
       <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
     </ModalContainer>
-    </div>
+  </div>
   );
 
 }

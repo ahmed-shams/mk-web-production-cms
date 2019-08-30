@@ -28,9 +28,18 @@ const AllFiles = () => {
     setData(Files);
   }, [Files])
 
-  const toggleModal = (e) => {
+  const closeModal = (e) => {
     setfileJson(fileContent);
-    setShowModal(!showModal);  
+    setShowModal(false);  
+  }
+
+  const openModal = (e) => {
+    if(!fileContent || fileContent==='') {
+      alert('Please enter JSON');
+      return;
+    }
+    setfileJson(fileContent);
+    setShowModal(true);  
   }
 
   const onToggle = (node, toggled) => {
@@ -88,7 +97,7 @@ const AllFiles = () => {
             <Input value={filename} onChange={onChangeFileName} />
             <label>Content</label>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary' style={{marginRight: '10px'}} onClick={toggleModal}>Preview</Button>
+            <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
             <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
             <Button htmlType='submit'>Save</Button>
           </Form>
@@ -100,7 +109,7 @@ const AllFiles = () => {
         </Content>
 
       </Layout>
-      <Modal show={showModal} onClose={toggleModal} fileJson={fileJson}/> 
+      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} copyHtml={copyText}/> 
     </div>
   );
 };
