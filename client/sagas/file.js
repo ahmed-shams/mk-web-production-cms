@@ -42,6 +42,7 @@ function* addFile(action) {
   console.log("file: ", action.data);
   try {
     const result = yield call(addFileAPI, action.data);
+    console.log("backed result: ", result.data);
     yield put({
       type: ADD_FILE_SUCCESS,
       data: result.data

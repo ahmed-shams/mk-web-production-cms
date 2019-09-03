@@ -8,6 +8,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res, next) => { // Sign up
+  console.log("hitting")
+  console.log("body: ", req.body);
   try {
     const newFile = await db.File.create({
       content: JSON.stringify(req.body.content),
