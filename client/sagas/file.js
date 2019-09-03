@@ -44,7 +44,7 @@ function* addFile(action) {
     const result = yield call(addFileAPI, action.data);
     yield put({
       type: ADD_FILE_SUCCESS,
-      // data: result.data
+      data: result.data
     });
   } catch (e) {
     yield put({

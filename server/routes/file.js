@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../models');
 
 router.get('/', (req, res) => {
   console.log("api file route");
@@ -8,14 +9,14 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res, next) => { // Sign up
   try {
-    const newUser = await db.User.create({
-      content: req.body.content,
+    const newFile = await db.File.create({
+      content: JSON.stringify(req.body.content),
       name: req.body.name,
-      parentId: req.body.parentId,
+      parentId: 0, //req.body.parentId,
       UserId: req.body.userId
     });
-    console.log(newUser);
-    return res.status(200).json(newUser);
+    console.log(newFile);
+    return res.status(200).json(newFile);
   } catch (e) {
     console.error(e);
     // TODO: error handler
