@@ -15,6 +15,7 @@ const Layout = ({ Component, store, pageProps }) => {
       <Head>
         <title>MK WEB CMS</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.20.1/antd.css" />
+        <link rel="stylesheet" href="https://www.michaelkors.com/img/MKBusiness/css/2019/fall/refresh2/mk-style.min.css" />
       </Head>
       <AppLayout>
         <Component {...pageProps} />
