@@ -14,7 +14,7 @@ const fileAPIRouter = require('./routes/file');
 
 dotenv.config();
 const app = express();
-db.sequelize.sync({force: true});
+db.sequelize.sync();
 passportConfig();
 
 app.use(morgan('dev'));
