@@ -6,6 +6,7 @@ import { Layout, Form, Input, Button } from 'antd';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
 import { useInput } from './user/login';
+import Modal from  '../components/app/Modal.jsx';
 
 // TODO: LOAD ALL FILE AND RENDER TREE VIEW + TABLE VIEW + ADD CLICK EVENT
 const AllFiles = () => {
@@ -17,6 +18,8 @@ const AllFiles = () => {
   // const [filename, onChangeFileName] = useInput('');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
+  const [fileJson, setfileJson] = useState('');
+  const [showModal, setShowModal] = useState(false);
   
   useEffect(() => {
     dispatch({
@@ -24,6 +27,20 @@ const AllFiles = () => {
     })
     setData(Files);
   }, [Files])
+
+  const closeModal = (e) => {
+    setfileJson(fileContent);
+    setShowModal(false);  
+  }
+
+  const openModal = (e) => {
+    if(!fileContent || fileContent==='') {
+      alert('Please enter JSON');
+      return;
+    }
+    setfileJson(fileContent);
+    setShowModal(true);  
+  }
 
   const onToggle = (node, toggled) => {
     if (cursor) {
@@ -79,7 +96,7 @@ const AllFiles = () => {
             <Input value={filename} onChange={onChangeFileName} />
             <label>Content</label>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary' style={{marginRight: '10px'}}>Preview</Button>
+            <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
             <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
             <Button htmlType='submit'>Save</Button>
           </Form>
@@ -90,6 +107,7 @@ const AllFiles = () => {
           </div>
         </Content>
       </Layout>
+      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} copyHtml={copyText}/> 
     </div>
   );
 };

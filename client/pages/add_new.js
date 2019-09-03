@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
+import Modal from  '../components/app/Modal.jsx';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
 
@@ -16,6 +17,9 @@ const NewFile = () => {
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
   const [fileId, setFileId] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [fileJson, setfileJson] = useState('');
+
   
   useEffect(() => {
     dispatch({
@@ -23,6 +27,20 @@ const NewFile = () => {
     })
     setData(Files);
   }, [Files])
+
+  const closeModal = (e) => {
+    setfileJson(fileContent);
+    setShowModal(false);  
+  }
+
+  const openModal = (e) => {
+    if(!fileContent || fileContent==='') {
+      alert('Please enter JSON');
+      return;
+    }
+    setfileJson(fileContent);
+    setShowModal(true);  
+  }
 
   const onToggle = (node, toggled) => {
     if (cursor) {
@@ -109,12 +127,13 @@ const NewFile = () => {
               </Radio.Group>
             </div>
             <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary' style={{marginRight: '10px'}}>Preview</Button>
+            <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
             <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
             <Button htmlType='submit'>Save</Button>
           </Form>
         </Content>
       </Layout>
+      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} /> 
     </div>
   );
 };
