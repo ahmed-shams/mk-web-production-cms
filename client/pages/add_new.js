@@ -6,6 +6,7 @@ import { Layout, Form, Input, Button, Radio } from 'antd';
 import Modal from  '../components/app/Modal.jsx';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
+import { jsonValidator } from '../utils/json-validator';
 
 const NewFile = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const NewFile = () => {
   const [showModal, setShowModal] = useState(false);
   const [fileJson, setfileJson] = useState('');
 
-  
   useEffect(() => {
     dispatch({
       type: LOAD_ALL_FILE_REQUEST
@@ -29,7 +29,7 @@ const NewFile = () => {
   }, [Files])
 
   const closeModal = (e) => {
-    setfileJson(fileContent);
+    setfileJson('')
     setShowModal(false);  
   }
 
@@ -39,6 +39,7 @@ const NewFile = () => {
       return;
     }
     setfileJson(fileContent);
+    // jsonValidator(fileContent);
     setShowModal(true);  
   }
 
@@ -56,10 +57,19 @@ const NewFile = () => {
     if (importMode === '1') {
       console.log("json mode")
     } else if (importMode === '2') {
-      console.log("import mode - set content")
-      setFilename(node.name);
-      setFileContent(JSON.stringify(node.content, null, 4));
-      setFileId(node.fileId);
+      if (node.content.length === 0) { return }
+      if (confirm(`import ${node.name}?`)) { // ok
+        if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
+          setFileContent(JSON.stringify(node.content, null, 4));
+        } else {
+          const prev = JSON.parse(fileContent);
+          node.content.forEach(el => {
+            prev.push(el)
+          })
+          setFileContent(JSON.stringify(prev, null, 4));
+        }
+      }
+      return
     }
   }
   
@@ -82,9 +92,10 @@ const NewFile = () => {
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW
+    // TODO: add JSON validator logic here before SAVE + PREVIEW 
     // UserId will be '1' in the testing phase so we can pass fake userId to db
-    // jsonValidator()
+    // check if we have all valid input to save - userId, parentId.. ! please select parent folder!
+    // jsonValidator(fileContent)
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
@@ -96,10 +107,7 @@ const NewFile = () => {
     })
   }, [fileId, filename, fileContent, userId])
 
-  // const jsonValidator = (content) => {
-  //   console.log(content)
-  // }
-
+  
   const copyText = () => {
     navigator.clipboard.writeText(fileContent).then(()=>{
       alert('Copying to clipboard was successful');
@@ -118,7 +126,7 @@ const NewFile = () => {
           <h1>File Content</h1>
           <Form onSubmit={onSubmitHandler}>
             <label><strong>File Name</strong></label>
-            <Input value={filename} onChange={onChangeFileName} />
+            <Input value={filename} onChange={onChangeFileName} required />
             <label><strong>Content</strong></label>
             <div style={{padding: '10px 0'}}>
               <Radio.Group defaultValue="a" buttonStyle="solid" onChange={onChangeRadio}>
@@ -133,7 +141,7 @@ const NewFile = () => {
           </Form>
         </Content>
       </Layout>
-      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} /> 
+      {showModal && <Modal onClose={closeModal} fileJson={fileJson} />}
     </div>
   );
 };
