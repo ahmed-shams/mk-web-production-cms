@@ -4,12 +4,7 @@ import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
 
 
 const ModalContainer = styled.div`
- ${props => props.show && css`
-   display: flex;
-  `}
-  ${props => !props.show && css`
-     display: none;
-  `}
+  display: flex;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -176,7 +171,7 @@ const renderJSONComponents = (dataObj, isMobile, key, ref) => {
 
 //mk-style.min has css rules that are necessary for proper component rendering i.e. picture>img width: 100%
 
-const Modal = ({ show = false, onClose, fileJson }) => {
+const Modal = ({ onClose, fileJson }) => {
   const ContentContainer = useRef(null);
 
   const copyHtml = () => {
@@ -194,7 +189,7 @@ const Modal = ({ show = false, onClose, fileJson }) => {
 
   if(!fileJson) {
     return (
-      <ModalContainer show={show}>
+      <ModalContainer>
       <ModalClose onClick={onClose}>X</ModalClose>
     </ModalContainer>
     );
@@ -216,9 +211,9 @@ const Modal = ({ show = false, onClose, fileJson }) => {
 // }
   return (
   <div>  
-  	<ModalContainer show={show}>
-    <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
-    <ModalHeader>PREVIEW</ModalHeader>
+  	<ModalContainer>
+      <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
+      <ModalHeader>PREVIEW</ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
       <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
     </ModalContainer>
