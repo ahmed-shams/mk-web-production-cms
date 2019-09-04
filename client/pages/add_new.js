@@ -6,20 +6,26 @@ import { Layout, Form, Input, Button, Radio } from 'antd';
 import Modal from  '../components/app/Modal.jsx';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
-import { jsonValidator } from '../utils/json-validator';
+import { jsonValidator } from '../utils';
 
 const NewFile = () => {
   const dispatch = useDispatch();
-  const { Files } = useSelector(state => state.file);
+  const { Files, fileAdded } = useSelector(state => state.file);
   const { userId } = useSelector(state => state.user);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
   const [importMode, setImportMode] = useState('1');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
-  const [fileId, setFileId] = useState('');
+  const [parentId, setParentId] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [fileJson, setfileJson] = useState('');
+
+  useEffect(() => {
+    if (fileAdded) {
+      setFileContent('');
+    }
+  }, [fileAdded === true]);
 
   useEffect(() => {
     dispatch({
@@ -56,8 +62,12 @@ const NewFile = () => {
 
     if (importMode === '1') {
       console.log("json mode")
+      setParentId(node.fileId);
     } else if (importMode === '2') {
-      if (node.content.length === 0) { return }
+      if (node.content.length === 0) {
+        setParentId(node.fileId);
+        return 
+      }
       if (confirm(`import ${node.name}?`)) { // ok
         if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
           setFileContent(JSON.stringify(node.content, null, 4));
@@ -99,13 +109,14 @@ const NewFile = () => {
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
-        parentId: fileId,
+        parentId: parentId,
         name: filename,
-        content: [fileContent],
-        userId: '1'
+        content: JSON.parse(fileContent),
+        fileId: 100,
+        userId: 1
       }
     })
-  }, [fileId, filename, fileContent, userId])
+  }, [parentId, filename, fileContent, userId])
 
   
   const copyText = () => {

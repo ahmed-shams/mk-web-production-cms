@@ -8,6 +8,7 @@ import {
   LOAD_ALL_FILE_SUCCESS
 } from '../reducers/file';
 import axios from 'axios';
+import { Result } from 'antd';
 
 function loadFileAPI() {
   return axios.get('/files')
@@ -39,13 +40,15 @@ function addFileAPI(fileData) {
 }
 
 function* addFile(action) {
-  console.log("file: ", action.data);
+  console.log("file data in redux saga: ", action.data);
+  const testfileToBeRemoved = action.data;
   try {
-    const result = yield call(addFileAPI, action.data);
-    console.log("backed result: ", result.data);
+    // const result = yield call(addFileAPI, action.data);
+    // console.log("backed result: ", result.data);
     yield put({
       type: ADD_FILE_SUCCESS,
-      data: result.data
+      data: testfileToBeRemoved
+      // data: result.data;
     });
   } catch (e) {
     yield put({
