@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-router.get('/', async (req, res) => {
+router.get('/nav', async (req, res) => {
 	try {
 		// retrieve all files from DB
 		const files = await db.File.findAll();
