@@ -3,33 +3,38 @@ const router = express.Router();
 const db = require('../models');
 
 router.get('/', async (req, res) => {
-	
-	// retrieve all files from DB
-	const files = await db.File.findAll();
+	try {
+		// retrieve all files from DB
+		const files = await db.File.findAll();
 
-	// create tree with files
-	tree = buildHierarchy(files)
-	
-	return res.status(200).json(tree);
+		// create tree with files
+		tree = buildHierarchy(files)
+		
+		return res.status(200).json(tree);
+	} catch (e) {
+		console.error(e);
+		// TODO: error handler
+		return next(e);
+	}
 });
 
 router.post('/', async (req, res, next) => {
-  console.log("hitting")
-  console.log("body: ", req.body);
-  try {
-    const newFile = await db.File.create({
-      content: JSON.stringify(req.body.content),
-      name: req.body.name,
-      parentId: 0, //req.body.parentId,
-      UserId: req.body.userId
-    });
-    console.log(newFile);
-    return res.status(200).json(newFile);
-  } catch (e) {
-    console.error(e);
-    // TODO: error handler
-    return next(e);
-  }
+	console.log("hitting")
+	console.log("body: ", req.body);
+	try {
+		const newFile = await db.File.create({
+			content: JSON.stringify(req.body.content),
+			name: req.body.name,
+			parentId: 0, //req.body.parentId,
+			UserId: req.body.userId
+		});
+		console.log(newFile);
+		return res.status(200).json(newFile);
+	} catch (e) {
+		console.error(e);
+		// TODO: error handler
+		return next(e);
+	}
 });
 
 // request body parameters: userId, fileId, content
