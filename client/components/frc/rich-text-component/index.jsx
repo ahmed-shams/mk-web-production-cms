@@ -1,83 +1,42 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
-import SimpleGallery from '../frc/banner/simple-gallery/index.jsx';
-import TopBanner from '../frc/banner/topbanner/index.jsx';
-import TopBannerCarousel from '../frc/banner/topbanner-carousel/index.jsx';
-import Resize from '../frc/global/resize/index.js';
+import React, {Component} from 'react';
+// import {sanitizeHTML} from 'service/security';
+import SimpleGallery from '../banner/simple-gallery';
+// import YouTubeVideoPlay from '../edx/video/youtube-video';
+// import HtmlVideoPlay from '../edx/video/html-video';
+// import Video4by5 from '../edx/video/video4by5';
+// /* eslint-enable */
+// import Json from './json.jsx'; // eslint-disable-line
+// import ArrowButton from 'components/basic/edx/global/button/arrow';
+// import CloseButton from 'components/basic/edx/global/button/close';
+// import Resize from 'components/basic/edx/global/resize';
+// import Modal from 'components/basic/edx/global/modal';
+// import Grid from 'components/basic/edx/global/grid';
+// import Carousel from 'components/basic/edx/global/carousel';
+// import DefaultBanner from 'components/basic/edx/banner/banner16by9';
+// import Countdown from 'components/basic/edx/flagship/countdown';
+// import Lookback from 'components/basic/edx/flagship/lookback';
+// import Columns from 'components/basic/edx/flagship/columns';
+// // import YouTubeVideoPlay from 'components/basic/edx/video/youtube-video';
+// // import LookbackCarousel from 'components/basic/edx/flagship/lookback-carousel';
+// // import Columns4by5 from 'components/basic/edx/flagship/columns4by5';
+// import ParallaxFixedParagraph from 'components/basic/edx/parallax/parallax-fixed-Paragraph';
+// import ParallaxFixedBackground from 'components/basic/edx/parallax/parallax-fixed-background';
+// import TestMockData from 'components/basic/edx/global/test-mock-data';
+// import Parallax4by5EvenLeft from 'components/basic/edx/parallax/parallax4by5-evenleft';
+// import PageDivider from 'components/basic/edx/global/text/text-content/page-divider';
+// import DkNavigation from 'components/basic/edx/banner/dk-navigation';
+// import GiftServices from 'components/basic/edx/flagship/gift-services';
+import TopBanner from '../banner/topbanner';
+import TopBannerCarousel from '../banner/topbanner-carousel';
+// import MwRunway from 'components/basic/edx/michaels-world/mw-runway';
+// import MwTravelDiaries from 'components/basic/edx/michaels-world/mw-travel-diaries';
+// import LookBook from 'components/basic/edx/michaels-world/lookBook';
 
-const ModalContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  padding-top: 300px;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  background-color: white;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ModalHeader= styled.div`
-  display: flex;
-   justify-content: center;
-  align-items: center;
-  font-size: 45px;
-  font-weight: bold;
-  background-color: black;
-  color: white;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  left: 0;
-  height: 200px;
-`
-
-const CopyHtml = styled.button`
-  position: absolute;
-  z-index: 999;
-  top: 35px;
-  left: 25px;
-  height: 50px;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  color: black;
-  border-radius: 5px;
-    &:hover {
-    cursor: pointer;
-  } 
-`
-
-const ModalClose = styled.div`  
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10000;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  font-size: 50px;
-  color: white;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
+class RichTextComponent extends Component {
 
 
-const PreviewContent = styled.div`
-  position: absolute;
-  top: 200px;
-`
 
-
-const renderJSONComponents = (dataObj, isMobile, key, ref) => {
+  renderJSONComponents(dataObj, isMobile, key, ref) {
     const compsArr = [];
     dataObj.forEach((compObj, i) => {
       if (key) i = key + i;
@@ -171,61 +130,26 @@ const renderJSONComponents = (dataObj, isMobile, key, ref) => {
     });
     return compsArr;
   }
+  render() {
+    let payload = this.props.payload || '';
+    // let payload = Json;
+    const {tagType,
+      cssClass,
+      cartridgeIndex,
+      linkContainer,
+      catridgeType,
+      catridgeLayout, linkTitleOverride} = this.props;
 
-//mk-style.min has css rules that are necessary for proper component rendering i.e. picture>img width: 100%
+      return (
+            <div className="page-level-mkwpdev">
+              {this.renderJSONComponents(payloadObj)}
+            </div>
+            );
 
-const Modal = ({ onClose, fileJson }) => {
-  const ContentContainer = useRef(null);
 
-  const copyHtml = () => {
-    console.log('in copyHtml ---->');
-    let previewHTML='';
-    if(ContentContainer && ContentContainer.current && ContentContainer.current.innerHTML) {
-      previewHTML = ContentContainer.current.innerHTML;
-    }
-    navigator.clipboard.writeText(previewHTML).then(()=>{
-      alert('Copying to clipboard was successful');
-    }, (e) => {
-      alert('error happened while trying to copy josn. please try again');
-    })
+    return null;
   }
-
-  if(!fileJson) {
-    return (
-      <ModalContainer>
-      <ModalClose onClick={onClose}>X</ModalClose>
-    </ModalContainer>
-    );
-  }; 
-  // console.log('in showModal show is ', show);
-  // console.log('data ', data);
-  // console.log('fileJson ', fileJson);
-  console.log('rendering modal ssv ', fileJson);
-  if(fileJson) {
-    console.log('in if', fileJson);
-    console.log('fileJson ', JSON.parse(fileJson));
-  }
-
-  let json = renderJSONComponents(JSON.parse(fileJson.toString()));
-
-  // console.log('fileJson ', JSON.parse(fileJson));
-// if(fileJson) {
-//   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
-// }
-  return (
-  <div>  
-  	<ModalContainer>
-      <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
-      <ModalHeader>PREVIEW</ModalHeader>
-      <ModalClose onClick={onClose}>X</ModalClose>
-      <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
-    </ModalContainer>
-  </div>
-  );
-
 }
 
 
-export default Modal;
-
-
+export default RichTextComponent;
