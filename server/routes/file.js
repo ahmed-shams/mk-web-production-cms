@@ -2,28 +2,39 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-router.get('/', (req, res) => {
-  console.log("api file route");
-  return res.send('api file route')
+router.get('/nav', async (req, res) => {
+	try {
+		// retrieve all files from DB
+		const files = await db.File.findAll();
+
+		// create tree with files
+		tree = buildHierarchy(files)
+		
+		return res.status(200).json(tree);
+	} catch (e) {
+		console.error(e);
+		// TODO: error handler
+		return next(e);
+	}
 });
 
-router.post('/', async (req, res, next) => { // Sign up
-  console.log("hitting")
-  console.log("body: ", req.body);
-  try {
-    const newFile = await db.File.create({
-      content: JSON.stringify(req.body.content),
-      name: req.body.name,
-      parentId: 0, //req.body.parentId,
-      UserId: req.body.userId
-    });
-    console.log(newFile);
-    return res.status(200).json(newFile);
-  } catch (e) {
-    console.error(e);
-    // TODO: error handler
-    return next(e);
-  }
+router.post('/', async (req, res, next) => {
+	console.log("hitting")
+	console.log("body: ", req.body);
+	try {
+		const newFile = await db.File.create({
+			content: JSON.stringify(req.body.content),
+			name: req.body.name,
+			parentId: 0, //req.body.parentId,
+			UserId: req.body.userId
+		});
+		console.log(newFile);
+		return res.status(200).json(newFile);
+	} catch (e) {
+		console.error(e);
+		// TODO: error handler
+		return next(e);
+	}
 });
 
 // request body parameters: userId, fileId, content
@@ -57,3 +68,35 @@ router.put('/', async (req, res, next) => {
 }); 
 
 module.exports = router;
+
+//https://stackoverflow.com/questions/12831746/javascript-building-a-hierarchical-tree
+function buildHierarchy(arry) {
+
+    var roots = [], children = {};
+	
+    // find the top level nodes and hash the children based on parent
+    for (var i = 0, len = arry.length; i < len; ++i) {
+        var item = arry[i],
+            p = item.parentId,
+            target = !p ? roots : (children[p] || (children[p] = []));
+
+        target.push({ value: item });
+    }
+	
+    // function to recursively build the tree
+    var findChildren = function(parent) {
+        if (children[parent.value.id]) {
+            parent.children = children[parent.value.id];
+            for (var i = 0, len = parent.children.length; i < len; ++i) {
+                findChildren(parent.children[i]);
+            }
+        }
+    };
+	
+    // enumerate through to handle the case where there are multiple roots
+    for (var i = 0, len = roots.length; i < len; ++i) {
+        findChildren(roots[i]);
+    }
+	
+    return roots;
+}
