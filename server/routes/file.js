@@ -26,7 +26,9 @@ router.get('/', async (req, res) => {
 router.get('/nav', async (req, res) => {
 	try {
 		// retrieve all files from DB
-		const files = await db.File.findAll();
+		const files = await db.File.findAll({
+			where: {deleted: 1}
+		});
 
 		// create tree with files
 		tree = buildHierarchy(files)
@@ -94,11 +96,12 @@ router.put('/', async (req, res, next) => {
 // request body parameters: fileId
 router.delete('/', async (req, res, next) => {
 	try {
-		const file = await db.File.destroy({
-			where: { id: req.body.fileId }
+		const file = await db.File.update(
+			{deleted: 0},
+			{where: { id: req.body.fileId }
 		});
 		
-		return res.status(200).json({'entriesDeleted': file});
+		return res.status(200).json({'entriesDeleted': file[0]});
 	} catch (e) {
 		console.error(e);
 		// TODO: error handler
