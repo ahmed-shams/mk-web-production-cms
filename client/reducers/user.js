@@ -55,13 +55,34 @@ export default (state = initialState, action) => {
         me: null
       }
     };
+    case LOG_IN_FAILURE: {
+      return {
+        ...state,
+        isLoggingIn: false,
+        logInErrorReason: action.error,
+        me: null,
+      };
+    };
+    case LOG_OUT_REQUEST: {
+      return {
+        ...state,
+        isLoggingOut: true,
+      };
+    };
+    case LOG_OUT_SUCCESS: {
+      return {
+        ...state,
+        isLoggingOut: false,
+        me: null,
+      };
+    };
     case SIGN_UP_REQUEST: {
       return {
         ...state,
         isSigningUp: true,
         isSignedUp: false,
         signUpErrorReason: '',
-      }
+      };
     };
     case SIGN_UP_SUCCESS: {
       return {

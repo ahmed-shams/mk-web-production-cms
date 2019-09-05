@@ -42,11 +42,10 @@ router.post('/', async (req, res, next) => { // Sign up
 router.post('/logout', (req, res) => { // /api/user/logout
   req.logout();
   req.session.destroy();
-  res.send('Successufuly logged out');
+  res.status(200).send('Successufuly logged out');
 });
 
 router.post('/login', (req, res, next) => { // POST /api/user/login
-  console.log("body in server: ", req.body);
   passport.authenticate('local', (err, user, info) => { // err : server error, user: user returned from passport, info: logic error in code
     if (err) {
       console.error(err);
