@@ -25,6 +25,7 @@ const NewFile = () => {
   useEffect(() => {
     if (fileAdded) {
       setFileContent('');
+      setFilename('');
     }
   }, [fileAdded === true]);
 
@@ -101,11 +102,8 @@ const NewFile = () => {
     e.preventDefault();
     // TODO: add JSON validator logic here before SAVE + PREVIEW 
     // UserId will be '1' in the testing phase so we can pass fake userId to db
-    // check if we have all valid input to save - userId, parentId.. ! please select parent folder!
+
     // jsonValidator(fileContent)
-    
-    // check if the parent is folder or file - if file: display error: please select the parent folder not file.
-    console.log(data);
     if (!isFolder) {
       alert("Please select the parent folder, not files");
       return;
@@ -145,7 +143,7 @@ const NewFile = () => {
             <Input value={filename} onChange={onChangeFileName} required />
             <label><strong>Content</strong></label>
             <div style={{padding: '10px 0'}}>
-              <Radio.Group defaultValue="a" buttonStyle="solid" onChange={onChangeRadio}>
+              <Radio.Group defaultValue="1" buttonStyle="solid" onChange={onChangeRadio}>
                 <Radio.Button value="1">JSON MODE</Radio.Button>
                 <Radio.Button value="2">Import Mode</Radio.Button>
               </Radio.Group>

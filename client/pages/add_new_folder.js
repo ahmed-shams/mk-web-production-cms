@@ -7,12 +7,13 @@ const { Content, Sider } = Layout;
 
 const NewFile = () => {
   const dispatch = useDispatch();
-  const { Files } = useSelector(state => state.file);
+  const { Files, fileAdded } = useSelector(state => state.file);
   const { userId } = useSelector(state => state.user);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
   const [filename, setFilename] = useState('');
-  const [fileId, setFileId] = useState('');
+  const [isFolder, setIsFolder] = useState(false);
+  const [parentId, setParentId] = useState('');
   
   useEffect(() => {
     dispatch({
@@ -20,6 +21,12 @@ const NewFile = () => {
     })
     setData(Files);
   }, [Files])
+
+  useEffect(() => {
+    if (fileAdded) {
+      setFilename('');
+    }
+  }, [fileAdded]);
 
   const onToggle = (node, toggled) => {
     if (cursor) {
@@ -31,26 +38,33 @@ const NewFile = () => {
     }
     setCursor(node);
     setData(Object.assign({}, data))
-    setFileId(node.fileId)
+    node.children ? setIsFolder(true) : setIsFolder(false);
+    setParentId(node.fileId);
   }
-  
+
   const onChangeFileName = useCallback((e) => {
     setFilename(e.target.value);
   });
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
+    if (!isFolder) {
+      alert("Please select the parent folder, not files");
+      return;
+    }
+
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
-        parentId: fileId,
+        parentId: parentId,
         name: filename,
+        fileId: 100,
+        userId: 1,
         content: [],
-        userId: userId,
         children: []
       }
-    });
-  };
+    })
+  }, [parentId, filename, userId])
 
   return (
     <div>
