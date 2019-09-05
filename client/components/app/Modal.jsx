@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
-
+import SimpleGallery from '../frc/banner/simple-gallery/index.jsx';
 
 const ModalContainer = styled.div`
   display: flex;
