@@ -27,7 +27,7 @@ router.get('/nav', async (req, res) => {
 	try {
 		// retrieve all files from DB
 		const files = await db.File.findAll({
-			where: {deleted: 1}
+			where: {deleted: 0}
 		});
 
 		// create tree with files
@@ -97,7 +97,7 @@ router.put('/', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
 	try {
 		const file = await db.File.update(
-			{deleted: 0},
+			{deleted: 1},
 			{where: { id: req.body.fileId }
 		});
 		
