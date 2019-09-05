@@ -8,6 +8,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import reducer from '../reducers';
 import createSagaMiddleWare from 'redux-saga';
 import rootSaga from '../sagas';
+import '../utils/fake.css';
 
 const Layout = ({ Component, store, pageProps }) => {
   return (

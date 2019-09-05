@@ -49,7 +49,7 @@ class MainNavigation extends React.Component {
             </a>
             </Link>
           </Menu.Item>
-          <Menu.Item key="setting:1">
+          <Menu.Item key="setting:2">
             <Link href='/add_new_folder'>
               <a>
               <Icon type="folder" />
