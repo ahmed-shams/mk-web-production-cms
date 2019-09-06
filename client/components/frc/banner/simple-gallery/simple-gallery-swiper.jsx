@@ -1,6 +1,8 @@
 import React from 'react';
-import Swiper from 'react-id-swiper/lib/custom.js';
+import '/Users/eforsell/mk-web-production-cms/client/utils/fake.css';
+import Swiper from 'react-id-swiper/lib/custom';
 import './gallery.css';
+
 class SwiperSimpleGallery extends React.Component {
   constructor(props) {
     super(props);
