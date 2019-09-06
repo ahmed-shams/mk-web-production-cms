@@ -20,10 +20,12 @@ const NewFile = () => {
   const [parentId, setParentId] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [fileJson, setfileJson] = useState('');
+  const [isFolder, setIsFolder] = useState(false);
 
   useEffect(() => {
     if (fileAdded) {
       setFileContent('');
+      setFilename('');
     }
   }, [fileAdded === true]);
 
@@ -57,11 +59,12 @@ const NewFile = () => {
     if (node.children) {
       node.toggled = toggled;
     }
+    
     setCursor(node);
     setData(Object.assign({}, data))
+    node.children ? setIsFolder(true) : setIsFolder(false);
 
     if (importMode === '1') {
-      console.log("json mode")
       setParentId(node.fileId);
     } else if (importMode === '2') {
       if (node.content.length === 0) {
@@ -92,20 +95,20 @@ const NewFile = () => {
   });
 
   const onChangeRadio = useCallback((e) => {
-    if (e.target.value === '1') {
-      alert("JSON mode selected");
-    } else if (e.target.value === '2') {
-      alert("Import mode selected")
-    }
     setImportMode(e.target.value);
-  })
+  });
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
     // TODO: add JSON validator logic here before SAVE + PREVIEW 
     // UserId will be '1' in the testing phase so we can pass fake userId to db
-    // check if we have all valid input to save - userId, parentId.. ! please select parent folder!
+
     // jsonValidator(fileContent)
+    if (!isFolder) {
+      alert("Please select the parent folder, not files");
+      return;
+    }
+
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
@@ -140,7 +143,7 @@ const NewFile = () => {
             <Input value={filename} onChange={onChangeFileName} required />
             <label><strong>Content</strong></label>
             <div style={{padding: '10px 0'}}>
-              <Radio.Group defaultValue="a" buttonStyle="solid" onChange={onChangeRadio}>
+              <Radio.Group defaultValue="1" buttonStyle="solid" onChange={onChangeRadio}>
                 <Radio.Button value="1">JSON MODE</Radio.Button>
                 <Radio.Button value="2">Import Mode</Radio.Button>
               </Radio.Group>

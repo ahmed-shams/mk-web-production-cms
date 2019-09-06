@@ -26,7 +26,7 @@ const Login = () => {
   useEffect(() => {
     if (me) {
       console.log("me nickname: ", me.nickname);
-      alert("Navigating back to main page after login");
+      alert("Login was successful. Now navigating back to homepage...");
       Router.push('/')
     }
   }, [me && me.id])
@@ -57,7 +57,7 @@ const Login = () => {
         </div>
         <div style={{marginTop: '10px'}}>
           <Button type='primary' htmlType='submit' loading={isLoggingIn}>Login</Button>
-          <Link href='/signup'><a><Button>Sign Up</Button></a></Link>
+          <Link href='/user/signup'><a><Button>Sign Up</Button></a></Link>
         </div>
       </Form>
     </LoginContainer>
