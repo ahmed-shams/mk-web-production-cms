@@ -6,8 +6,8 @@ import SimpleGallery from '../banner/simple-gallery';
 // import Video4by5 from '../edx/video/video4by5';
 // /* eslint-enable */
 // import Json from './json.jsx'; // eslint-disable-line
-// import ArrowButton from 'components/basic/edx/global/button/arrow';
-// import CloseButton from 'components/basic/edx/global/button/close';
+import ArrowButton from '../global/button/arrow';
+import CloseButton from '../global/button/close';
 import Resize from '../global/resize';
 import Modal from '../global/modal';
 import Grid from '../global/grid';
@@ -17,12 +17,12 @@ import Countdown from '../flagship/countdown';
 import Lookback from '../flagship/lookback';
 import Columns from '../columns';
 // // import YouTubeVideoPlay from 'components/basic/edx/video/youtube-video';
-// // import LookbackCarousel from 'components/basic/edx/flagship/lookback-carousel';
+import LookbackCarousel from '../flagship/lookback-carousel';
 // import Columns4by5 from '../flagship/columns4by5';
-// import ParallaxFixedParagraph from 'components/basic/edx/parallax/parallax-fixed-Paragraph';
-// import ParallaxFixedBackground from 'components/basic/edx/parallax/parallax-fixed-background';
-// import TestMockData from 'components/basic/edx/global/test-mock-data';
-// import Parallax4by5EvenLeft from 'components/basic/edx/parallax/parallax4by5-evenleft';
+import ParallaxFixedParagraph from '../parallax/parallax-fixed-Paragraph';
+import ParallaxFixedBackground from '../parallax/parallax-fixed-background';
+// import TestMockData from '../global/test-mock-data';
+import Parallax4by5EvenLeft from '../parallax/parallax4by5-evenleft';
 import PageDivider from '../global/text/text-content/page-divider';
 import DkNavigation from '../banner/dk-navigation';
 import GiftServices from '../flagship/gift-services';

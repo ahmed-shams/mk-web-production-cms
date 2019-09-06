@@ -1,7 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
-import Carousel from 'components/basic/edx/global/carousel';
-import CompContainer from 'components/basic/edx/global/comp-container';
+import Carousel from '../../global/carousel';
+import CompContainer from '../../global/comp-container';
 
 const Debug = false;
 

@@ -5,6 +5,20 @@ import SimpleGallery from '../frc/banner/simple-gallery/index.jsx';
 import TopBanner from '../frc/banner/topbanner/index.jsx';
 import TopBannerCarousel from '../frc/banner/topbanner-carousel/index.jsx';
 import Resize from '../frc/global/resize/index.js';
+import PageDivider from '../frc/global/text/text-content/page-divider';
+import DkNavigation from '../frc/banner/dk-navigation';
+import GiftServices from '../frc/flagship/gift-services';
+import MwRunway from '../frc/michaels-world/mw-runway';
+import MwTravelDiaries from '../frc/michaels-world/mw-travel-diaries';
+import LookBook from '../frc/michaels-world/lookBook';
+import ArrowButton from '../frc/global/button/arrow';
+import CloseButton from '../frc/global/button/close';
+import Modal from '../frc/global/modal';
+import Grid from '../frc/global/grid';
+import Carousel from '../frc/global/carousel';
+import Countdown from '../frc/flagship/countdown';
+import Lookback from '../frc/flagship/lookback';
+import Columns from '../frc/columns';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -174,7 +188,7 @@ const renderJSONComponents = (dataObj, isMobile, key, ref) => {
 
 //mk-style.min has css rules that are necessary for proper component rendering i.e. picture>img width: 100%
 
-const Modal = ({ onClose, fileJson }) => {
+const ModalPreview = ({ onClose, fileJson }) => {
   const ContentContainer = useRef(null);
 
   const copyHtml = () => {
@@ -226,6 +240,6 @@ const Modal = ({ onClose, fileJson }) => {
 }
 
 
-export default Modal;
+export default ModalPreview;
 
 
