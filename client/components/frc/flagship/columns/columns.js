@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import Image16x9 from '../global/image/plain';
+import Image16x9 from '../../global/image/plain';
 
 const isSmall = (index, theme, count) => {
   if (theme === 'evenLeft' && index !== 0) return true;
