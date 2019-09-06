@@ -1,11 +1,11 @@
 import React from 'react';
 import Styled from 'styled-components';
-import Image16x9 from 'components/basic/edx/global/image/plain';
-import Columns from 'components/basic/edx/flagship/columns';
-import ArrowButton from 'components/basic/edx/global/button/arrow';
-import CloseButton from 'components/basic/edx/global/button/close';
-import NavigationDots from 'components/basic/edx/global/navigation-dots';
-import CompContainer from 'components/basic/edx/global/comp-container';
+import Image16x9 from '../image/plain';
+import Columns from '../../flagship/columns';
+import ArrowButton from '../button/arrow';
+import CloseButton from '../button/close';
+import NavigationDots from '../navigation-dots';
+import CompContainer from '../comp-container';
 
 const Debug = false;
 

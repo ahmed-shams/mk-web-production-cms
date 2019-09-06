@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CompContainer from 'components/basic/edx/global/comp-container';
-import Text from 'components/basic/edx/global/text';
+import CompContainer from '../../global/comp-container';
+import Text from '../../global/text';
 import { GiftService } from './components';
 const getTextHtml = (textOption, index) => {
   return (

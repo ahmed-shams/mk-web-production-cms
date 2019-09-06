@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import CompContainer from 'components/basic/edx/global/comp-container';
+import CompContainer from '../../global/comp-container';
 import { DkNavContainer, DkCategory } from './components';
-import Text from 'components/basic/edx/global/text';
-import Image16x9 from 'components/basic/edx/global/image/plain';
+import Text from '../../global/text';
+import Image16x9 from '../../global/image/plain';
 const getLogo = (logo) => {
   return (
     <div className="nav-logo">

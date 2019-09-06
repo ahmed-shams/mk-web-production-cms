@@ -11,26 +11,26 @@ import SimpleGallery from '../banner/simple-gallery';
 import Resize from '../global/resize';
 import Modal from '../global/modal';
 import Grid from '../global/grid';
-// import Carousel from '../global/carousel';
+import Carousel from '../global/carousel';
 import DefaultBanner from '../banner/banner16by9';
 // import Countdown from '../countdown';
 // import Lookback from '../lookback';
 import Columns from '../columns';
 // // import YouTubeVideoPlay from 'components/basic/edx/video/youtube-video';
 // // import LookbackCarousel from 'components/basic/edx/flagship/lookback-carousel';
-// // import Columns4by5 from 'components/basic/edx/flagship/columns4by5';
+// import Columns4by5 from '../flagship/columns4by5';
 // import ParallaxFixedParagraph from 'components/basic/edx/parallax/parallax-fixed-Paragraph';
 // import ParallaxFixedBackground from 'components/basic/edx/parallax/parallax-fixed-background';
 // import TestMockData from 'components/basic/edx/global/test-mock-data';
 // import Parallax4by5EvenLeft from 'components/basic/edx/parallax/parallax4by5-evenleft';
-// import PageDivider from 'components/basic/edx/global/text/text-content/page-divider';
-// import DkNavigation from 'components/basic/edx/banner/dk-navigation';
-// import GiftServices from 'components/basic/edx/flagship/gift-services';
+import PageDivider from '../global/text/text-content/page-divider';
+import DkNavigation from '../banner/dk-navigation';
+import GiftServices from '../flagship/gift-services';
 import TopBanner from '../banner/topbanner';
 import TopBannerCarousel from '../banner/topbanner-carousel';
-// import MwRunway from 'components/basic/edx/michaels-world/mw-runway';
-// import MwTravelDiaries from 'components/basic/edx/michaels-world/mw-travel-diaries';
-// import LookBook from 'components/basic/edx/michaels-world/lookBook';
+import MwRunway from '../michaels-world/mw-runway';
+import MwTravelDiaries from '../michaels-world/mw-travel-diaries';
+import LookBook from '../michaels-world/lookBook';
 
 class RichTextComponent extends Component {
 
