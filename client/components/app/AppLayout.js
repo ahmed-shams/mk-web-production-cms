@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainNav from './MainNav';
-import FakeNav from './FakeNav';
+import MainNavigation from './main-navigation';
 import styled from 'styled-components';
 
 const AppLayout = ({ children }) => {
   return (
-    <div style={{ display: 'flex' }}>
-      <MainNav />
+    <div>
+      <MainNavigation />
       <MainContentGrid>
-        <FakeNav />
         { children }
       </MainContentGrid>
     </div>

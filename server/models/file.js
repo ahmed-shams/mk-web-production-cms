@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     deleted: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
+      defaultValue: false
     },
     parentId: {
       type: DataTypes.INTEGER

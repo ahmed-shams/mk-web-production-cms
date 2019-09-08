@@ -1,60 +1,141 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { Form, Input, Button } from 'antd';
-import { useInput } from './user/login';
-import styled from 'styled-components';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
+import { Treebeard } from 'react-treebeard';
+import { Layout, Form, Input, Button, Radio } from 'antd';
+import Modal from  '../components/app/Modal.jsx';
+const { Content, Sider } = Layout;
+const { TextArea } = Input; 
 
 const NewFile = () => {
-  const [filename, onChangeFilename] = useInput('');
-  const [json, onChangeJson] = useInput('');
-  const [category, onChangeCategory] = useInput('');
   const dispatch = useDispatch();
+  const { Files } = useSelector(state => state.file);
+  const { userId } = useSelector(state => state.user);
+  const [data, setData] = useState({});
+  const [cursor, setCursor] = useState(false);
+  const [importMode, setImportMode] = useState('1');
+  const [filename, setFilename] = useState('');
+  const [fileContent, setFileContent] = useState('');
+  const [fileId, setFileId] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [fileJson, setfileJson] = useState('');
+
+  
+  useEffect(() => {
+    dispatch({
+      type: LOAD_ALL_FILE_REQUEST
+    })
+    setData(Files);
+  }, [Files])
+
+  const closeModal = (e) => {
+    setfileJson(fileContent);
+    setShowModal(false);  
+  }
+
+  const openModal = (e) => {
+    if(!fileContent || fileContent==='') {
+      alert('Please enter JSON');
+      return;
+    }
+    setfileJson(fileContent);
+    setShowModal(true);  
+  }
+
+  const onToggle = (node, toggled) => {
+    if (cursor) {
+      cursor.active = false;
+    }
+    node.active = true;
+    if (node.children) {
+      node.toggled = toggled;
+    }
+    setCursor(node);
+    setData(Object.assign({}, data))
+
+    if (importMode === '1') {
+      console.log("json mode")
+    } else if (importMode === '2') {
+      console.log("import mode - set content")
+      setFilename(node.name);
+      setFileContent(JSON.stringify(node.content, null, 4));
+      setFileId(node.fileId);
+    }
+  }
+  
+  const onChangeFileName = useCallback((e) => {
+    setFilename(e.target.value);
+  });
+
+  const onChangeFileContent = useCallback((e) => {
+    setFileContent(e.target.value);
+  });
+
+  const onChangeRadio = useCallback((e) => {
+    if (e.target.value === '1') {
+      alert("JSON mode selected");
+    } else if (e.target.value === '2') {
+      alert("Import mode selected")
+    }
+    setImportMode(e.target.value);
+  })
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
+    // TODO: add JSON validator logic here before SAVE + PREVIEW
+    // UserId will be '1' in the testing phase so we can pass fake userId to db
+    // jsonValidator()
     dispatch({
-      type: ADD_POST_REQUEST,
+      type: ADD_FILE_REQUEST,
       data: {
-        filename,
-        json,
-        category
+        parentId: fileId,
+        name: filename,
+        content: [fileContent],
+        userId: '1'
       }
     })
-  }, [filename, json, category]);
+  }, [fileId, filename, fileContent, userId])
+
+  // const jsonValidator = (content) => {
+  //   console.log(content)
+  // }
+
+  const copyText = () => {
+    navigator.clipboard.writeText(fileContent).then(()=>{
+      alert('Copying to clipboard was successful');
+    }, (e) => {
+      alert('error happened while trying to copy josn. please try again');
+    })
+  }
 
   return (
-    <Container>
-      <Form onSubmit={onSubmitHandler} id="text-form">
-        <div>
-          <label htmlFor='filename' >File name: </label>
-          <Input name='filename' value={filename} onChange={onChangeFilename} />
-        </div>
-        <div>
-          <label htmlFor='json'>CONTENT</label>
-          <br />
-          <Input name='json' value={json} onChange={onChangeJson} />
-        </div>
-
-        <div>
-          <label htmlFor='category'>Category</label>
-          <br />
-          <Input name='category' value={category} onChange={onChangeCategory} />
-        </div>
-        <div style={{marginTop: '15px'}}>
-          <Button type='primary' htmlType='submit'>Save</Button>
-          <Button>Preview</Button>
-        </div>
-      </Form>
-    </Container>
-  )
+    <div>
+      <Layout>
+        <Sider>
+          {Files && <Treebeard data={data} onToggle={onToggle} />}
+        </Sider>
+        <Content style={{padding:'20px'}}>
+          <h1>File Content</h1>
+          <Form onSubmit={onSubmitHandler}>
+            <label><strong>File Name</strong></label>
+            <Input value={filename} onChange={onChangeFileName} />
+            <label><strong>Content</strong></label>
+            <div style={{padding: '10px 0'}}>
+              <Radio.Group defaultValue="a" buttonStyle="solid" onChange={onChangeRadio}>
+                <Radio.Button value="1">JSON MODE</Radio.Button>
+                <Radio.Button value="2">Import Mode</Radio.Button>
+              </Radio.Group>
+            </div>
+            <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
+            <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
+            <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
+            <Button htmlType='submit'>Save</Button>
+          </Form>
+        </Content>
+      </Layout>
+      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} /> 
+    </div>
+  );
 };
 
 export default NewFile;
-
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`;

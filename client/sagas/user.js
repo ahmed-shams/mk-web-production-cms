@@ -27,7 +27,6 @@ function logInAPI(loginData) {
 function* logIn(action) {
   try {
     const result = yield call(logInAPI, action.data);
-    // yield delay(2000);
     yield put({ 
       type: LOG_IN_SUCCESS,
       // data: dummyUser
@@ -67,7 +66,7 @@ function* signUp(action) {
 }
 
 function* watchSignUp() {
-  yield takeEvery(SIGN_UP_REQUEST, signUp);
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
 function logOutAPI() {

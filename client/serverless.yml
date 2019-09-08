@@ -11,6 +11,7 @@ region: eu-west-1
 plugins:
   - serverless-nextjs-plugin
   - serverless-offline
+  - serverless-webpack
 
 custom:
   serverless-nextjs:
