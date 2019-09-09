@@ -19,6 +19,8 @@ import Carousel from '../frc/global/carousel';
 import Countdown from '../frc/flagship/countdown';
 import Lookback from '../frc/flagship/lookback';
 import Columns from '../frc/columns';
+import ParallaxFixedParagraph from '../frc/parallax/parallax-fixed-Paragraph';
+import ParallaxFixedBackground from '../frc/parallax/parallax-fixed-background';
 
 const ModalContainer = styled.div`
   display: flex;
