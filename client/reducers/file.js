@@ -318,9 +318,10 @@ export default (state = initialState, action) => {
       };
     };
     case LOAD_ALL_FILE_SUCCESS: {
+      console.log("Actiondata: ", action.data);
       return {
         ...state,
-        Files: dummyFile,
+        Files: {...action.data[0]},
         isLoadingFile: false,
         fileLoadded: true
       };
@@ -341,12 +342,14 @@ export default (state = initialState, action) => {
       };
     };
     case ADD_FILE_SUCCESS: {
+      // add logic to handle there;s no parent in updateState
       const newFiles = updateState(state.Files, action.data);
+      console.log("new files: ", newFiles);
       return {
         ...state,
         isAddingFile: false,
         fileAdded: true,
-        File: {...newFiles}
+        Files: {...newFiles}
       }
     };
     case ADD_FILE_FAILURE: {

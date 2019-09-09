@@ -11,16 +11,16 @@ import axios from 'axios';
 import { Result } from 'antd';
 
 function loadFileAPI() {
-  return axios.get('/files')
+  return axios.get('http://localhost:3001/api/file/nav');
 }
 
 function* loadFile() {
   try {
-    // const result = yield call(addFileAPI, action.data);
-    console.log("All files are being loaded and tree view is getting updated with the files");
+    const result = yield call(loadFileAPI);
+    console.log("Result from server: ", result.data);
     yield put({
       type: LOAD_ALL_FILE_SUCCESS,
-      // data: result.data
+      data: result.data
     });
   } catch (e) {
     yield put({
@@ -35,20 +35,20 @@ function* watchLoadFile() {
 }
 
 function addFileAPI(fileData) {
-  console.log("inside addfileapi");
+  // console.log("inside addfileapi");
   return axios.post('http://localhost:3001/api/file', fileData);
 }
 
 function* addFile(action) {
-  console.log("file data in redux saga: ", action.data);
-  const testfileToBeRemoved = action.data;
+  // console.log("file data in redux saga: ", action.data);
+  // const testfileToBeRemoved = action.data;
   try {
-    // const result = yield call(addFileAPI, action.data);
+    const result = yield call(addFileAPI, action.data);
     // console.log("backed result: ", result.data);
     yield put({
       type: ADD_FILE_SUCCESS,
-      data: testfileToBeRemoved
-      // data: result.data;
+      // data: testfileToBeRemoved
+      data: result.data
     });
   } catch (e) {
     yield put({

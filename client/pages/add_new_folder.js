@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button } from 'antd';
+import { isEmpty } from '../utils';
 const { Content, Sider } = Layout;
+
 
 const NewFile = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,11 @@ const NewFile = () => {
       type: LOAD_ALL_FILE_REQUEST
     })
     setData(Files);
-  }, [Files])
+    if (isEmpty(Files)) { // handle the case: there's no folder or file at all
+      setParentId(0);
+      setIsFolder(true);
+    }
+  }, [])
 
   useEffect(() => {
     if (fileAdded) {
@@ -52,13 +58,12 @@ const NewFile = () => {
       alert("Please select the parent folder, not files");
       return;
     }
-
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
         parentId: parentId,
         name: filename,
-        fileId: 100,
+        // fileId: fileId,
         userId: 1,
         content: [],
         children: []

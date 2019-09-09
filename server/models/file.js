@@ -4,20 +4,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
     },
     name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     deleted: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
+      defaultValue: false
     },
     parentId: {
       type: DataTypes.INTEGER
-    },
-    hierarchyLevel: {
-      type: DataTypes.INTEGER
     }
   }, {
-    hierarchy: true,
     charset: 'utf8mb4',
     collate: 'utf8mb4_general_ci',
   });
@@ -29,3 +26,26 @@ module.exports = (sequelize, DataTypes) => {
 
   return File;
 };
+
+
+// module.exports = (sequelize, DataTypes) => {
+//   const Category = sequelize.define(
+//     'Category',
+//     {
+//       name: {
+//         allowNull: false,
+//         type: DataTypes.STRING
+//       },
+//       parent: { type: DataTypes.INTEGER }
+//     },
+//     {}
+//   );
+//   Category.associate = function(models) {
+//     models.Category.hasMany(models.Category, {
+//       onDelete: 'CASCADE',
+//       foreignKey: 'parent',
+//       as: 'children'
+//     });
+//   };
+//   return Category;
+// };

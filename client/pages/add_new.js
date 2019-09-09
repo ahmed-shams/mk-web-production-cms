@@ -34,7 +34,7 @@ const NewFile = () => {
       type: LOAD_ALL_FILE_REQUEST
     })
     setData(Files);
-  }, [Files])
+  }, [])
 
   const closeModal = (e) => {
     setfileJson('')
@@ -65,10 +65,12 @@ const NewFile = () => {
     node.children ? setIsFolder(true) : setIsFolder(false);
 
     if (importMode === '1') {
-      setParentId(node.fileId);
+      setParentId(node.id);
+      console.log("parentId here: ", parentId);
     } else if (importMode === '2') {
       if (node.content.length === 0) {
-        setParentId(node.fileId);
+        setParentId(node.id);
+        console.log(parentId)
         return 
       }
       if (confirm(`import ${node.name}?`)) { // ok
@@ -82,6 +84,7 @@ const NewFile = () => {
           setFileContent(JSON.stringify(prev, null, 4));
         }
       }
+      console.log(parentId)
       return
     }
   }
@@ -104,10 +107,10 @@ const NewFile = () => {
     // UserId will be '1' in the testing phase so we can pass fake userId to db
 
     // jsonValidator(fileContent)
-    if (!isFolder) {
-      alert("Please select the parent folder, not files");
-      return;
-    }
+    // if (!isFolder) {
+    //   alert("Please select the parent folder, not files");
+    //   return;
+    // }
 
     dispatch({
       type: ADD_FILE_REQUEST,
@@ -116,7 +119,7 @@ const NewFile = () => {
         name: filename,
         content: JSON.parse(fileContent),
         fileId: 100,
-        userId: 1
+        userId: userId
       }
     })
   }, [parentId, filename, fileContent, userId])
