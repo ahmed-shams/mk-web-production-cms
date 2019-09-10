@@ -8,3 +8,5 @@ server/node_modules
 # next build output
 client/.next
 
+.DS_Store
+server/.serverless/sls-cms-server-app.zip

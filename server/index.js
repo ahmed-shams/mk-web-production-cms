@@ -11,6 +11,7 @@ const dotenv = require('dotenv');
 const db = require('./models');
 const userAPIRouter = require('./routes/user');
 const fileAPIRouter = require('./routes/file');
+const serverless = require("serverless-http");
 
 dotenv.config();
 const app = express();
@@ -43,9 +44,11 @@ app.use(passport.session());
 app.use('/api/user', userAPIRouter);
 app.use('/api/file', fileAPIRouter);
 
-app.listen(3001, () => {
-  console.log('server is running on http://localhost:3001');
+app.listen(3000, () => {
+  console.log('server is running on http://localhost:3000');
 });
+
+module.exports.handler = serverless(app);
 
 // TOOD:
 // 1. route setup 
