@@ -1,8 +1,8 @@
 import React from 'react';
 import Styled from 'styled-components';
 import ColumnsHTML from './columns.js';
-import CompContainer from '../global/comp-container';
-import Text from '../global/text';
+import CompContainer from '../../global/comp-container';
+import Text from '../../global/text';
 
 const Debug = false;
 const SmallPadding = 6;

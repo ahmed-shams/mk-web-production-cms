@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import Generator from 'components/basic/rich-text-component';
+import Generator from '../../rich-text-component';
 
 const Debug = false;
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import Columns from 'components/basic/edx/flagship/columns';
-import Button from 'components/basic/edx/global/button';
-import Image16x9 from 'components/basic/edx/global/image/plain';
-import CompContainer from 'components/basic/edx/global/comp-container';
+import Columns from '../../flagship/columns';
+import Button from '../button';
+import Image16x9 from '../image/plain';
+import CompContainer from '../comp-container';
 
 const Debug = false;
 
