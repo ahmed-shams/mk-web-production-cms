@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import CompContainer from 'components/basic/edx/global/comp-container';
-import TextBox from 'components/basic/edx/global/text/components/index';
+import CompContainer from '../../../comp-container';
+import TextBox from '../../components/index';
 
 class PageDivider extends Component {
   getLine(dHeader) {

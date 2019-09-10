@@ -1,6 +1,6 @@
 import React from 'react';
 import GridHTML from './grid.js';
-import CompContainer from 'components/basic/edx/global/comp-container';
+import CompContainer from '../comp-container';
 
 const Debug = false;
 const DefaultColumns = 4;
