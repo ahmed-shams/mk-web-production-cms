@@ -1,4 +1,4 @@
-import { all, call, fork, takeLatest, put, delay } from 'redux-saga/effects';
+import { all, call, fork, takeLatest, put } from 'redux-saga/effects';
 import {
   ADD_FILE_FAILURE,
   ADD_FILE_REQUEST,
@@ -8,7 +8,6 @@ import {
   LOAD_ALL_FILE_SUCCESS
 } from '../reducers/file';
 import axios from 'axios';
-import { Result } from 'antd';
 
 function loadFileAPI() {
   return axios.get('http://localhost:3001/api/file/nav');
@@ -17,7 +16,6 @@ function loadFileAPI() {
 function* loadFile() {
   try {
     const result = yield call(loadFileAPI);
-    console.log("Result from server: ", result.data);
     yield put({
       type: LOAD_ALL_FILE_SUCCESS,
       data: result.data
@@ -35,20 +33,31 @@ function* watchLoadFile() {
 }
 
 function addFileAPI(fileData) {
-  // console.log("inside addfileapi");
-  return axios.post('http://localhost:3001/api/file', fileData);
+  return axios.post('http://localhost:3001/api/file', fileData, {
+    withCredentials: true
+  });
 }
 
+
+// function addCommentAPI(data) {
+//   return axios.post(`/post/${data.postId}/comment`, { content: data.content }, {
+//     withCredentials: true,
+//   });
+// }
+
 function* addFile(action) {
-  // console.log("file data in redux saga: ", action.data);
-  // const testfileToBeRemoved = action.data;
   try {
+    let data;
     const result = yield call(addFileAPI, action.data);
-    // console.log("backed result: ", result.data);
+    data = result.data;
+    // folder check and add children
+    if (result.data.isFolder) {
+      console.log("data hitting here in is Folder after add file");
+      data.children = [];
+    }
     yield put({
       type: ADD_FILE_SUCCESS,
-      // data: testfileToBeRemoved
-      data: result.data
+      data: data
     });
   } catch (e) {
     yield put({
