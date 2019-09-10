@@ -232,7 +232,7 @@ const ModalPreview = ({ onClose, fileJson }) => {
   <div>  
   	<ModalContainer>
       <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
-      <ModalHeader>PREVIEW</ModalHeader>
+      <ModalHeader className="modal-header">PREVIEW</ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
       <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
     </ModalContainer>
