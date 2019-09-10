@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build",
-    "start": "next start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "next dev"
   },
   "author": "Sehwan Choi, Ahmed Shams",
   "license": "ISC",
@@ -23,6 +22,8 @@
     "foundation-sites": "^6.5.3",
     "intersection-observer": "^0.7.0",
     "morgan": "^1.9.1",
+    "@zeit/next-css": "^1.0.1",
+    "cowsay-browser": "^1.1.8",
     "next": "^9.0.1",
     "next-redux-wrapper": "^3.0.0-alpha.3",
     "node-sass": "^4.12.0",
@@ -35,15 +36,23 @@
     "react-treebeard": "^3.2.4",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "next-aws-lambda": "^2.0.5-alpha.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^6.0.1",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-react-hooks": "^1.6.1",
     "nodemon": "^1.19.1",
+    "serverless": "^1.39.1",
+    "serverless-nextjs-plugin": "^1.8.1",
+    "serverless-offline": "^5.10.1",
+    "serverless-webpack": "^5.3.1",
     "webpack": "^4.35.3"
   }
 }
