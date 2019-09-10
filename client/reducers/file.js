@@ -13,6 +13,10 @@ export const ADD_FILE_REQUEST = 'ADD_FILE_REQUEST';
 export const ADD_FILE_SUCCESS = 'ADD_FILE_SUCCESS';
 export const ADD_FILE_FAILURE = 'ADD_FILE_FAILURE';
 
+export const EDIT_FILE_REQUEST = 'EDIT_FILE_REQUEST';
+export const EDIT_FILE_SUCCESS = 'EDIT_FILE_SUCCESS';
+export const EDIT_FILE_FAILURE = 'EDIT_FILE_FAILURE';
+
 export const LOAD_ALL_FILE_REQUEST = 'LOAD_ALL_FILE_REQUEST';
 export const LOAD_ALL_FILE_SUCCESS = 'LOAD_ALL_FILE_SUCCESS';
 export const LOAD_ALL_FILE_FAILURE = 'LOAD_ALL_FILE_FAILURE';
@@ -341,14 +345,7 @@ export default (state = initialState, action) => {
       };
     };
     case ADD_FILE_SUCCESS: {
-      // add logic to handle there;s no parent in updateState 
-      // is folder then add children here'
-      // console.log("action data here: ", action.data);
-      // const data = Object.assign(action.data, {children: []})
-      // console.log("data: ", data);
-      console.log("data in reducer: ", action.data);
       const newFiles = updateState(state.Files, action.data);
-      // console.log("new files: ", newFiles);
       return {
         ...state,
         isAddingFile: false,
@@ -362,6 +359,31 @@ export default (state = initialState, action) => {
         isAddingFile: false, 
         fileAdded: false,
         addFileErrorReason: action.error
+      }
+    };
+    case EDIT_FILE_REQUEST: {
+      return {
+        ...state,
+        isEditingFile: true,
+        fileEditted: false,
+        editFileErrorReason: '',
+      };
+    };
+    case EDIT_FILE_SUCCESS: {
+      const newFiles = updateState(state.Files, action.data);
+      return {
+        ...state,
+        isEditingFile: false,
+        fileEditted: true,
+        Files: newFiles
+      }
+    };
+    case EDIT_FILE_FAILURE: {
+      return {
+        ...state,
+        isEditingFile: false, 
+        fileEditted: false,
+        editFileErrorReason: action.error
       }
     };
     default: {
