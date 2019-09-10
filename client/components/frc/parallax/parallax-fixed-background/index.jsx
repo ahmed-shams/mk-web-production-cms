@@ -9,7 +9,7 @@ const setAttributes = (elmnt, styleObj) => {
   });
 };
 const getHeaderHeight = () => {
-  return (typeof document !== 'undefined' ? document.querySelector('.mk-web .header-container').offsetHeight : "");
+  return (typeof document !== 'undefined' ? 200 : "");
 };
 class ParallaxFixedBackground extends Component {
   constructor(props) {
