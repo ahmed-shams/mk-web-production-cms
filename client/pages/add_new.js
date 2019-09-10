@@ -6,21 +6,29 @@ import { Layout, Form, Input, Button, Radio } from 'antd';
 import Modal from  '../components/app/Modal.jsx';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
+import { jsonValidator } from '../utils';
 
 const NewFile = () => {
   const dispatch = useDispatch();
-  const { Files } = useSelector(state => state.file);
+  const { Files, fileAdded } = useSelector(state => state.file);
   const { userId } = useSelector(state => state.user);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
   const [importMode, setImportMode] = useState('1');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
-  const [fileId, setFileId] = useState('');
+  const [parentId, setParentId] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [fileJson, setfileJson] = useState('');
+  const [isFolder, setIsFolder] = useState(false);
 
-  
+  useEffect(() => {
+    if (fileAdded) {
+      setFileContent('');
+      setFilename('');
+    }
+  }, [fileAdded === true]);
+
   useEffect(() => {
     dispatch({
       type: LOAD_ALL_FILE_REQUEST
@@ -29,7 +37,7 @@ const NewFile = () => {
   }, [Files])
 
   const closeModal = (e) => {
-    setfileJson(fileContent);
+    setfileJson('')
     setShowModal(false);  
   }
 
@@ -39,6 +47,7 @@ const NewFile = () => {
       return;
     }
     setfileJson(fileContent);
+    // jsonValidator(fileContent);
     setShowModal(true);  
   }
 
@@ -50,16 +59,30 @@ const NewFile = () => {
     if (node.children) {
       node.toggled = toggled;
     }
+    
     setCursor(node);
     setData(Object.assign({}, data))
+    node.children ? setIsFolder(true) : setIsFolder(false);
 
     if (importMode === '1') {
-      console.log("json mode")
+      setParentId(node.fileId);
     } else if (importMode === '2') {
-      console.log("import mode - set content")
-      setFilename(node.name);
-      setFileContent(JSON.stringify(node.content, null, 4));
-      setFileId(node.fileId);
+      if (node.content.length === 0) {
+        setParentId(node.fileId);
+        return 
+      }
+      if (confirm(`import ${node.name}?`)) { // ok
+        if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
+          setFileContent(JSON.stringify(node.content, null, 4));
+        } else {
+          const prev = JSON.parse(fileContent);
+          node.content.forEach(el => {
+            prev.push(el)
+          })
+          setFileContent(JSON.stringify(prev, null, 4));
+        }
+      }
+      return
     }
   }
   
@@ -72,34 +95,33 @@ const NewFile = () => {
   });
 
   const onChangeRadio = useCallback((e) => {
-    if (e.target.value === '1') {
-      alert("JSON mode selected");
-    } else if (e.target.value === '2') {
-      alert("Import mode selected")
-    }
     setImportMode(e.target.value);
-  })
+  });
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW
+    // TODO: add JSON validator logic here before SAVE + PREVIEW 
     // UserId will be '1' in the testing phase so we can pass fake userId to db
-    // jsonValidator()
+
+    // jsonValidator(fileContent)
+    if (!isFolder) {
+      alert("Please select the parent folder, not files");
+      return;
+    }
+
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
-        parentId: fileId,
+        parentId: parentId,
         name: filename,
-        content: [fileContent],
-        userId: '1'
+        content: JSON.parse(fileContent),
+        fileId: 100,
+        userId: 1
       }
     })
-  }, [fileId, filename, fileContent, userId])
+  }, [parentId, filename, fileContent, userId])
 
-  // const jsonValidator = (content) => {
-  //   console.log(content)
-  // }
-
+  
   const copyText = () => {
     navigator.clipboard.writeText(fileContent).then(()=>{
       alert('Copying to clipboard was successful');
@@ -118,10 +140,10 @@ const NewFile = () => {
           <h1>File Content</h1>
           <Form onSubmit={onSubmitHandler}>
             <label><strong>File Name</strong></label>
-            <Input value={filename} onChange={onChangeFileName} />
+            <Input value={filename} onChange={onChangeFileName} required />
             <label><strong>Content</strong></label>
             <div style={{padding: '10px 0'}}>
-              <Radio.Group defaultValue="a" buttonStyle="solid" onChange={onChangeRadio}>
+              <Radio.Group defaultValue="1" buttonStyle="solid" onChange={onChangeRadio}>
                 <Radio.Button value="1">JSON MODE</Radio.Button>
                 <Radio.Button value="2">Import Mode</Radio.Button>
               </Radio.Group>
@@ -133,7 +155,7 @@ const NewFile = () => {
           </Form>
         </Content>
       </Layout>
-      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} /> 
+      {showModal && <Modal onClose={closeModal} fileJson={fileJson} />}
     </div>
   );
 };

@@ -1,15 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import DefaultBanner from '../frc/banner/banner16by9/index.jsx';
-
+import SimpleGallery from '../frc/banner/simple-gallery/index.jsx';
+import TopBanner from '../frc/banner/topbanner/index.jsx';
+import TopBannerCarousel from '../frc/banner/topbanner-carousel/index.jsx';
+import Resize from '../frc/global/resize/index.js';
+import PageDivider from '../frc/global/text/text-content/page-divider';
+import DkNavigation from '../frc/banner/dk-navigation';
+import GiftServices from '../frc/flagship/gift-services';
+import MwRunway from '../frc/michaels-world/mw-runway';
+import MwTravelDiaries from '../frc/michaels-world/mw-travel-diaries';
+import LookBook from '../frc/michaels-world/lookBook';
+import ArrowButton from '../frc/global/button/arrow';
+import CloseButton from '../frc/global/button/close';
+import Modal from '../frc/global/modal';
+import Grid from '../frc/global/grid';
+import Carousel from '../frc/global/carousel';
+import Countdown from '../frc/flagship/countdown';
+import Lookback from '../frc/flagship/lookback';
+import Columns from '../frc/columns';
+import ParallaxFixedParagraph from '../frc/parallax/parallax-fixed-Paragraph';
+import ParallaxFixedBackground from '../frc/parallax/parallax-fixed-background';
 
 const ModalContainer = styled.div`
- ${props => props.show && css`
-   display: flex;
-  `}
-  ${props => !props.show && css`
-     display: none;
-  `}
+  display: flex;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -176,7 +190,7 @@ const renderJSONComponents = (dataObj, isMobile, key, ref) => {
 
 //mk-style.min has css rules that are necessary for proper component rendering i.e. picture>img width: 100%
 
-const Modal = ({ show = false, onClose, fileJson }) => {
+const ModalPreview = ({ onClose, fileJson }) => {
   const ContentContainer = useRef(null);
 
   const copyHtml = () => {
@@ -194,7 +208,7 @@ const Modal = ({ show = false, onClose, fileJson }) => {
 
   if(!fileJson) {
     return (
-      <ModalContainer show={show}>
+      <ModalContainer>
       <ModalClose onClick={onClose}>X</ModalClose>
     </ModalContainer>
     );
@@ -216,9 +230,9 @@ const Modal = ({ show = false, onClose, fileJson }) => {
 // }
   return (
   <div>  
-  	<ModalContainer show={show}>
-    <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
-    <ModalHeader>PREVIEW</ModalHeader>
+  	<ModalContainer>
+      <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
+      <ModalHeader>PREVIEW</ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
       <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
     </ModalContainer>
@@ -228,6 +242,6 @@ const Modal = ({ show = false, onClose, fileJson }) => {
 }
 
 
-export default Modal;
+export default ModalPreview;
 
 

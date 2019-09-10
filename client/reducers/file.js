@@ -1,3 +1,5 @@
+import { updateState } from '../utils';
+
 export const initialState = {
   Files: {},
   addFileErrorReason: '',
@@ -7,9 +9,9 @@ export const initialState = {
   fileLoadded: false
 }
 
-export const ADD_FILE_REQUEST = 'ADD_POST_REQUEST';
-export const ADD_FILE_SUCCESS = 'ADD_POST_SUCCESS';
-export const ADD_FILE_FAILURE = 'ADD_POST_FAILURE';
+export const ADD_FILE_REQUEST = 'ADD_FILE_REQUEST';
+export const ADD_FILE_SUCCESS = 'ADD_FILE_SUCCESS';
+export const ADD_FILE_FAILURE = 'ADD_FILE_FAILURE';
 
 export const LOAD_ALL_FILE_REQUEST = 'LOAD_ALL_FILE_REQUEST';
 export const LOAD_ALL_FILE_SUCCESS = 'LOAD_ALL_FILE_SUCCESS';
@@ -334,20 +336,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingFile: true,
-        addFileErrorReason: '',
         fileAdded: false,
+        addFileErrorReason: '',
       };
     };
     case ADD_FILE_SUCCESS: {
-      console.log("here")
+      const newFiles = updateState(state.Files, action.data);
       return {
         ...state,
         isAddingFile: false,
         fileAdded: true,
-        // File: {
-        //   ...dummyFile
-        // }
-        File: dummyFile
+        File: {...newFiles}
       }
     };
     case ADD_FILE_FAILURE: {
@@ -363,26 +362,5 @@ export default (state = initialState, action) => {
         ...state
       }
     }
-  }
-}
-
-
-const findNode = (id, currentNode) => {
-  var i,
-      currentChild,
-      result;
-  if (id == currentNode.fileId) {
-    return currentNode;
-  } else {
-    if (currentNode.children) {
-      for (i = 0; i < currentNode.children.length; i += 1) {
-        currentChild = currentNode.children[i];
-        result = findNode(id, currentChild);
-        if (result !== false) {
-          return result;
-        }
-      }
-    }
-    return false;
   }
 }

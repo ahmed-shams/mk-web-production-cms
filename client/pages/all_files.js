@@ -107,7 +107,7 @@ const AllFiles = () => {
           </div>
         </Content>
       </Layout>
-      <Modal show={showModal} onClose={closeModal} fileJson={fileJson} copyHtml={copyText}/> 
+      {showModal && <Modal onClose={closeModal} fileJson={fileJson} copyHtml={copyText} />}
     </div>
   );
 };

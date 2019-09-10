@@ -18,14 +18,14 @@ const SignUp = () => {
   const [password, onChangePassword] = useInput('');
   const [email, onChangeEmail] = useInput('');
   const dispatch = useDispatch();
-  const { isSigningUp, me } = useSelector(state => state.user);
+  const { isSigningUp, isSignedUp } = useSelector(state => state.user);
 
   useEffect(() => {
-    if (me) {
-      alert("Navigating back to main page after sign up");
-      Router.push('/')
+    if(isSignedUp) {
+      alert("Sign Up was successful. Please login with your id and password to use the app. Redirecting to Login Page...");
+      Router.push('/user/login');
     }
-  }, [me && me.id])
+  }, [isSignedUp]);
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();

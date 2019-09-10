@@ -1,5 +1,5 @@
 import React from 'react';
-import Generator from 'components/basic/rich-text-component';
+import Generator from '../../rich-text-component/index.jsx';
 
 const Debug = false;
 const MobileSize = 768;
