@@ -318,10 +318,9 @@ export default (state = initialState, action) => {
       };
     };
     case LOAD_ALL_FILE_SUCCESS: {
-      console.log("Actiondata: ", action.data);
       return {
         ...state,
-        Files: {...action.data[0]},
+        Files: action.data,
         isLoadingFile: false,
         fileLoadded: true
       };
@@ -342,14 +341,19 @@ export default (state = initialState, action) => {
       };
     };
     case ADD_FILE_SUCCESS: {
-      // add logic to handle there;s no parent in updateState
+      // add logic to handle there;s no parent in updateState 
+      // is folder then add children here'
+      // console.log("action data here: ", action.data);
+      // const data = Object.assign(action.data, {children: []})
+      // console.log("data: ", data);
+      console.log("data in reducer: ", action.data);
       const newFiles = updateState(state.Files, action.data);
-      console.log("new files: ", newFiles);
+      // console.log("new files: ", newFiles);
       return {
         ...state,
         isAddingFile: false,
         fileAdded: true,
-        Files: {...newFiles}
+        Files: newFiles
       }
     };
     case ADD_FILE_FAILURE: {

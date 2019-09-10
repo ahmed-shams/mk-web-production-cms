@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     parentId: {
       type: DataTypes.INTEGER
+    },
+    isFolder: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     charset: 'utf8mb4',

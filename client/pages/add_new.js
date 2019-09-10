@@ -26,6 +26,7 @@ const NewFile = () => {
     if (fileAdded) {
       setFileContent('');
       setFilename('');
+      setData(Files);
     }
   }, [fileAdded === true]);
 
@@ -62,7 +63,7 @@ const NewFile = () => {
     
     setCursor(node);
     setData(Object.assign({}, data))
-    node.children ? setIsFolder(true) : setIsFolder(false);
+    node.isFolder ? setIsFolder(true) : setIsFolder(false);
 
     if (importMode === '1') {
       setParentId(node.id);
@@ -84,7 +85,7 @@ const NewFile = () => {
           setFileContent(JSON.stringify(prev, null, 4));
         }
       }
-      console.log(parentId)
+      console.log("parentId: ", parentId);
       return
     }
   }
@@ -118,8 +119,8 @@ const NewFile = () => {
         parentId: parentId,
         name: filename,
         content: JSON.parse(fileContent),
-        fileId: 100,
-        userId: userId
+        userId: userId,
+        isFolder: false
       }
     })
   }, [parentId, filename, fileContent, userId])

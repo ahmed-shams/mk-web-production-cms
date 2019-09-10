@@ -26,7 +26,7 @@ const AllFiles = () => {
       type: LOAD_ALL_FILE_REQUEST
     })
     setData(Files);
-  }, [Files])
+  }, [])
 
   const closeModal = (e) => {
     setfileJson(fileContent);
@@ -59,7 +59,7 @@ const AllFiles = () => {
     //   data: node.id
     // })
     setFilename(node.name);
-    if (node.content) { setFileContent(JSON.stringify(node.content, null, 4));}
+    if (node.content) { setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));}
   }
   
   const onChangeFileName = useCallback((e) => {
