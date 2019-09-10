@@ -123,13 +123,13 @@ function buildHierarchy(arry) {
             p = item.parentId,
             target = !p ? roots : (children[p] || (children[p] = []));
 
-        target.push({ value: item });
+        target.push(item.dataValues);
     }
 
     // function to recursively build the tree
     var findChildren = function(parent) {
-        if (children[parent.value.id]) {
-            parent.children = children[parent.value.id];
+        if (children[parent.id]) {
+            parent.children = children[parent.id];
             for (var i = 0, len = parent.children.length; i < len; ++i) {
                 findChildren(parent.children[i]);
             }
@@ -141,5 +141,5 @@ function buildHierarchy(arry) {
         findChildren(roots[i]);
     }
 
-    return roots;
+    return roots[0];
 }
