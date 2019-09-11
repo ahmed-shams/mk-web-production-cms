@@ -101,6 +101,7 @@ class ParallaxFixedBackground extends Component {
     }
   }
   imageContent(data) {
+    console.log('imgContent parallaxFixedBackground ', data);
     const { imgInfo } = data.imageOptions;
     if (imgInfo && imgInfo.link_url) {
       return (

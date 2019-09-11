@@ -48,7 +48,7 @@ const TypeContainer = styled(TextBox.withComponent('div'))`
       width: 33.33333%;
     }
   `}
-   ${props => props.toi === "holiday-bottom" && css`
+   ${props => props.toi === "cta-bottom" && css`
       position: absolute;
       bottom: 0 !important;
     @media (min-width: 768px) {  
@@ -56,16 +56,9 @@ const TypeContainer = styled(TextBox.withComponent('div'))`
       left: 33.33333%;
       transform: translateY(0%) !important;
       padding-bottom: 0 !important;
-    }  
-
-    @media (max-width: 767) and (min-width: 500px) {
-      width: 66.66666%;
-      left: 33.33333%;
-      transform: translateY(0%) !important;
-      padding-bottom: 0 !important;
     }
 
-    @media (max-width: 499px) {
+    @media (max-width: 767px) {
       width: 100%;
       left: 0;
       transform: translateY(0%) !important;

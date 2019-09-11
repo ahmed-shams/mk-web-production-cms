@@ -77,7 +77,7 @@ const CtaHoliday = ({data}) => {
   return (
     <CtaContainer>
       <FirstCta showmobile={cta.show_mobile_only} href={cta.link} bg={cta.background} colorprop={data.color} aria-label={cta.aria_label} data-icid={cta.data_icid}>
-        <Cta className={`${data.font_family}`} color={cta.color}>{cta.text}</Cta>
+        <Cta className={`${data.font_family}`} color={data.color}>{cta.text}</Cta>
       </FirstCta>
     </CtaContainer>
   );
