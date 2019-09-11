@@ -1,9 +1,0 @@
-
-# change the name of this file to remoteEnv.yml and fill in your values (after anme change file will be git ignored)
-# npm run deploy script will source this environment for lambda running on AWS
-
-COOKIE_SECRET: xxxx
-DB_PASSWORD: xxx
-DB_HOST: xxx 
-DB_USER: xxx
-

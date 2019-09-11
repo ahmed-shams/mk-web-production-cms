@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
     "deploy": "sls deploy --env_src=remoteEnv --verbose --aws-s3-accelerate",
-    "local-server": "sls offline start"
+    "local-server": "sls offline start --port 3001"
   },
   "author": "Sehwan Choi, Ahmed Shams",
   "license": "ISC",

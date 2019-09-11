@@ -31,7 +31,7 @@ app.use(expressSession({
   saveUninitialized: false,
   secret: process.env.COOKIE_SECRET,
   cookie: {
-    httpOnly: true, 
+    httpOnly: true,
     secure: false,
   },
   name: 'rnbck', // to change the cookie name in the front end dev tool
@@ -44,15 +44,15 @@ app.use(passport.session());
 app.use('/api/user', userAPIRouter);
 app.use('/api/file', fileAPIRouter);
 
-app.listen(3000, () => {
-  console.log('server is running on http://localhost:3000');
-});
+// app.listen(3000, () => {
+//   console.log('server is running on http://localhost:3000');
+// });
 
 module.exports.handler = serverless(app);
 
 // TOOD:
-// 1. route setup 
+// 1. route setup
 // 2. check if client can hit the server (login request)
-// 3. implement login 
+// 3. implement login
 // 4. implement file upload - front + back
-// 5. 
+// 5.
