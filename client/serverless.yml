@@ -6,7 +6,7 @@ provider:
   memorySize: 512
 
 stage: dev
-region: eu-west-1
+region: eu-east-1
 
 plugins:
   - serverless-nextjs-plugin
