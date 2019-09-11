@@ -4,9 +4,11 @@ import { LOAD_ALL_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button } from 'antd';
 const { Content, Sider } = Layout;
-const { TextArea } = Input; 
+const { TextArea } = Input;
 import { useInput } from './user/login';
 import Modal from  '../components/app/Modal.jsx';
+import DiffModal from  '../components/app/DiffModal.jsx';
+
 
 // TODO: LOAD ALL FILE AND RENDER TREE VIEW + TABLE VIEW + ADD CLICK EVENT
 const AllFiles = () => {
@@ -20,7 +22,7 @@ const AllFiles = () => {
   const [fileContent, setFileContent] = useState('');
   const [fileJson, setfileJson] = useState('');
   const [showModal, setShowModal] = useState(false);
-  
+  const [showDiffModal, setShowDiffModal] = useState(false);
   useEffect(() => {
     dispatch({
       type: LOAD_ALL_FILE_REQUEST
@@ -30,7 +32,7 @@ const AllFiles = () => {
 
   const closeModal = (e) => {
     setfileJson(fileContent);
-    setShowModal(false);  
+    setShowModal(false);
   }
 
   const openModal = (e) => {
@@ -39,7 +41,12 @@ const AllFiles = () => {
       return;
     }
     setfileJson(fileContent);
-    setShowModal(true);  
+    setShowModal(true);
+  }
+
+  const toggleDiffModal = (e) => {
+    console.log("in toggle", !showDiffModal);
+    setShowDiffModal(!showDiffModal);
   }
 
   const onToggle = (node, toggled) => {
@@ -61,7 +68,7 @@ const AllFiles = () => {
     setFilename(node.name);
     if (node.content) { setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));}
   }
-  
+
   const onChangeFileName = useCallback((e) => {
     setFilename(e.target.value);
   });
@@ -82,7 +89,7 @@ const AllFiles = () => {
     e.preventDefault();
     alert(e.target)
   }
-    
+
   return (
     <div>
       <Layout>
@@ -103,11 +110,13 @@ const AllFiles = () => {
 
           <h2 style={{paddingTop: '50px'}} >Revision History</h2>
           <div>
-            <p>Editted | </p>
+            <p>Editted | <Button type='primary' style={{marginRight: '10px'}} onClick={toggleDiffModal}>View Diff</Button></p>
           </div>
         </Content>
+
       </Layout>
       {showModal && <Modal onClose={closeModal} fileJson={fileJson} copyHtml={copyText} />}
+      {showDiffModal && <DiffModal onClose={toggleDiffModal} />}
     </div>
   );
 };
