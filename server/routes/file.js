@@ -144,9 +144,10 @@ function buildHierarchy(arry) {
 
 	root = {
 		"id": -1,
-		"name":"root",
+		"name":"Root-FRC-Folder",
 		"toggled": "false",
-		"children": roots
+		"children": roots,
+		"isFolder": 0
 	}
 	console.log(root)
     return root;
