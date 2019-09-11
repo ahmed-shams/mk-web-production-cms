@@ -4,10 +4,13 @@ export const jsonValidator = (content) => {
 
 
 export const updateState = (original, newData) => {
+  if (isEmpty(original)) {
+    return newData;
+  }
   let i;
-  if (original.fileId === newData.parentId) {
+  if (original.id === newData.parentId) {
     original.children.push(newData)
-    return
+    return original;
   } else {
     if (original.children) {
       for (i=0; i < original.children.length; i++) {
@@ -18,4 +21,6 @@ export const updateState = (original, newData) => {
   return original;
 };
 
-  
+export const isEmpty = (obj) => {
+  return Object.keys(obj).length === 0;
+}

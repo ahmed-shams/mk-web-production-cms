@@ -6,12 +6,21 @@ export const initialState = {
   isAddingFile: false,
   fileAdded: false,
   isLoadingFile: false,
-  fileLoadded: false
+  fileLoadded: false,
+  revisions: []
 }
 
 export const ADD_FILE_REQUEST = 'ADD_FILE_REQUEST';
 export const ADD_FILE_SUCCESS = 'ADD_FILE_SUCCESS';
 export const ADD_FILE_FAILURE = 'ADD_FILE_FAILURE';
+
+export const EDIT_FILE_REQUEST = 'EDIT_FILE_REQUEST';
+export const EDIT_FILE_SUCCESS = 'EDIT_FILE_SUCCESS';
+export const EDIT_FILE_FAILURE = 'EDIT_FILE_FAILURE';
+
+export const LOAD_FILE_REQUEST = 'LOAD_FILE_REQUEST';
+export const LOAD_FILE_SUCCESS = 'LOAD_FILE_SUCCESS';
+export const LOAD_FILE_FAILURE = 'LOAD_FILE_FAILURE';
 
 export const LOAD_ALL_FILE_REQUEST = 'LOAD_ALL_FILE_REQUEST';
 export const LOAD_ALL_FILE_SUCCESS = 'LOAD_ALL_FILE_SUCCESS';
@@ -320,7 +329,7 @@ export default (state = initialState, action) => {
     case LOAD_ALL_FILE_SUCCESS: {
       return {
         ...state,
-        Files: dummyFile,
+        Files: action.data,
         isLoadingFile: false,
         fileLoadded: true
       };
@@ -346,7 +355,7 @@ export default (state = initialState, action) => {
         ...state,
         isAddingFile: false,
         fileAdded: true,
-        File: {...newFiles}
+        Files: newFiles
       }
     };
     case ADD_FILE_FAILURE: {
@@ -356,6 +365,53 @@ export default (state = initialState, action) => {
         fileAdded: false,
         addFileErrorReason: action.error
       }
+    };
+    case EDIT_FILE_REQUEST: {
+      return {
+        ...state,
+        isEditingFile: true,
+        fileEditted: false,
+        editFileErrorReason: '',
+      };
+    };
+    case EDIT_FILE_SUCCESS: {
+      const newFiles = updateState(state.Files, action.data);
+      return {
+        ...state,
+        isEditingFile: false,
+        fileEditted: true,
+        Files: newFiles
+      }
+    };
+    case EDIT_FILE_FAILURE: {
+      return {
+        ...state,
+        isEditingFile: false, 
+        fileEditted: false,
+        editFileErrorReason: action.error
+      }
+    };
+    case LOAD_FILE_REQUEST: {
+      return {
+        ...state,
+        isLoadingFile: true
+      };
+    };
+    case LOAD_FILE_SUCCESS: {
+      console.log("action data in load file success: ", action.data);
+      return {
+        ...state,
+        revisions: action.data,
+        isLoadingFile: false,
+        fileLoadded: true
+      };
+    };
+    case LOAD_FILE_FAILURE: {
+      return {
+        ...state,
+        isLoadingFile: false,
+        fileLoadded: false
+      };
     };
     default: {
       return {
