@@ -76,7 +76,8 @@ const NewFile = () => {
       }
       if (confirm(`import ${node.name}?`)) { // ok
         if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
-          setFileContent(JSON.stringify(node.content, null, 4));
+          // setFileContent(JSON.stringify(node.content, null, 4));
+          setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));
         } else {
           const prev = JSON.parse(fileContent);
           node.content.forEach(el => {

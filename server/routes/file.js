@@ -3,26 +3,6 @@ const router = express.Router();
 const db = require('../models');
 const { isLoggedIn } = require('./middleware');
 
-// retrieve specific file and all revisions from DB
-// request body: fileId
-router.get('/', async (req, res) => {
-  try {
-	const file = await db.File.findOne({
-	  where: { id: req.body.fileId }
-	});
-
-	const revisions = await db.Revision.findAll({
-	  where: {fileId: req.body.fileId}
-	})
-
-	return res.status(200).json({file,revisions});
-  } catch (e) {
-	console.error(e);
-	// TODO: error handler
-	return next(e);
-  }
-});
-
 // Retrieve all files in a hierarchy tree
 router.get('/nav', async (req, res) => {
   try {
@@ -73,19 +53,20 @@ router.put('/', isLoggedIn, async (req, res, next) => {
 
 	// Insert old content into Revisions
 	const revisionInsert = await db.Revision.create({
-	  content: oldContent.content,
+	  content: JSON.stringify(JSON.parse(oldContent.content)),
 	  name: oldContent.name,
-	  UserId: req.body.userId,
+	  UserId: req.user.id,
 	  fileId: req.body.fileId,
 	  isFolder: req.body.isFolder
 	});
 
 	// Insert New Content into Files
 	const newFile = await db.File.update(
-	  {content: req.body.content},
+	  {content: JSON.stringify(req.body.content)},
 	  {where: {Id: req.body.fileId}
 	});
-
+	console.log("new file: -----------------------------------------------------------------------------------------");
+	console.log(newFile[0])
 	return res.status(200).json({'entriesUpdated': newFile[0]});
   } catch (e) {
 	console.error(e);
@@ -103,6 +84,22 @@ router.delete('/', isLoggedIn, async (req, res, next) => {
 	});
 
 	return res.status(200).json({'entriesDeleted': file[0]});
+  } catch (e) {
+	console.error(e);
+	// TODO: error handler
+	return next(e);
+  }
+});
+
+// retrieve specific file and all revisions from DB
+// request body: fileId
+router.get('/:id', async (req, res) => {
+  console.log("load curr file id here: ", req.params.id);
+  try {
+	const file = await db.File.findOne({ where: { id: req.params.id }});
+	const revisions = await db.Revision.findAll({where: { fileId: req.params.id }})
+	
+	return res.status(200).json({file,revisions});
   } catch (e) {
 	console.error(e);
 	// TODO: error handler
