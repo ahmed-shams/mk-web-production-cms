@@ -4,8 +4,13 @@ provider:
   name: aws
   runtime: nodejs8.10
   memorySize: 512
+  environment:
+    COOKIE_SECRET: hello
+    DB_PASSWORD: cedrus123
+    DB_HOST: database-1.cluster-cwlp89mdindv.us-east-1.rds.amazonaws.com # ! TODO: use AWS secrets manager + rotate db uname/password
+    DB_USER: admin
 
-stage: dev
+stage: brian
 region: eu-east-1
 
 plugins:
@@ -23,3 +28,12 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
+    timeout: 15 #  very high bc cold starts are slow with lambda in VPC + auroura sls may be in sleep mode depending on settings
+
+    vpc:
+      securityGroupIds:
+        - sg-fb5c258d  # ! TODO make this dynamic based on acct / environment
+      subnetIds:
+        - subnet-755c4a11
+        - subnet-cd694bf2
+        - subnet-8adeefa5

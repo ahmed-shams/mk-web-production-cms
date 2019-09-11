@@ -11,7 +11,7 @@ const dotenv = require('dotenv');
 const db = require('./models');
 const userAPIRouter = require('./routes/user');
 const fileAPIRouter = require('./routes/file');
-const serverless = require("serverless-http");
+const serverless = require('serverless-http');
 
 dotenv.config();
 const app = express();
