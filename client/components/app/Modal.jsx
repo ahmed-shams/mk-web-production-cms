@@ -53,6 +53,9 @@ const ModalHeader= styled.div`
   width: 100%;
   left: 0;
   height: 200px;
+  @media (max-width: 768px) {
+    font-size: 25px;
+  }
 `
 
 const CopyHtml = styled.button`
