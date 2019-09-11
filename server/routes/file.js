@@ -142,5 +142,5 @@ function buildHierarchy(arry) {
         findChildren(roots[i]);
     }
 
-    return roots[0];
+    return roots;
 }
