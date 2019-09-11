@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Sequelize = require('sequelize');
 require('sequelize-hierarchy')(Sequelize);
 const env = process.env.NODE_ENV || 'development';

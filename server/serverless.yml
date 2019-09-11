@@ -1,16 +1,28 @@
 service: sls-cms-server-app
 
+custom:
+    env_src: ${opt:env_src, 'default'} # pass a CLI flag to serverless commands to change environment var source
+    # i.e. `sls deploy --env_src=testing` 
+
 provider:
+  stage: ${env:DEV_NAME, 'dev'} # if DEV_NAME is set it will deploy to that stage, defaults to stage=dev
   name: aws
   runtime: nodejs8.10
   memorySize: 512
+  # env file is sourced from the specified path
+  environment: ${file(config/${self:custom.env_src}.yml):}
 
-stage: dev
 region: eu-east-1
 
+plugins:
+  - serverless-offline
+
 functions:
+
+  # hello:
+  #   handler: index.handler
   app:
-    handler: app.server # reference the file and exported method
+    handler: index.handler # reference the file and exported method
     events: # events trigger lambda functions
       - http: # this is an API Gateway HTTP event trigger
           path: /
@@ -20,3 +32,12 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
+    timeout: 15 #  very high bc cold starts are slow with lambda in VPC + auroura sls may be in sleep mode depending on settings
+
+    vpc:  # TODO make this dynamic based on acct / environment
+      securityGroupIds:
+        - sg-0ef6d172 
+      subnetIds:
+        - subnet-4f8f012a
+        - subnet-1aa12516
+        - subnet-b6efc89b
