@@ -11,7 +11,7 @@ module.exports = {
     operatorsAliases: false
   },
   deployedEnv: {
-    username: process.env.DB_USER || 'root',
+    username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: 'mk_cms_test',
     host: process.env.DB_HOST,
