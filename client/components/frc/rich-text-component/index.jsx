@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 // import {sanitizeHTML} from 'service/security';
 import SimpleGallery from '../banner/simple-gallery';
 // import YouTubeVideoPlay from '../edx/video/youtube-video';
-// import HtmlVideoPlay from '../edx/video/html-video';
-// import Video4by5 from '../edx/video/video4by5';
+import HtmlVideoPlay from '../video/html-video';
+import Video4by5 from '../video/video4by5';
 // /* eslint-enable */
 // import Json from './json.jsx'; // eslint-disable-line
 import ArrowButton from '../global/button/arrow';
@@ -16,7 +16,7 @@ import DefaultBanner from '../banner/banner16by9';
 import Countdown from '../flagship/countdown';
 import Lookback from '../flagship/lookback';
 import Columns from '../columns';
-// // import YouTubeVideoPlay from 'components/basic/edx/video/youtube-video';
+import YouTubeVideoPlay from '../video/youtube-video';
 import LookbackCarousel from '../flagship/lookback-carousel';
 // import Columns4by5 from '../flagship/columns4by5';
 import ParallaxFixedParagraph from '../parallax/parallax-fixed-Paragraph';

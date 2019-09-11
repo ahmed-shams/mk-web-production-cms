@@ -21,6 +21,9 @@ import Lookback from '../frc/flagship/lookback';
 import Columns from '../frc/columns';
 import ParallaxFixedParagraph from '../frc/parallax/parallax-fixed-Paragraph';
 import ParallaxFixedBackground from '../frc/parallax/parallax-fixed-background';
+import YouTubeVideoPlay from '../frc/video/youtube-video';
+import HtmlVideoPlay from '../frc/video/html-video';
+import Video4by5 from '../frc/video/video4by5';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -50,6 +53,9 @@ const ModalHeader= styled.div`
   width: 100%;
   left: 0;
   height: 200px;
+  @media (max-width: 768px) {
+    font-size: 25px;
+  }
 `
 
 const CopyHtml = styled.button`
@@ -87,10 +93,16 @@ const ModalClose = styled.div`
 `;
 
 
-const PreviewContent = styled.div`
+const PreviewContentContainer = styled.div`
   position: absolute;
   top: 200px;
-`
+`;
+
+const PreviewContent = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+`;
 
 
 const renderJSONComponents = (dataObj, isMobile, key, ref) => {
@@ -232,9 +244,9 @@ const ModalPreview = ({ onClose, fileJson }) => {
   <div>  
   	<ModalContainer>
       <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
-      <ModalHeader>PREVIEW</ModalHeader>
+      <ModalHeader className="modal-header">PREVIEW</ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
-      <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
+      <PreviewContentContainer><PreviewContent ref={ContentContainer}>{json}</PreviewContent></PreviewContentContainer>
     </ModalContainer>
   </div>
   );
