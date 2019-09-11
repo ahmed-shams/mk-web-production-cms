@@ -11,3 +11,4 @@ client/.next
 .DS_Store
 server/.serverless/sls-cms-server-app.zip
 server/.serverless/**
+server/config/remoteEnv.yml

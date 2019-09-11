@@ -1,18 +1,16 @@
 service: sls-cms-server-app
 
+custom:
+    env_src: ${opt:env_src, 'default'} # pass a CLI flag to serverless commands to change environment var source
+    # i.e. `sls deploy --env_src=testing` 
+
 provider:
-
-  stage: brian # TODO paramterize 
-
+  stage: ${env:DEV_NAME, 'dev'} # if DEV_NAME is set it will deploy to that stage, defaults to stage=dev
   name: aws
   runtime: nodejs8.10
   memorySize: 512
-  environment:
-    COOKIE_SECRET: hello
-    DB_PASSWORD: cedrus123 # TODO: use AWS secrets manager + rotate db uname/password
-    DB_HOST: database-1.cluster-cwlp89mdindv.us-east-1.rds.amazonaws.com  # TODO fetch dynamically
-    DB_USER: admin
-    NODE_ENV: deployedEnv
+  # env file is sourced from the specified path
+  environment: ${file(config/${self:custom.env_src}.yml):}
 
 region: eu-east-1
 
@@ -20,6 +18,9 @@ plugins:
   - serverless-offline
 
 functions:
+
+  # hello:
+  #   handler: index.handler
   app:
     handler: index.handler # reference the file and exported method
     events: # events trigger lambda functions
@@ -35,8 +36,8 @@ functions:
 
     vpc:  # TODO make this dynamic based on acct / environment
       securityGroupIds:
-        - sg-fb5c258d  
+        - sg-0ef6d172 
       subnetIds:
-        - subnet-755c4a11
-        - subnet-cd694bf2
-        - subnet-8adeefa5
+        - subnet-4f8f012a
+        - subnet-1aa12516
+        - subnet-b6efc89b
