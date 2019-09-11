@@ -5,7 +5,7 @@ module.exports = {
   "development": {
     "username": "root",
     "password": process.env.DB_PASSWORD,
-    "database": "mk_cms_test2",
+    "database": "mk_cms_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false

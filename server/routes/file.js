@@ -133,11 +133,19 @@ function buildHierarchy(arry) {
             }
         }
     };
-
+	
     // enumerate through to handle the case where there are multiple roots
     for (var i = 0, len = roots.length; i < len; ++i) {
         findChildren(roots[i]);
     }
 
-    return roots[0];
+	root = {
+		"id": -1,
+		"name":"Root-FRC-Folder",
+		"toggled": "false",
+		"children": roots,
+		"isFolder": 0
+	}
+	console.log(root)
+    return root;
 }
