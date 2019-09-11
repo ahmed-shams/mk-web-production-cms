@@ -136,11 +136,18 @@ function buildHierarchy(arry) {
             }
         }
     };
-
+	
     // enumerate through to handle the case where there are multiple roots
     for (var i = 0, len = roots.length; i < len; ++i) {
         findChildren(roots[i]);
     }
 
-    return roots;
+	root = {
+		"id": -1,
+		"name":"root",
+		"toggled": "false",
+		"children": roots
+	}
+	console.log(root)
+    return root;
 }
