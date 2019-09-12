@@ -47,8 +47,11 @@ const NewFile = () => {
       alert('Please enter JSON');
       return;
     }
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
+      return;
+    } 
     setfileJson(fileContent);
-    // jsonValidator(fileContent);
     setShowModal(true);  
   }
 

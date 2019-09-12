@@ -4,27 +4,26 @@ import { LOAD_ALL_FILE_REQUEST, LOAD_FILE_REQUEST, EDIT_FILE_REQUEST } from '../
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button } from 'antd';
 const { Content, Sider } = Layout;
-const { TextArea } = Input; 
+const { TextArea } = Input;
 import { useInput } from './user/login';
 import Modal from  '../components/app/Modal.jsx';
 import DiffModal from  '../components/app/DiffModal.jsx';
 
 
-// TODO: LOAD ALL FILE AND RENDER TREE VIEW + TABLE VIEW + ADD CLICK EVENT
 const AllFiles = () => {
   const dispatch = useDispatch();
-  const { Files, revisions } = useSelector(state => state.file);
+  const { Files, revisions, fileEditted } = useSelector(state => state.file);
   const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
-  // const [json, setJson] = useState({});
-  // const [filename, onChangeFileName] = useInput('');
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
   const [fileId, setFileId] = useState('');
   const [fileJson, setfileJson] = useState('');
   const [showModal, setShowModal] = useState(false);
-  // const [revision, setRevision] = useState([]);
   const [showDiffModal, setShowDiffModal] = useState(false);
+  const [prevJson, setPrevJson] = useState('');
+  const [currJson, setCurrJson] = useState('');
+
   useEffect(() => {
     dispatch({
       type: LOAD_ALL_FILE_REQUEST
@@ -32,7 +31,18 @@ const AllFiles = () => {
     setData(Files);
   }, [])
 
-  const closeModal = (e) => {
+  useEffect(() => { // after successful file edit
+    if (fileEditted) {
+      dispatch({
+        type: LOAD_FILE_REQUEST,
+        data: {
+          fileId: fileId
+        }
+      });
+    }
+  }, [fileEditted === true]);
+
+  const closeModal = () => {
     setfileJson(fileContent);
     setShowModal(false);
   }
@@ -51,6 +61,10 @@ const AllFiles = () => {
     setShowDiffModal(!showDiffModal);
   }
 
+  const toggleDiffModal = () => {
+    setShowDiffModal(!showDiffModal);
+  }
+
   const onToggle = (node, toggled) => {
     if (cursor) {
       cursor.active = false;
@@ -64,11 +78,7 @@ const AllFiles = () => {
     setFilename(node.name);
     setFileId(node.id);
     if (node.content) { setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));}
-
-
-    console.log("fileid: ", node.id);
-    // dispatch : LOAD_FILE_REQUEST then set revision 
-    dispatch({
+    dispatch({ // set revision
       type: LOAD_FILE_REQUEST,
       data: {
         fileId: node.id
@@ -92,23 +102,10 @@ const AllFiles = () => {
     })
   }
 
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   alert(e.target)
-  // }
-
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW 
-    // UserId will be '1' in the testing phase so we can pass fake userId to db
-
+    // TODO: add JSON validator logic here before SAVE + PREVIEW
     // jsonValidator(fileContent)
-    // if (!isFolder) {
-    //   alert("Please select the parent folder, not files");
-    //   return;
-    // }
-
-    console.log("file id: ", fileId);
 
     dispatch({
       type: EDIT_FILE_REQUEST,
@@ -121,9 +118,10 @@ const AllFiles = () => {
   }, [filename, fileContent, fileId])
 
   const renderDiffView = useCallback(content => () => {
-    console.log(content);
-  }, [])
-
+    setPrevJson(JSON.stringify(JSON.parse(content), null, 4));
+    setCurrJson(fileContent);
+    setShowDiffModal(!showDiffModal);
+  }, [fileContent])
 
   const quickPreview = useCallback(content => () => {
     if(!content || content==='') {
@@ -131,9 +129,8 @@ const AllFiles = () => {
       return;
     }
     setfileJson(content);
-    setShowModal(true);  
+    setShowModal(true);
   }, []);
-  
 
   return (
     <div>
@@ -155,7 +152,7 @@ const AllFiles = () => {
 
           <h2 style={{paddingTop: '50px'}} >Revision History</h2>
           <div>
-            {revisions.map(el => (
+            {revisions.reverse().map(el => (
               <div key={el.id} style={{paddingBottom: '10px'}}>
                 <span>{el.name} - updated at {new Date(el.updatedAt).toISOString().slice(0, 20)}</span>
                 <Button type='primary' style={{marginLeft:'10px', marginRight: '10px'}} onClick={renderDiffView(el.content)}>See Difference</Button>
@@ -165,11 +162,12 @@ const AllFiles = () => {
             ))}
             <p>Editted | <Button type='primary' style={{marginRight: '10px'}} onClick={toggleDiffModal}>View Diff</Button></p>
           </div>
+          {/* <p>Editted | <Button type='primary' style={{marginRight: '10px'}} onClick={toggleDiffModal}>View Diff</Button></p> */}
         </Content>
 
       </Layout>
       {showModal && <Modal onClose={closeModal} fileJson={fileJson} copyHtml={copyText} />}
-      {showDiffModal && <DiffModal onClose={toggleDiffModal} />}
+      {showDiffModal && <DiffModal onClose={toggleDiffModal} old={prevJson} curr={currJson} />}
     </div>
   );
 };

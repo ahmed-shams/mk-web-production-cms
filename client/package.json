@@ -21,6 +21,7 @@
     "express-session": "^1.16.2",
     "foundation-sites": "^6.5.3",
     "intersection-observer": "^0.7.0",
+    "jsonlint": "^1.6.3",
     "morgan": "^1.9.1",
     "cowsay-browser": "^1.1.8",
     "next": "^9.0.1",
