@@ -154,7 +154,7 @@ const AllFiles = () => {
               </div>
             ))}
           </div>
-          <p>Editted | <Button type='primary' style={{marginRight: '10px'}} onClick={toggleDiffModal}>View Diff</Button></p>
+          {/* <p>Editted | <Button type='primary' style={{marginRight: '10px'}} onClick={toggleDiffModal}>View Diff</Button></p> */}
         </Content>
       </Layout>
       {showModal && <Modal onClose={closeModal} fileJson={fileJson} copyHtml={copyText} />}

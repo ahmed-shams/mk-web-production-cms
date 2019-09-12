@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled, { css } from 'styled-components';
 import ReactDiffViewer from 'react-diff-viewer'
 import { ModalContainer, ModalHeader, ModalClose, PreviewContent} from './Modal';
 
@@ -8,10 +7,10 @@ import { ModalContainer, ModalHeader, ModalClose, PreviewContent} from './Modal'
 const DiffModal = ({ onClose, old, curr }) => {
   const oldCode = `${old}`;
   const newCode = `${curr}`;
-  console.log("diff modal oldcode")
-  console.log(oldCode);
-  console.log("diff modal new code")
-  console.log(newCode);
+//   console.log("diff modal oldcode")
+//   console.log(oldCode);
+//   console.log("diff modal new code")
+//   console.log(newCode);
   return (
   	<ModalContainer>
       <ModalHeader>Diff View</ModalHeader>
