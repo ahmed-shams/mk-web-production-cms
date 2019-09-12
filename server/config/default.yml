@@ -1,0 +1,6 @@
+
+COOKIE_SECRET: hello
+DB_PASSWORD: mohamahm # TODO: use AWS secrets manager + rotate db uname/password
+DB_HOST: localhost  # TODO fetch dynamically
+DB_USER: root
+NODE_ENV: development
