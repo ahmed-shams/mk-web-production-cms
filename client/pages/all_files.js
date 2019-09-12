@@ -56,11 +56,6 @@ const AllFiles = () => {
     setShowModal(true);
   }
 
-  const toggleDiffModal = (e) => {
-    console.log("in toggle", !showDiffModal);
-    setShowDiffModal(!showDiffModal);
-  }
-
   const toggleDiffModal = () => {
     setShowDiffModal(!showDiffModal);
   }
