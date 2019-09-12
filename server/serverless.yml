@@ -2,7 +2,7 @@ service: sls-cms-server-app
 
 custom:
     env_src: ${opt:env_src, 'default'} # pass a CLI flag to serverless commands to change environment var source
-    # i.e. `sls deploy --env_src=testing` 
+    # i.e. `sls deploy --env_src=testing`
 
 provider:
   stage: ${env:DEV_NAME, 'dev'} # if DEV_NAME is set it will deploy to that stage, defaults to stage=dev
@@ -36,8 +36,8 @@ functions:
 
     vpc:  # TODO make this dynamic based on acct / environment
       securityGroupIds:
-        - sg-0ef6d172 
+        - sg-5216e11e
       subnetIds:
-        - subnet-4f8f012a
-        - subnet-1aa12516
-        - subnet-b6efc89b
+        - subnet-78e96a56
+        - subnet-1c880940
+        - subnet-2542166f

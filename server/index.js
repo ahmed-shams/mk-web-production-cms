@@ -44,9 +44,9 @@ app.use(passport.session());
 app.use('/api/user', userAPIRouter);
 app.use('/api/file', fileAPIRouter);
 
-// app.listen(3000, () => {
-//   console.log('server is running on http://localhost:3000');
-// });
+app.listen(3000, () => {
+  console.log('server is running on http://localhost:3000');
+});
 
 module.exports.handler = serverless(app);
 

@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 
 function loadFileAPI() {
-  return axios.get('http://localhost:3001/api/file/nav');
+  return axios.get('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/file/nav');
 }
 
 function* loadFile() {
@@ -39,7 +39,7 @@ function* watchLoadFile() {
 }
 
 function addFileAPI(fileData) {
-  return axios.post('http://localhost:3001/api/file', fileData, {
+  return axios.post('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/file', fileData, {
     withCredentials: true
   });
 }
@@ -78,7 +78,7 @@ function* watchAddFile() {
 }
 
 function editFileAPI(fileData) {
-  return axios.put('http://localhost:3001/api/file', fileData, {
+  return axios.put('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/file', fileData, {
     withCredentials: true
   });
 }
@@ -114,7 +114,7 @@ function* watchEditFile() {
 
 // Load current file
 function loadCurrFileAPI(id) {
-  return axios.get(`http://localhost:3001/api/file/${id}`);
+  return axios.get(`https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/file/${id}`);
 }
 
 function* loadCurrFile(action) {

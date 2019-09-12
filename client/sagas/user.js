@@ -19,7 +19,7 @@ const dummyUser = {
 
 function logInAPI(loginData) {
   console.log("loginData: ", loginData);
-  return axios.post('http://localhost:3001/api/user/login', loginData, {
+  return axios.post('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/login', loginData, {
     withCredentials: true,
   });
 }
@@ -27,12 +27,12 @@ function logInAPI(loginData) {
 function* logIn(action) {
   try {
     const result = yield call(logInAPI, action.data);
-    yield put({ 
+    yield put({
       type: LOG_IN_SUCCESS,
       // data: dummyUser
       data: result.data,
     });
-  } catch (e) { 
+  } catch (e) {
     console.error(e);
     yield put({
       type: LOG_IN_FAILURE,
@@ -46,17 +46,17 @@ function* watchLogIn() {
 
 function signUpAPI(signUpData) {
   console.log("signup data in saga: ", signUpData);
-  return axios.post('http://localhost:3001/api/user', signUpData);
+  return axios.post('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/user', signUpData);
 }
 
 function* signUp(action) {
   try {
     yield call(signUpAPI, action.data);
-    yield put({ 
+    yield put({
       type: SIGN_UP_SUCCESS,
 
     });
-  } catch (e) { 
+  } catch (e) {
     console.error(e);
     yield put({
       type: SIGN_UP_FAILURE,
@@ -79,10 +79,10 @@ function* logOut() {
   try {
     // yield call(logOutAPI);
     yield delay(2000);
-    yield put({ 
+    yield put({
       type: LOG_OUT_SUCCESS,
     });
-  } catch (e) { 
+  } catch (e) {
     console.error(e);
     yield put({
       type: LOG_OUT_FAILURE,

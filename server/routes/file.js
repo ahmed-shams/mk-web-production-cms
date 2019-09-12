@@ -49,7 +49,7 @@ router.post('/', async (req, res, next) => {
     const newFile = await db.File.create({
       content: JSON.stringify(req.body.content),
       name: req.body.name,
-      parentId: 0, //req.body.parentId,
+      parentId: req.body.parentId,
       UserId: req.body.userId
     });
     console.log(newFile);
