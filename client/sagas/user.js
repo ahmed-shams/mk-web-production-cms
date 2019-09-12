@@ -19,7 +19,7 @@ const dummyUser = {
 
 function logInAPI(loginData) {
   console.log("loginData: ", loginData);
-  return axios.post('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/login', loginData, {
+  return axios.post('https://h5lletpqa0.execute-api.us-east-1.amazonaws.com/dev/api/user/login', loginData, {
     withCredentials: true,
   });
 }

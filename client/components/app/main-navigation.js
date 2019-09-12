@@ -15,12 +15,12 @@ const MainNavigation = () => {
     setCurrent(e.key);
   }
 
-  // useEffect(() => {
-  //   if(!me) {
-  //     alert("Please login. Redirecting to login page...");
-  //     Router.push('/user/login');
-  //   }
-  // }, [me])
+  useEffect(() => {
+    if(!me) {
+      alert("Please login. Redirecting to login page...");
+      Router.push('/user/login');
+    }
+  }, [me])
 
   const onLogout = useCallback(() => {
     console.log("log out fn");

@@ -16,7 +16,7 @@
             { "ssr": true, "displayName": true, "preprocess": false }
           ]
         ],
-        "presets": ["next/babel", "es2015"]
+        "presets": ["next/babel"]
       }
     },
     "plugins": [
