@@ -19,10 +19,10 @@ db.sequelize.sync();
 passportConfig();
 
 app.use(morgan('dev'));
-app.use(cors({  // origin and credentials settings are needed to exchange cookies between frontend and backend.. axios withcredentials setting is needed in frontend code
-  origin: true,
-  credentials: true,
-}));
+// app.use(cors({  // origin and credentials settings are needed to exchange cookies between frontend and backend.. axios withcredentials setting is needed in frontend code
+//   origin: true,
+//   credentials: true,
+// }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
