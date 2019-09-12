@@ -22,7 +22,7 @@ import Columns from '../frc/columns';
 import ParallaxFixedParagraph from '../frc/parallax/parallax-fixed-Paragraph';
 import ParallaxFixedBackground from '../frc/parallax/parallax-fixed-background';
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
@@ -36,7 +36,7 @@ const ModalContainer = styled.div`
   align-items: center;
 `;
 
-const ModalHeader= styled.div`
+export const ModalHeader= styled.div`
   display: flex;
    justify-content: center;
   align-items: center;
@@ -70,7 +70,7 @@ const CopyHtml = styled.button`
   } 
 `
 
-const ModalClose = styled.div`  
+export const ModalClose = styled.div`  
   position: absolute;
   top: 20px;
   right: 20px;
@@ -86,12 +86,10 @@ const ModalClose = styled.div`
   }
 `;
 
-
-const PreviewContent = styled.div`
+export const PreviewContent = styled.div`
   position: absolute;
   top: 200px;
 `
-
 
 const renderJSONComponents = (dataObj, isMobile, key, ref) => {
     const compsArr = [];
@@ -194,7 +192,6 @@ const ModalPreview = ({ onClose, fileJson }) => {
   const ContentContainer = useRef(null);
 
   const copyHtml = () => {
-    console.log('in copyHtml ---->');
     let previewHTML='';
     if(ContentContainer && ContentContainer.current && ContentContainer.current.innerHTML) {
       previewHTML = ContentContainer.current.innerHTML;
@@ -202,7 +199,7 @@ const ModalPreview = ({ onClose, fileJson }) => {
     navigator.clipboard.writeText(previewHTML).then(()=>{
       alert('Copying to clipboard was successful');
     }, (e) => {
-      alert('error happened while trying to copy josn. please try again');
+      alert('error happened while trying to copy json. please try again');
     })
   }
 
@@ -216,18 +213,13 @@ const ModalPreview = ({ onClose, fileJson }) => {
   // console.log('in showModal show is ', show);
   // console.log('data ', data);
   // console.log('fileJson ', fileJson);
-  console.log('rendering modal ssv ', fileJson);
+  // console.log('rendering modal ssv ', fileJson);
   if(fileJson) {
-    console.log('in if', fileJson);
-    console.log('fileJson ', JSON.parse(fileJson));
+    // console.log('in if', fileJson);
+    // console.log('fileJson ', JSON.parse(fileJson));
   }
 
   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
-
-  // console.log('fileJson ', JSON.parse(fileJson));
-// if(fileJson) {
-//   let json = renderJSONComponents(JSON.parse(fileJson.toString()));
-// }
   return (
   <div>  
   	<ModalContainer>
