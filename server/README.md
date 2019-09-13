@@ -48,7 +48,7 @@ This happens because `deploy` runs the command `sls deploy --env_src=remoteEnv`.
 https://serverless.com/framework/docs/providers/aws/guide/variables#referencing-cli-options
 
 To configure your deployment do the following:    
-* change [config/remoteEnv.sample.yml](config/remoteEnv.sample.yml) to remoteEnv.yml (now it is git ignored)
+* make a copy of [config/remoteEnv.sample.yml](config/remoteEnv.sample.yml) and change the file name to remoteEnv.yml (now it is git ignored)
 * fill in values accordingly 
 
 when `sls offline` or `sls invoke` (or any sls command ) is run it will use /config/default.yml. Change the default values or create a new config file and pass its name to the cli to use it   
