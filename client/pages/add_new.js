@@ -26,6 +26,7 @@ const NewFile = () => {
     if (fileAdded) {
       setFileContent('');
       setFilename('');
+      setData(Files);
     }
   }, [fileAdded === true]);
 
@@ -34,7 +35,7 @@ const NewFile = () => {
       type: LOAD_ALL_FILE_REQUEST
     })
     setData(Files);
-  }, [Files])
+  }, [])
 
   const closeModal = (e) => {
     setfileJson('')
@@ -46,8 +47,12 @@ const NewFile = () => {
       alert('Please enter JSON');
       return;
     }
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
+      return;
+    } 
+    
     setfileJson(fileContent);
-    // jsonValidator(fileContent);
     setShowModal(true);  
   }
 
@@ -62,18 +67,21 @@ const NewFile = () => {
     
     setCursor(node);
     setData(Object.assign({}, data))
-    node.children ? setIsFolder(true) : setIsFolder(false);
+    node.isFolder ? setIsFolder(true) : setIsFolder(false);
 
     if (importMode === '1') {
-      setParentId(node.fileId);
+      setParentId(node.id);
+      console.log("parentId here: ", parentId);
     } else if (importMode === '2') {
       if (node.content.length === 0) {
-        setParentId(node.fileId);
+        setParentId(node.id);
+        console.log(parentId)
         return 
       }
       if (confirm(`import ${node.name}?`)) { // ok
         if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
-          setFileContent(JSON.stringify(node.content, null, 4));
+          // setFileContent(JSON.stringify(node.content, null, 4));
+          setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));
         } else {
           const prev = JSON.parse(fileContent);
           node.content.forEach(el => {
@@ -82,6 +90,7 @@ const NewFile = () => {
           setFileContent(JSON.stringify(prev, null, 4));
         }
       }
+      console.log("parentId: ", parentId);
       return
     }
   }
@@ -100,14 +109,10 @@ const NewFile = () => {
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW 
-    // UserId will be '1' in the testing phase so we can pass fake userId to db
-
-    // jsonValidator(fileContent)
-    if (!isFolder) {
-      alert("Please select the parent folder, not files");
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
       return;
-    }
+    } 
 
     dispatch({
       type: ADD_FILE_REQUEST,
@@ -115,8 +120,8 @@ const NewFile = () => {
         parentId: parentId,
         name: filename,
         content: JSON.parse(fileContent),
-        fileId: 100,
-        userId: 1
+        userId: userId,
+        isFolder: false
       }
     })
   }, [parentId, filename, fileContent, userId])

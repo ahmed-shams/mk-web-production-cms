@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_ALL_FILE_REQUEST, ADD_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button } from 'antd';
+import { isEmpty } from '../utils';
 const { Content, Sider } = Layout;
 
-const NewFile = () => {
+
+// have folder field in db. if (folder): add children array when returning a new state in Redux .. 
+
+const NewFolder = () => {
   const dispatch = useDispatch();
   const { Files, fileAdded } = useSelector(state => state.file);
   const { userId } = useSelector(state => state.user);
@@ -20,11 +24,16 @@ const NewFile = () => {
       type: LOAD_ALL_FILE_REQUEST
     })
     setData(Files);
-  }, [Files])
+    if (isEmpty(Files)) { // handle the case: there's no folder or file at all
+      setParentId(0);
+      setIsFolder(true);
+    }
+  }, [])
 
   useEffect(() => {
     if (fileAdded) {
       setFilename('');
+      setData(Files);
     }
   }, [fileAdded]);
 
@@ -38,8 +47,9 @@ const NewFile = () => {
     }
     setCursor(node);
     setData(Object.assign({}, data))
-    node.children ? setIsFolder(true) : setIsFolder(false);
-    setParentId(node.fileId);
+    node.isFolder ? setIsFolder(true) : setIsFolder(false);
+    setParentId(node.id);
+    console.log("current parent id: ", parentId);
   }
 
   const onChangeFileName = useCallback((e) => {
@@ -53,15 +63,15 @@ const NewFile = () => {
       return;
     }
 
+    // console.log("on submi handler: ", userId);
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
         parentId: parentId,
         name: filename,
-        fileId: 100,
-        userId: 1,
+        userId: userId,
         content: [],
-        children: []
+        isFolder: true
       }
     })
   }, [parentId, filename, userId])
@@ -85,4 +95,4 @@ const NewFile = () => {
   );
 };
 
-export default NewFile;
+export default NewFolder;

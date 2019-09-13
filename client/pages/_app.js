@@ -7,6 +7,7 @@ import withRedux from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
 import reducer from '../reducers';
 import createSagaMiddleWare from 'redux-saga';
+import withReduxSaga from 'next-redux-saga';
 import rootSaga from '../sagas';
 import '../utils/fake.css';
 
@@ -51,9 +52,9 @@ const configureStore = (initialState, options) => {
     !options.isServer && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
   );
   const store = createStore(reducer, initialState, enhancer);
-  sagaMiddleware.run(rootSaga);
+  store.sagaTask = sagaMiddleware.run(rootSaga);
   return store
 }
 
-export default withRedux(configureStore)(Layout);
+export default withRedux(configureStore)(withReduxSaga(Layout));
 
