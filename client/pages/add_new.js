@@ -47,8 +47,12 @@ const NewFile = () => {
       alert('Please enter JSON');
       return;
     }
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
+      return;
+    } 
+    
     setfileJson(fileContent);
-    // jsonValidator(fileContent);
     setShowModal(true);  
   }
 
@@ -105,14 +109,10 @@ const NewFile = () => {
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW 
-    // UserId will be '1' in the testing phase so we can pass fake userId to db
-
-    // jsonValidator(fileContent)
-    // if (!isFolder) {
-    //   alert("Please select the parent folder, not files");
-    //   return;
-    // }
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
+      return;
+    } 
 
     dispatch({
       type: ADD_FILE_REQUEST,

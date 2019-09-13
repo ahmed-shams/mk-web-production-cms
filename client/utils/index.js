@@ -1,9 +1,21 @@
-export const jsonValidator = (content) => {
-  console.log(content)
-};
-
+export const jsonValidator = (item) => {
+  // console.log("json validator");
+  item = typeof item !== "string" ? JSON.stringify(item) : item;
+  try {
+    item = JSON.parse(item);
+  } catch (e) {
+    console.dir(e);
+    console.log("e: ", e.message);
+    return false;
+  }
+  if (typeof item === "object" && item !== null) {
+    return true;
+  }
+  return false;
+}
 
 export const updateState = (original, newData) => {
+  console.log("-------------update state in utils-------------")
   if (isEmpty(original)) {
     return newData;
   }

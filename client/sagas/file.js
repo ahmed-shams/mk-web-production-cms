@@ -45,17 +45,13 @@ function addFileAPI(fileData) {
 }
 
 
-// function addCommentAPI(data) {
-//   return axios.post(`/post/${data.postId}/comment`, { content: data.content }, {
-//     withCredentials: true,
-//   });
-// }
-
 function* addFile(action) {
+  console.log("here add file")
   try {
     let data;
     const result = yield call(addFileAPI, action.data);
     data = result.data;
+    console.log("data: ", data);
     // folder check and add children
     if (result.data.isFolder) {
       console.log("data hitting here in is Folder after add file");
@@ -74,6 +70,7 @@ function* addFile(action) {
 }
 
 function* watchAddFile() {
+  console.log("watch add file");
   yield takeLatest(ADD_FILE_REQUEST, addFile);
 }
 
