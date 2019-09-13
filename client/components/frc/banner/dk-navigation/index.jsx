@@ -43,7 +43,7 @@ const getScrollY = () => {
   return (typeof window.scrollY === "undefined" ? window.pageYOffset : window.scrollY);
 };
 const getHeaderHeight = () => {
-  return (typeof document !== 'undefined' ? document.querySelector('.mk-web .header-container').offsetHeight : "");
+  return (typeof document !== 'undefined' ? 200 : "");
 };
 
 class DkNavigation extends Component {
