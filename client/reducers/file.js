@@ -350,6 +350,7 @@ export default (state = initialState, action) => {
       };
     };
     case ADD_FILE_SUCCESS: {
+      console.log("here in reducer add file success");
       const newFiles = updateState(state.Files, action.data);
       return {
         ...state,

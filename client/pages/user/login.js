@@ -25,7 +25,6 @@ const Login = () => {
 
   useEffect(() => {
     if (me) {
-      console.log("me nickname: ", me.nickname);
       alert("Login was successful. Now navigating back to homepage...");
       Router.push('/')
     }
@@ -44,7 +43,7 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      <Form onSubmit={onSubmitForm} styled={{ padding: '10px' }}>
+      <Form onSubmit={onSubmitForm} style={{ padding: '10px', minWidth: '320px' }}>
         <div>
           <label htmlFor='user-id'>id</label>
           <br />
@@ -56,7 +55,7 @@ const Login = () => {
           <Input name='user-password' type='password' value={password} onChange={onChangePassword} required />
         </div>
         <div style={{marginTop: '10px'}}>
-          <Button type='primary' htmlType='submit' loading={isLoggingIn}>Login</Button>
+          <Button type='primary' htmlType='submit' loading={isLoggingIn} style={{marginRight: '10px'}}>Login</Button>
           <Link href='/user/signup'><a><Button>Sign Up</Button></a></Link>
         </div>
       </Form>

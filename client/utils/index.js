@@ -1,5 +1,5 @@
 export const jsonValidator = (item) => {
-  console.log("json validator");
+  // console.log("json validator");
   item = typeof item !== "string" ? JSON.stringify(item) : item;
   try {
     item = JSON.parse(item);
@@ -12,9 +12,10 @@ export const jsonValidator = (item) => {
     return true;
   }
   return false;
-};
+}
 
 export const updateState = (original, newData) => {
+  console.log("-------------update state in utils-------------")
   if (isEmpty(original)) {
     return newData;
   }

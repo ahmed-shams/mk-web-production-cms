@@ -24,12 +24,12 @@ const AllFiles = () => {
   const [prevJson, setPrevJson] = useState('');
   const [currJson, setCurrJson] = useState('');
 
-  useEffect(() => {
-    dispatch({
-      type: LOAD_ALL_FILE_REQUEST
-    })
-    setData(Files);
-  }, [])
+  // useEffect(() => {
+  //   dispatch({
+  //     type: LOAD_ALL_FILE_REQUEST
+  //   })
+  //   setData(Files);
+  // }, [])
 
   useEffect(() => { // after successful file edit
     if (fileEditted) {
@@ -69,7 +69,7 @@ const AllFiles = () => {
       node.toggled = toggled;
     }
     setCursor(node);
-    setData(Object.assign({}, data))
+    // setData(Object.assign({}, data))
     setFilename(node.name);
     setFileId(node.id);
     if (node.content) { setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));}
@@ -131,7 +131,7 @@ const AllFiles = () => {
     <div>
       <Layout>
         <Sider>
-          {Files && <Treebeard data={data} onToggle={onToggle} />}
+          {Files && <Treebeard data={Files} onToggle={onToggle} />}
         </Sider>
         <Content style={{padding:'20px'}}>
           <h1>File Content</h1>
@@ -166,5 +166,13 @@ const AllFiles = () => {
     </div>
   );
 };
+
+
+AllFiles.getInitialProps = async (context) => {
+  context.store.dispatch({
+    type: LOAD_ALL_FILE_REQUEST
+  })
+}
+
 
 export default AllFiles;

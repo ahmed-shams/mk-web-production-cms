@@ -124,7 +124,7 @@ class SwiperSimpleGallery extends React.Component {
       speed: duration,
       allowSlideNext: true,
       allowSlidePrev: true,
-      autoHeight: true,
+      autoHeight: false,
       keyboard: {
         enabled: true,
         onlyInViewport: false

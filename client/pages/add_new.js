@@ -5,7 +5,7 @@ import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button, Radio } from 'antd';
 import Modal from  '../components/app/Modal.jsx';
 const { Content, Sider } = Layout;
-const { TextArea } = Input; 
+const { TextArea } = Input;
 import { jsonValidator } from '../utils';
 
 const NewFile = () => {
@@ -39,7 +39,7 @@ const NewFile = () => {
 
   const closeModal = (e) => {
     setfileJson('')
-    setShowModal(false);  
+    setShowModal(false);
   }
 
   const openModal = (e) => {
@@ -50,9 +50,10 @@ const NewFile = () => {
     if(!jsonValidator(fileContent)) {
       alert("there is error in JSON");
       return;
-    } 
+    }
+
     setfileJson(fileContent);
-    setShowModal(true);  
+    setShowModal(true);
   }
 
   const onToggle = (node, toggled) => {
@@ -63,7 +64,7 @@ const NewFile = () => {
     if (node.children) {
       node.toggled = toggled;
     }
-    
+
     setCursor(node);
     setData(Object.assign({}, data))
     node.isFolder ? setIsFolder(true) : setIsFolder(false);
@@ -75,7 +76,7 @@ const NewFile = () => {
       if (node.content.length === 0) {
         setParentId(node.id);
         console.log(parentId)
-        return 
+        return
       }
       if (confirm(`import ${node.name}?`)) { // ok
         if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
@@ -93,7 +94,7 @@ const NewFile = () => {
       return
     }
   }
-  
+
   const onChangeFileName = useCallback((e) => {
     setFilename(e.target.value);
   });
@@ -108,14 +109,10 @@ const NewFile = () => {
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW 
-    // UserId will be '1' in the testing phase so we can pass fake userId to db
-
-    // jsonValidator(fileContent)
-    // if (!isFolder) {
-    //   alert("Please select the parent folder, not files");
-    //   return;
-    // }
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
+      return;
+    }
 
     dispatch({
       type: ADD_FILE_REQUEST,
@@ -129,7 +126,7 @@ const NewFile = () => {
     })
   }, [parentId, filename, fileContent, userId])
 
-  
+
   const copyText = () => {
     navigator.clipboard.writeText(fileContent).then(()=>{
       alert('Copying to clipboard was successful');
