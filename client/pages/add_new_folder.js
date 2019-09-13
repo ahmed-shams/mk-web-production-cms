@@ -9,7 +9,7 @@ const { Content, Sider } = Layout;
 
 // have folder field in db. if (folder): add children array when returning a new state in Redux .. 
 
-const NewFile = () => {
+const NewFolder = () => {
   const dispatch = useDispatch();
   const { Files, fileAdded } = useSelector(state => state.file);
   const { userId } = useSelector(state => state.user);
@@ -95,4 +95,4 @@ const NewFile = () => {
   );
 };
 
-export default NewFile;
+export default NewFolder;
