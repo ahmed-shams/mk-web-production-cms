@@ -36,8 +36,8 @@ functions:
 
     vpc:  # TODO make this dynamic based on acct / environment
       securityGroupIds:
-        - sg-0ef6d172 
+        - xxxx 
       subnetIds:
-        - subnet-4f8f012a
-        - subnet-1aa12516
-        - subnet-b6efc89b
+        - xxxx
+        - xxxx
+        - xxxx
