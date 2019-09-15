@@ -16,11 +16,13 @@ export const jsonValidator = (item) => {
 
 export const updateState = (original, newData) => {
   console.log("-------------update state in utils-------------")
+  console.log("new data: ", newData);
   if (isEmpty(original)) {
     return newData;
   }
   let i;
   if (original.id === newData.parentId) {
+    // check childfen? 
     original.children.push(newData)
     return original;
   } else {

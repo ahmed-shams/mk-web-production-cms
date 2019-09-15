@@ -64,7 +64,7 @@ router.post('/login', (req, res, next) => { // POST /api/user/login
           include: [{
             model: db.File,
             as: 'Files',
-            attributes: ['id'],
+            attributes: ['id', 'content'],
           }],
           attributes: ['id', 'email', 'userId', 'active'],
         });

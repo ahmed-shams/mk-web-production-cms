@@ -9,6 +9,7 @@ import reducer from '../reducers';
 import createSagaMiddleWare from 'redux-saga';
 import withReduxSaga from 'next-redux-saga';
 import rootSaga from '../sagas';
+import Helmet from 'react-helmet';
 import '../utils/fake.css';
 
 const Layout = ({ Component, store, pageProps }) => {

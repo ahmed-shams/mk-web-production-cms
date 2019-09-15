@@ -351,7 +351,14 @@ export default (state = initialState, action) => {
     };
     case ADD_FILE_SUCCESS: {
       console.log("here in reducer add file success");
-      const newFiles = updateState(state.Files, action.data);
+      let data = action.data;
+      console.log("data: ", data);
+      if (data.isFolder) {
+        data.children = [];
+      }
+      console.log("data again: ", data);
+      const newFiles = updateState(state.Files, data);
+      // console.log()
       return {
         ...state,
         isAddingFile: false,
