@@ -14,13 +14,13 @@ const MainNavigation = () => {
     setCurrent(e.key);
   }
 
-  // const { me } = useSelector(state => state.user);
-  // useEffect(() => {
-  //   if(!me) {
-  //     alert("Please login. Redirecting to login page...");
-  //     Router.push('/user/login');
-  //   }
-  // }, [me])
+  const { me } = useSelector(state => state.user);
+  useEffect(() => {
+    if(!me) {
+      alert("Please login. Redirecting to login page...");
+      Router.push('/user/login');
+    }
+  }, [me])
 
   const onLogout = useCallback(() => {
     dispatch({

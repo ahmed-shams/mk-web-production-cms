@@ -136,7 +136,7 @@ const AllFiles = () => {
           <label>File Name --TODO: don't display anything if folder is clicked</label>
           <Input value={filename} onChange={onChangeFileName} />
           <label>Content</label>
-          <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
+          <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '600px'}} />
           <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
           <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
           <Button htmlType='submit'>Save</Button>
