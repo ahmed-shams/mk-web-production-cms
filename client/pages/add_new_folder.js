@@ -6,9 +6,6 @@ import { Layout, Form, Input, Button } from 'antd';
 import { isEmpty } from '../utils';
 const { Content, Sider } = Layout;
 
-
-// have folder field in db. if (folder): add children array when returning a new state in Redux .. 
-
 const NewFolder = () => {
   const dispatch = useDispatch();
   const { Files, fileAdded } = useSelector(state => state.file);
@@ -24,7 +21,7 @@ const NewFolder = () => {
       type: LOAD_ALL_FILE_REQUEST
     })
     setData(Files);
-    if (isEmpty(Files)) { // handle the case: there's no folder or file at all
+    if (isEmpty(Files)) { // handle the edge case: there's no folder or file at all
       setParentId(0);
       setIsFolder(true);
     }
@@ -49,7 +46,6 @@ const NewFolder = () => {
     setData(Object.assign({}, data))
     node.isFolder ? setIsFolder(true) : setIsFolder(false);
     setParentId(node.id);
-    console.log("current parent id: ", parentId);
   }
 
   const onChangeFileName = useCallback((e) => {
@@ -80,7 +76,7 @@ const NewFolder = () => {
     <div>
       <Layout>
         <Sider>
-          {Files && <Treebeard data={data} onToggle={onToggle} />}
+          {Files && <Treebeard data={Files} onToggle={onToggle} />}
         </Sider>
         <Content style={{padding:'20px'}}>
           <h1>Folder Content</h1>

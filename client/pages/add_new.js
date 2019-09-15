@@ -12,7 +12,6 @@ const NewFile = () => {
   const dispatch = useDispatch();
   const { Files, fileAdded } = useSelector(state => state.file);
   const { userId } = useSelector(state => state.user);
-  const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
   const [importMode, setImportMode] = useState('1');
   const [filename, setFilename] = useState('');
@@ -26,16 +25,9 @@ const NewFile = () => {
     if (fileAdded) {
       setFileContent('');
       setFilename('');
-      setData(Files);
+      // setData(Files);
     }
   }, [fileAdded === true]);
-
-  useEffect(() => {
-    dispatch({
-      type: LOAD_ALL_FILE_REQUEST
-    })
-    setData(Files);
-  }, [])
 
   const closeModal = (e) => {
     setfileJson('')
@@ -66,7 +58,7 @@ const NewFile = () => {
     }
     
     setCursor(node);
-    setData(Object.assign({}, data))
+    // setData(Object.assign({}, data))
     node.isFolder ? setIsFolder(true) : setIsFolder(false);
 
     if (importMode === '1') {
@@ -81,10 +73,13 @@ const NewFile = () => {
       if (confirm(`import ${node.name}?`)) { // ok
         if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
           // setFileContent(JSON.stringify(node.content, null, 4));
+          console.log("no file content");
           setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));
         } else {
           const prev = JSON.parse(fileContent);
-          node.content.forEach(el => {
+          console.log("node content shoud we do json parse to node content: ", node.content);
+
+          JSON.parse(node.content).forEach(el => {
             prev.push(el)
           })
           setFileContent(JSON.stringify(prev, null, 4));
@@ -139,7 +134,7 @@ const NewFile = () => {
     <div>
       <Layout>
         <Sider>
-          {Files && <Treebeard data={data} onToggle={onToggle} />}
+          {Files && <Treebeard data={Files} onToggle={onToggle} />}
         </Sider>
         <Content style={{padding:'20px'}}>
           <h1>File Content</h1>
@@ -164,5 +159,11 @@ const NewFile = () => {
     </div>
   );
 };
+
+NewFile.getInitialProps = (context) => {
+  context.store.dispatch({
+    type: LOAD_ALL_FILE_REQUEST
+  })
+}
 
 export default NewFile;

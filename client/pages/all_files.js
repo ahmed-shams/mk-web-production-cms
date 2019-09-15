@@ -5,6 +5,7 @@ import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button } from 'antd';
 const { Content, Sider } = Layout;
 const { TextArea } = Input; 
+import { jsonValidator } from '../utils';
 import Modal from  '../components/app/Modal.jsx';
 import DiffModal from  '../components/app/DiffModal.jsx';
 
@@ -21,13 +22,6 @@ const AllFiles = () => {
   const [showDiffModal, setShowDiffModal] = useState(false);
   const [prevJson, setPrevJson] = useState('');
   const [currJson, setCurrJson] = useState('');
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: LOAD_ALL_FILE_REQUEST
-  //   })
-  //   setData(Files);
-  // }, [])
 
   useEffect(() => { // after successful file edit 
     if (fileEditted) {
@@ -50,6 +44,10 @@ const AllFiles = () => {
       alert('Please enter JSON');
       return;
     }
+    if(!jsonValidator(fileContent)) {
+      alert("there is error in JSON");
+      return;
+    } 
     setfileJson(fileContent);
     setShowModal(true);  
   }
@@ -67,7 +65,6 @@ const AllFiles = () => {
       node.toggled = toggled;
     }
     setCursor(node);
-    // setData(Object.assign({}, data))
     setFilename(node.name);
     setFileId(node.id);
     if (node.content) { setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));}
@@ -97,8 +94,11 @@ const AllFiles = () => {
 
   const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    // TODO: add JSON validator logic here before SAVE + PREVIEW 
-    // jsonValidator(fileContent)
+
+    if(!jsonValidator(fileContent)) {ß
+      alert("there is error in JSON");
+      return;
+    } 
 
     dispatch({
       type: EDIT_FILE_REQUEST,
@@ -154,7 +154,6 @@ const AllFiles = () => {
               </div>
             ))}
           </div>
-          {/* <p>Editted | <Button type='primary' style={{marginRight: '10px'}} onClick={toggleDiffModal}>View Diff</Button></p> */}
         </Content>
       </Layout>
       {showModal && <Modal onClose={closeModal} fileJson={fileJson} copyHtml={copyText} />}
@@ -163,12 +162,10 @@ const AllFiles = () => {
   );
 };
 
-
 AllFiles.getInitialProps = async (context) => {
   context.store.dispatch({
     type: LOAD_ALL_FILE_REQUEST
   })
 }
-
 
 export default AllFiles;
