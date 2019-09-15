@@ -94,7 +94,6 @@ router.delete('/', isLoggedIn, async (req, res, next) => {
 // retrieve specific file and all revisions from DB
 // request body: fileId
 router.get('/:id', async (req, res) => {
-  console.log("load curr file id here: ", req.params.id);
   try {
 	const file = await db.File.findOne({ where: { id: req.params.id }});
 	const revisions = await db.Revision.findAll({where: { fileId: req.params.id }})
@@ -119,19 +118,21 @@ function buildHierarchy(arry) {
     for (var i = 0, len = arry.length; i < len; ++i) {
         var item = arry[i],
             p = item.parentId,
-            target = !p ? roots : (children[p] || (children[p] = []));
-
+            target = !p ? roots : (children[p] || (children[p] = [])); 
         target.push(item.dataValues);
     }
 
     // function to recursively build the tree
     var findChildren = function(parent) {
         if (children[parent.id]) {
-            parent.children = children[parent.id];
+			parent.children = children[parent.id]; 
             for (var i = 0, len = parent.children.length; i < len; ++i) {
                 findChildren(parent.children[i]);
             }
-        }
+		}
+		if (parent.isFolder && (!('children' in parent))) {
+			parent.children = []
+		}
     };
 
     // enumerate through to handle the case where there are multiple roots
