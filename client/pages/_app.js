@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import Proptypes from 'prop-types';
 import AppLayout from '../components/app/AppLayout';
 import { Provider } from 'react-redux';
@@ -11,6 +10,8 @@ import withReduxSaga from 'next-redux-saga';
 import rootSaga from '../sagas';
 import Helmet from 'react-helmet';
 import '../utils/fake.css';
+import axios from 'axios';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 
 const Layout = ({ Component, store, pageProps }) => {
   return (
@@ -62,6 +63,17 @@ Layout.proptypes = {
 Layout.getInitialProps = async (context) => {
   const { ctx, Component } = context;
   let pageProps = {};
+  const state = ctx.store.getState();
+  const cookie = ctx.isServer ? ctx.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (ctx.isServer && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  if (!state.user.me) {
+    ctx.store.dispatch({
+      type: LOAD_USER_REQUEST
+    })
+  }
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }
