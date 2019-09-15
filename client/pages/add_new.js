@@ -25,7 +25,6 @@ const NewFile = () => {
     if (fileAdded) {
       setFileContent('');
       setFilename('');
-      // setData(Files);
     }
   }, [fileAdded === true]);
 
@@ -131,32 +130,30 @@ const NewFile = () => {
   }
 
   return (
-    <div>
-      <Layout>
-        <Sider>
-          {Files && <Treebeard data={Files} onToggle={onToggle} />}
-        </Sider>
-        <Content style={{padding:'20px'}}>
-          <h1>File Content</h1>
-          <Form onSubmit={onSubmitHandler}>
-            <label><strong>File Name</strong></label>
-            <Input value={filename} onChange={onChangeFileName} required />
-            <label><strong>Content</strong></label>
-            <div style={{padding: '10px 0'}}>
-              <Radio.Group defaultValue="1" buttonStyle="solid" onChange={onChangeRadio}>
-                <Radio.Button value="1">JSON MODE</Radio.Button>
-                <Radio.Button value="2">Import Mode</Radio.Button>
-              </Radio.Group>
-            </div>
-            <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
-            <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
-            <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
-            <Button htmlType='submit'>Save</Button>
-          </Form>
-        </Content>
-      </Layout>
+    <Layout>
+      <Sider>
+        {Files && <Treebeard data={Files} onToggle={onToggle} />}
+      </Sider>
+      <Content style={{padding:'20px'}}>
+        <h1>File Content</h1>
+        <Form onSubmit={onSubmitHandler}>
+          <label><strong>File Name</strong></label>
+          <Input value={filename} onChange={onChangeFileName} required />
+          <label><strong>Content</strong></label>
+          <div style={{padding: '10px 0'}}>
+            <Radio.Group defaultValue="1" buttonStyle="solid" onChange={onChangeRadio}>
+              <Radio.Button value="1">JSON MODE</Radio.Button>
+              <Radio.Button value="2">Import Mode</Radio.Button>
+            </Radio.Group>
+          </div>
+          <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '500px'}} />
+          <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
+          <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
+          <Button htmlType='submit'>Save</Button>
+        </Form>
+      </Content>
       {showModal && <Modal onClose={closeModal} fileJson={fileJson} />}
-    </div>
+    </Layout>
   );
 };
 

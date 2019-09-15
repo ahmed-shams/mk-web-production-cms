@@ -73,21 +73,19 @@ const NewFolder = () => {
   }, [parentId, filename, userId])
 
   return (
-    <div>
-      <Layout>
-        <Sider>
-          {Files && <Treebeard data={Files} onToggle={onToggle} />}
-        </Sider>
-        <Content style={{padding:'20px'}}>
-          <h1>Folder Content</h1>
-          <Form onSubmit={onSubmitHandler}>
-            <label><strong>Folder Name</strong></label>
-            <Input value={filename} onChange={onChangeFileName} />
-            <Button htmlType='submit'>Save</Button>
-          </Form>
-        </Content>
-      </Layout>
-    </div>
+    <Layout hasSider={true}>
+      <Sider>
+        {Files && <Treebeard data={Files} onToggle={onToggle} />}
+      </Sider>
+      <Content style={{padding:'20px'}}>
+        <h1>Folder Content</h1>
+        <Form onSubmit={onSubmitHandler}>
+          <label><strong>Folder Name</strong></label>
+          <Input value={filename} onChange={onChangeFileName} />
+          <Button htmlType='submit'>Save</Button>
+        </Form>
+      </Content>
+    </Layout>
   );
 };
 
