@@ -3,11 +3,9 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../models');
 const router = express.Router();
+const { isLoggedIn } = require('./middleware');
 
-router.get('/', (req, res) => { // /api/user/
-  if (!req.user) {
-    return res.status(401).send('Requires login.');
-  }
+router.get('/', isLoggedIn, (req, res) => { // /api/user/
   const user = Object.assign({}, req.user.toJSON());
   delete user.password;
   return res.json(user);
