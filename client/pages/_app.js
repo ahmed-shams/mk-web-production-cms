@@ -38,13 +38,11 @@ const Layout = ({ Component, store, pageProps }) => {
           property: 'og:image', content: 'https://digital.michaelkors.com/refreshes/2019/fall/refresh2/global/desktop/women/LP_WOMEN_1.jpg',
         }]}
         link={[{
-          rel: 'shortcut icon', href: '/favicon.ico',
+          rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon',
         }, {
           rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/antd/3.16.2/antd.css',
         }, {
           rel: 'stylesheet', href: 'https://www.michaelkors.com/img/MKBusiness/css/2019/fall/refresh2/mk-style.min.css',
-        }, {
-          rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css',
         }]}
       />
       <AppLayout>
