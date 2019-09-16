@@ -134,6 +134,19 @@ function buildHierarchy(arry) {
         findChildren(parent.children[i]);
       }
     }
+  };
+
+    target.push(item.dataValues);
+  }
+
+  // function to recursively build the tree
+  var findChildren = function(parent) {
+    if (children[parent.id]) {
+      parent.children = children[parent.id];
+      for (var i = 0, len = parent.children.length; i < len; ++i) {
+        findChildren(parent.children[i]);
+      }
+    }
 
     return roots;
 }
