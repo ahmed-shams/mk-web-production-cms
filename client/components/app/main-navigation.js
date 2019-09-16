@@ -73,7 +73,7 @@ const MainNavigation = () => {
       </SubMenu>
 
       <Menu.Item key="4">
-        <Link href='/all_files'>
+        <Link href='/all_files' prefetch>
           <a>
             <Icon type="file-text" />
             <span>All Files</span>
