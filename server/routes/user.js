@@ -3,9 +3,11 @@ var bcrypt = require('bcryptjs');
 const passport = require('passport');
 const db = require('../models');
 const router = express.Router();
-const { isLoggedIn } = require('./middleware');
 
-router.get('/', isLoggedIn, (req, res) => { // /api/user/
+router.get('/', (req, res) => { // /api/user/
+  if (!req.user) {
+    return res.status(401).send('Requires login.');
+  }
   const user = Object.assign({}, req.user.toJSON());
   delete user.password;
   return res.json(user);
@@ -62,7 +64,7 @@ router.post('/login', (req, res, next) => { // POST /api/user/login
           include: [{
             model: db.File,
             as: 'Files',
-            attributes: ['id', 'content'],
+            attributes: ['id'],
           }],
           attributes: ['id', 'email', 'userId', 'active'],
         });

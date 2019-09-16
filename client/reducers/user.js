@@ -12,8 +12,7 @@ export const initialState = {
   isSignedUp: false,
   isSigningUp: false,
   signUpErrorReason: '',
-  me: null, // my info,
-  userInfo: null // other's info
+  me: null, // my info
 }
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
@@ -27,10 +26,6 @@ export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
-
-export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
-export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
-export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 
 export default (state = initialState, action) => {
@@ -105,28 +100,6 @@ export default (state = initialState, action) => {
         signUpErrorReason: action.error
       }
     };
-    case LOAD_USER_REQUEST: {
-      return {
-        ...state,
-      };
-    }
-    case LOAD_USER_SUCCESS: {
-      if (action.me) {
-        return {
-          ...state,
-          me: action.data,
-        };
-      }
-      return {
-        ...state,
-        userInfo: action.data,
-      };
-    }
-    case LOAD_USER_FAILURE: {
-      return {
-        ...state,
-      };
-    }
     default: {
       return {
         ...state

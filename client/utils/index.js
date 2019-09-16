@@ -15,6 +15,7 @@ export const jsonValidator = (item) => {
 }
 
 export const updateState = (original, newData) => {
+  console.log("-------------update state in utils-------------")
   if (isEmpty(original)) {
     return newData;
   }
