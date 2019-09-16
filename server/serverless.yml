@@ -1,3 +1,5 @@
+org: ahmedshams
+app: sls-mk-cms-server
 service: sls-cms-server-app
 
 custom:

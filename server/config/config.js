@@ -5,7 +5,7 @@ module.exports = {
   development: {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'mk_cms_test',
+    database: 'mk_cms',
     host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: false
@@ -13,7 +13,7 @@ module.exports = {
   deployedEnv: {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'mk_cms_test',
+    database: 'mk_cms',
     host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: false
@@ -21,16 +21,16 @@ module.exports = {
   test: {
     username: 'root',
     password: process.env.DB_PASSWORD,
-    database: 'mk_cms_test',
-    host: '127.0.0.1',
+    database: 'mk_cms',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: false
   },
   production: {
     username: 'root',
     password: process.env.DB_PASSWORD,
-    database: 'mk_cms_test',
-    host: '127.0.0.1',
+    database: 'mk_cms',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
     operatorsAliases: false
   }
