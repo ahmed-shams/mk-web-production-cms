@@ -350,8 +350,11 @@ export default (state = initialState, action) => {
       };
     };
     case ADD_FILE_SUCCESS: {
-      console.log("here in reducer add file success");
-      const newFiles = updateState(state.Files, action.data);
+      let data = action.data;
+      if (data.isFolder) {
+        data.children = [];
+      }
+      const newFiles = updateState(state.Files, data);
       return {
         ...state,
         isAddingFile: false,
@@ -399,7 +402,6 @@ export default (state = initialState, action) => {
       };
     };
     case LOAD_FILE_SUCCESS: {
-      console.log("action data in load file success: ", action.data);
       return {
         ...state,
         revisions: action.data,

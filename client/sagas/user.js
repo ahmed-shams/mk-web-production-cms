@@ -10,12 +10,10 @@ import {
   SIGN_UP_FAILURE,
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
+  LOAD_USER_FAILURE,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
 } from '../reducers/user';
-
-const dummyUser = {
-  id: 1,
-  username: 'sehwan'
-}
 
 function logInAPI(loginData) {
   console.log("loginData: ", loginData);
@@ -29,7 +27,6 @@ function* logIn(action) {
     const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      // data: dummyUser
       data: result.data,
     });
   } catch (e) {
@@ -95,10 +92,38 @@ function* watchLogOut() {
   yield takeEvery(LOG_OUT_REQUEST, logOut);
 }
 
+function loadUserAPI(userId) {
+  return axios.get(userId ? `/user/${userId}` : '/user/', {
+    withCredentials: true,
+  });
+}
+
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI, action.data);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,
+      me: !action.data,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: LOAD_USER_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchLoadUser() {
+  yield takeEvery(LOAD_USER_REQUEST, loadUser);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLogIn),
     fork(watchLogOut),
-    fork(watchSignUp)
+    fork(watchSignUp),
+    fork(watchLoadUser)
   ]);
 }

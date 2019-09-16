@@ -46,20 +46,11 @@ function addFileAPI(fileData) {
 
 
 function* addFile(action) {
-  console.log("here add file")
   try {
-    let data;
     const result = yield call(addFileAPI, action.data);
-    data = result.data;
-    console.log("data: ", data);
-    // folder check and add children
-    if (result.data.isFolder) {
-      console.log("data hitting here in is Folder after add file");
-      data.children = [];
-    }
     yield put({
       type: ADD_FILE_SUCCESS,
-      data: data
+      data: result.data
     });
   } catch (e) {
     yield put({
@@ -70,7 +61,6 @@ function* addFile(action) {
 }
 
 function* watchAddFile() {
-  console.log("watch add file");
   yield takeLatest(ADD_FILE_REQUEST, addFile);
 }
 
@@ -82,10 +72,10 @@ function editFileAPI(fileData) {
 
 
 function* editFile(action) {
+  console.log("edit file: ", action.data);
   try {
     let data;
     const result = yield call(editFileAPI, action.data);
-    console.log("Data back from server: ", result.data);
     data = result.data;
     // folder check and add children
     if (result.data.isFolder) {
@@ -115,11 +105,8 @@ function loadCurrFileAPI(id) {
 }
 
 function* loadCurrFile(action) {
-  console.log("file id: ", action.data.fileId);
   try {
     const result = yield call(loadCurrFileAPI, action.data.fileId);
-    console.log("result.data: ", result.data);
-    // result.data has both file and revisions
     yield put({
       type: LOAD_FILE_SUCCESS,
       data: result.data.revisions
@@ -135,7 +122,6 @@ function* loadCurrFile(action) {
 function* watchLoadCurrFile() {
   yield takeLatest(LOAD_FILE_REQUEST, loadCurrFile);
 }
-
 
 
 export default function* fileSaga() {

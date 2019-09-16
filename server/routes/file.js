@@ -66,26 +66,29 @@ router.post('/', async (req, res, next) => {
 // response body parameters: entriesUpdated
 router.put('/', async (req, res, next) => {
   try {
-    // Get old file content from DB
-    const oldContent = await db.File.findOne({
-      where: { id: req.body.fileId
-      }
-    });
+	// Get old file content from DB
+	const oldContent = await db.File.findOne({
+	  where: { id: req.body.fileId }
+	});
 
-    // Insert old content into Revisions
-    const revisionInsert = await db.Revision.create({
-			  content: oldContent.content,
-			  name: oldContent.name,
-			  UserId: req.body.userId,
-			  fileId: req.body.fileId
-    });
+	// Insert old content into Revisions
+	const revisionInsert = await db.Revision.create({
+	  content: JSON.stringify(JSON.parse(oldContent.content)),
+	  name: oldContent.name,
+	  UserId: req.user.id,
+	  fileId: req.body.fileId,
+	  isFolder: req.body.isFolder
+	});
 
-    // Insert New Content into Files
-    const newFile = await db.File.update(
-      {content: req.body.content},
-      {where: {Id: req.body.fileId}});
-
-    return res.status(200).json({entriesUpdated: newFile[0]});
+	// Insert New Content into Files
+	const newFile = await db.File.update({
+	  content: JSON.stringify(req.body.content),
+	  name: req.body.name
+	},{
+	  where: {Id: req.body.fileId}
+	});
+	// console.log(newFile[0])
+	return res.status(200).json({'entriesUpdated': newFile[0]});
   } catch (e) {
     console.error(e);
     return next(e);
@@ -101,7 +104,14 @@ router.delete('/', async (req, res, next) => {
       {where: { id: req.body.fileId }
       });
 
-    return res.status(200).json({entriesDeleted: file[0]});
+// retrieve specific file and all revisions from DB
+// request body: fileId
+router.get('/:id', async (req, res) => {
+  try {
+	const file = await db.File.findOne({ where: { id: req.params.id }});
+	const revisions = await db.Revision.findAll({where: { fileId: req.params.id }})
+
+	return res.status(200).json({file,revisions});
   } catch (e) {
     console.error(e);
     // TODO: error handler
@@ -117,22 +127,30 @@ function buildHierarchy(arry) {
 
   var roots = [], children = {};
 
-  // find the top level nodes and hash the children based on parent
-  for (var i = 0, len = arry.length; i < len; ++i) {
-    var item = arry[i],
-      p = item.parentId,
-      target = !p ? roots : (children[p] || (children[p] = []));
+    // find the top level nodes and hash the children based on parent
+    for (var i = 0, len = arry.length; i < len; ++i) {
+        var item = arry[i],
+            p = item.parentId,
+            target = !p ? roots : (children[p] || (children[p] = []));
+        target.push(item.dataValues);
+    }
 
-    target.push(item.dataValues);
-  }
+    // function to recursively build the tree
+    var findChildren = function(parent) {
+        if (children[parent.id]) {
+			parent.children = children[parent.id];
+            for (var i = 0, len = parent.children.length; i < len; ++i) {
+                findChildren(parent.children[i]);
+            }
+		}
+		if (parent.isFolder && (!('children' in parent))) {
+			parent.children = []
+		}
+    };
 
-  // function to recursively build the tree
-  var findChildren = function(parent) {
-    if (children[parent.id]) {
-      parent.children = children[parent.id];
-      for (var i = 0, len = parent.children.length; i < len; ++i) {
-        findChildren(parent.children[i]);
-      }
+    // enumerate through to handle the case where there are multiple roots
+    for (var i = 0, len = roots.length; i < len; ++i) {
+        findChildren(roots[i]);
     }
   };
 
