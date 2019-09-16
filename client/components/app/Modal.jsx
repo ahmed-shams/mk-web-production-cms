@@ -41,22 +41,72 @@ export const ModalContainer = styled.div`
 
 export const ModalHeader= styled.div`
   display: flex;
-   justify-content: center;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-bottom: 1px solid lightgrey;
   font-size: 45px;
   font-weight: bold;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   align-items: center;
   position: absolute;
   top: 0;
   width: 100%;
   left: 0;
   height: 200px;
-  @media (max-width: 768px) {
+`;
+
+export const ModalHeaderTop= styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 45px;
+  font-weight: bold;
+  color: black;
+  height: 100px;
+  align-items: flex-end;
+  width: 100%;
+  @media (max-width: 768px) {  
     font-size: 25px;
   }
+`;
+
+export const ModalHeaderBottom= styled.div`
+  display: flex;
+   justify-content: center;
+  font-size: 45px;
+  font-weight: bold;
+  height: 100px;
+  color: white;
+  align-items: flex-end;
+  width: 100%;
+  @media (max-width: 768px) {  
+    display: none;
+  }
+`;
+
+
+export const ModalHeaderNav= styled.ul`
+  display: flex; 
+  justify-content: center;
+  align-items:flex-end;
+  color: white;
+  margin: 0;
+  width: 75%;
+`;
+
+export const ModalHeaderNavItem= styled.li`
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  color: black;
+  width: 11%;
+  font-size: 14px;
+  height: 60px;
+  @media (max-width: 1024px) {
+    font-size: 8px;
+  }
 `
+
 
 const CopyHtml = styled.button`
   position: absolute;
@@ -68,8 +118,8 @@ const CopyHtml = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   border-radius: 5px;
     &:hover {
     cursor: pointer;
@@ -85,7 +135,7 @@ export const ModalClose = styled.div`
   align-items: center;
   border: none;
   font-size: 50px;
-  color: white;
+  color: black;
 
   &:hover {
     cursor: pointer;
@@ -237,7 +287,42 @@ const ModalPreview = ({ onClose, fileJson }) => {
   <div>  
   	<ModalContainer>
       <CopyHtml onClick={copyHtml}>COPY HTML</CopyHtml>
-      <ModalHeader className="modal-header">PREVIEW</ModalHeader>
+      <ModalHeader>
+        <ModalHeaderTop>
+          MICHAEL KORS
+        </ModalHeaderTop>
+        <ModalHeaderBottom>
+          <ModalHeaderNav>
+            <ModalHeaderNavItem>
+              WOMEN
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              MEN
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              COLLECTION
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              HANDBAGS
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              WALLETS
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              SHOES
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+             WATCHES
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              GIFTS
+            </ModalHeaderNavItem>
+            <ModalHeaderNavItem>
+              SALE
+            </ModalHeaderNavItem>
+          </ModalHeaderNav>
+        </ModalHeaderBottom>
+      </ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
       <PreviewContentContainer><PreviewContent ref={ContentContainer}>{json}</PreviewContent></PreviewContentContainer>
     </ModalContainer>
