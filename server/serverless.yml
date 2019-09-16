@@ -45,7 +45,7 @@ functions:
           method: ANY
           cors:
             origins:
-              - http://localhost:3000
+              - http://localhost:3000, http://ec2-3-91-156-213.compute-1.amazonaws.com # ! add origins here
             headers:
               - Content-Type
               - X-Amz-Date
