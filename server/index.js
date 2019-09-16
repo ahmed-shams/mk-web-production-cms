@@ -44,7 +44,9 @@ app.use(passport.session());
 app.use('/api/user', userAPIRouter);
 app.use('/api/file', fileAPIRouter);
 
-app.listen(3000, () => {
+
+// TODO: maybe remove this as it could cause confusion. It is needed for npm run dev to work but does not faithfully represent how code runs in cloud. sls offline command is preferred as it emulates cloud behavior more closely. It actually evaluates serverless.yml doc  (with env vars) and invokes your fn with apiGateway event as if it were a AWSlambda fn
+app.listen(3000, () => { 
   console.log('server is running on http://localhost:3000');
 });
 
