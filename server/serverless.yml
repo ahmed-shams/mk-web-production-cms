@@ -1,6 +1,6 @@
 org: ahmedshams
-app: sls-mk-cms-server-prod
-service: sls-cms-server-app-prod
+app: sls-mk-cms-server
+service: sls-cms-server-app
 
 custom:
     env_src: ${opt:env_src, 'default'} # pass a CLI flag to serverless commands to change environment var source
