@@ -105,6 +105,11 @@ const NewFile = () => {
       return;
     } 
 
+    if(!isFolder) {
+      alert("Please select a folder, not file");
+      return;
+    }
+
     dispatch({
       type: ADD_FILE_REQUEST,
       data: {
