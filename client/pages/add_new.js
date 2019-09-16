@@ -62,21 +62,19 @@ const NewFile = () => {
 
     if (importMode === '1') {
       setParentId(node.id);
-      console.log("parentId here: ", parentId);
+      console.log("parentId: ", parentId);
     } else if (importMode === '2') {
       if (node.content.length === 0) {
         setParentId(node.id);
-        console.log(parentId)
+        console.log("parentId: ", parentId);
         return 
       }
       if (confirm(`import ${node.name}?`)) { // ok
         if (fileContent === '') { // we wont' check the validity of JSON here when importing it. We can assume it's valid because we are checking it when we save it.
           // setFileContent(JSON.stringify(node.content, null, 4));
-          console.log("no file content");
           setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));
         } else {
           const prev = JSON.parse(fileContent);
-          console.log("node content shoud we do json parse to node content: ", node.content);
 
           JSON.parse(node.content).forEach(el => {
             prev.push(el)
@@ -84,7 +82,6 @@ const NewFile = () => {
           setFileContent(JSON.stringify(prev, null, 4));
         }
       }
-      console.log("parentId: ", parentId);
       return
     }
   }
