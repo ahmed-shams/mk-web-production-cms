@@ -36,7 +36,8 @@ const getImageHtml = (data) => {
   return htmls;
 };
 const getHeaderHeight = () => {
-  return (typeof document !== 'undefined' ? document.querySelector('.mk-web .header-container').offsetHeight : "");
+  console.log('paragraph fixed header', document.querySelector('.modal-header'))
+  return (typeof document !== 'undefined' ? document.querySelector('.modal-header').offsetHeight : "");
 };
 const getScrollY = () => {
   return (typeof window.scrollY === "undefined" ? window.pageYOffset : window.scrollY);

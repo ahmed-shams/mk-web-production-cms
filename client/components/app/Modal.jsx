@@ -21,6 +21,9 @@ import Lookback from '../frc/flagship/lookback';
 import Columns from '../frc/columns';
 import ParallaxFixedParagraph from '../frc/parallax/parallax-fixed-Paragraph';
 import ParallaxFixedBackground from '../frc/parallax/parallax-fixed-background';
+import YouTubeVideoPlay from '../frc/video/youtube-video';
+import HtmlVideoPlay from '../frc/video/html-video';
+import Video4by5 from '../frc/video/video4by5';
 
 export const ModalContainer = styled.div`
   display: flex;
@@ -38,9 +41,9 @@ export const ModalContainer = styled.div`
 
 export const ModalHeader= styled.div`
   display: flex;
-   justify-content: center;
-   flex-direction: column;
-   border-bottom: 1px solid lightgrey;
+  justify-content: center;
+  flex-direction: column;
+  border-bottom: 1px solid lightgrey;
   font-size: 45px;
   font-weight: bold;
   background-color: white;
@@ -55,13 +58,16 @@ export const ModalHeader= styled.div`
 
 export const ModalHeaderTop= styled.div`
   display: flex;
-   justify-content: center;
+  justify-content: center;
   font-size: 45px;
   font-weight: bold;
   color: black;
   height: 100px;
   align-items: flex-end;
   width: 100%;
+  @media (max-width: 768px) {  
+    font-size: 25px;
+  }
 `;
 
 export const ModalHeaderBottom= styled.div`
@@ -73,6 +79,9 @@ export const ModalHeaderBottom= styled.div`
   color: white;
   align-items: flex-end;
   width: 100%;
+  @media (max-width: 768px) {  
+    display: none;
+  }
 `;
 
 
@@ -93,8 +102,10 @@ export const ModalHeaderNavItem= styled.li`
   width: 11%;
   font-size: 14px;
   height: 60px;
-`;
-
+  @media (max-width: 1024px) {
+    font-size: 8px;
+  }
+`
 
 
 const CopyHtml = styled.button`
@@ -131,10 +142,17 @@ export const ModalClose = styled.div`
   }
 `;
 
-export const PreviewContent = styled.div`
+
+const PreviewContentContainer = styled.div`
   position: absolute;
   top: 200px;
-`
+`;
+
+export const PreviewContent = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+`;
 
 const renderJSONComponents = (dataObj, isMobile, key, ref) => {
     const compsArr = [];
@@ -306,7 +324,7 @@ const ModalPreview = ({ onClose, fileJson }) => {
         </ModalHeaderBottom>
       </ModalHeader>
       <ModalClose onClick={onClose}>X</ModalClose>
-      <PreviewContent ref={ContentContainer}>{json}</PreviewContent>
+      <PreviewContentContainer><PreviewContent ref={ContentContainer}>{json}</PreviewContent></PreviewContentContainer>
     </ModalContainer>
   </div>
   );

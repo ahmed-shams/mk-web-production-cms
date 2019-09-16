@@ -7,7 +7,7 @@ export const CompVideo4by5 = styled.div`
       .video-tablet-left {
         .videoContent {
           position: absolute;
-          top: 50%;
+          top: 70%;
           transform: translate(25%, -50%);
           z-index: 5;
         }
@@ -15,7 +15,7 @@ export const CompVideo4by5 = styled.div`
       .video-tablet-right {
         .videoContent {
           position: absolute;
-          top: 50%;
+          top: 70%;
           right: 0;
           transform: translate(-25%, -50%);
           z-index: 5;
@@ -24,7 +24,7 @@ export const CompVideo4by5 = styled.div`
       .video-tablet-center {
         .videoContent {
           position: absolute;
-          top: 50%;
+          top: 70%;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 5;
