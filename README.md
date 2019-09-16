@@ -21,6 +21,9 @@ Development is a breeze. Once you have installed all your dependencies all the c
 
 - Express 4.x server with a ton of middleware
 
+## Server Details:
+[readme for serverless backend](server/README.md)
+
 ### Why Redux + Redux-Saga
 - a single store
 - state being read-only (you have to express an intent to mutate being creating actions)

@@ -16,6 +16,7 @@
     "antd": "^3.20.2",
     "axios": "^0.19.0",
     "cookie-parser": "^1.4.4",
+    "cowsay-browser": "^1.1.8",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
@@ -23,8 +24,8 @@
     "intersection-observer": "^0.7.0",
     "jsonlint": "^1.6.3",
     "morgan": "^1.9.1",
-    "cowsay-browser": "^1.1.8",
     "next": "^9.0.1",
+    "next-aws-lambda": "^2.0.5-alpha.0",
     "next-redux-saga": "^4.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.3",
     "node-sass": "^4.12.0",
@@ -38,8 +39,7 @@
     "react-treebeard": "^3.2.4",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
-    "styled-components": "^4.3.2",
-    "next-aws-lambda": "^2.0.5-alpha.0"
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -51,10 +51,6 @@
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-react-hooks": "^1.6.1",
     "nodemon": "^1.19.1",
-    "serverless": "^1.39.1",
-    "serverless-nextjs-plugin": "^1.8.1",
-    "serverless-offline": "^5.10.1",
-    "serverless-webpack": "^5.3.1",
     "webpack": "^4.35.3"
   }
 }
