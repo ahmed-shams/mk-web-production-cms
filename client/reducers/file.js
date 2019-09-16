@@ -402,7 +402,6 @@ export default (state = initialState, action) => {
       };
     };
     case LOAD_FILE_SUCCESS: {
-      console.log("action data in load file success: ", action.data);
       return {
         ...state,
         revisions: action.data,

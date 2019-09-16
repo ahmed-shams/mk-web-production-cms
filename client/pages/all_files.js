@@ -100,6 +100,7 @@ const AllFiles = () => {
       return;
     } 
 
+    console.log("filename: ", filename);
     dispatch({
       type: EDIT_FILE_REQUEST,
       data: {
@@ -133,7 +134,7 @@ const AllFiles = () => {
       <Content style={{padding:'20px'}}>
         <h1>File Content</h1>
         <Form onSubmit={onSubmitHandler}>
-          <label>File Name --TODO: don't display anything if folder is clicked</label>
+          <label>File/Folder Name</label>
           <Input value={filename} onChange={onChangeFileName} />
           <label>Content</label>
           <TextArea row={50} value={fileContent} onChange={onChangeFileContent} style={{minHeight: '600px'}} />

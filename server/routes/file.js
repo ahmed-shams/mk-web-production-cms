@@ -61,12 +61,13 @@ router.put('/', isLoggedIn, async (req, res, next) => {
 	});
 
 	// Insert New Content into Files
-	const newFile = await db.File.update(
-	  {content: JSON.stringify(req.body.content)},
-	  {where: {Id: req.body.fileId}
+	const newFile = await db.File.update({
+	  content: JSON.stringify(req.body.content),
+	  name: req.body.name
+	},{
+	  where: {Id: req.body.fileId}
 	});
-	console.log("new file: -----------------------------------------------------------------------------------------");
-	console.log(newFile[0])
+	// console.log(newFile[0])
 	return res.status(200).json({'entriesUpdated': newFile[0]});
   } catch (e) {
 	console.error(e);

@@ -72,6 +72,7 @@ function editFileAPI(fileData) {
 
 
 function* editFile(action) {
+  console.log("edit file: ", action.data);
   try {
     let data;
     const result = yield call(editFileAPI, action.data);
