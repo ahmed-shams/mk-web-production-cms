@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 
 function loadFileAPI() {
-  return axios.get('http://localhost:3001/api/file/nav');
+  return axios.get('/file/nav');
 }
 
 function* loadFile() {
@@ -39,27 +39,18 @@ function* watchLoadFile() {
 }
 
 function addFileAPI(fileData) {
-  return axios.post('http://localhost:3001/api/file', fileData, {
+  return axios.post('/file', fileData, {
     withCredentials: true
   });
 }
 
 
 function* addFile(action) {
-  console.log("here add file")
   try {
-    let data;
     const result = yield call(addFileAPI, action.data);
-    data = result.data;
-    console.log("data: ", data);
-    // folder check and add children
-    if (result.data.isFolder) {
-      console.log("data hitting here in is Folder after add file");
-      data.children = [];
-    }
     yield put({
       type: ADD_FILE_SUCCESS,
-      data: data
+      data: result.data
     });
   } catch (e) {
     yield put({
@@ -70,22 +61,21 @@ function* addFile(action) {
 }
 
 function* watchAddFile() {
-  console.log("watch add file");
   yield takeLatest(ADD_FILE_REQUEST, addFile);
 }
 
 function editFileAPI(fileData) {
-  return axios.put('http://localhost:3001/api/file', fileData, {
+  return axios.put('/file', fileData, {
     withCredentials: true
   });
 }
 
 
 function* editFile(action) {
+  console.log("edit file: ", action.data);
   try {
     let data;
     const result = yield call(editFileAPI, action.data);
-    console.log("Data back from server: ", result.data);
     data = result.data;
     // folder check and add children
     if (result.data.isFolder) {
@@ -111,15 +101,12 @@ function* watchEditFile() {
 
 // Load current file
 function loadCurrFileAPI(id) {
-  return axios.get(`http://localhost:3001/api/file/${id}`);
+  return axios.get(`/file/${id}`);
 }
 
 function* loadCurrFile(action) {
-  console.log("file id: ", action.data.fileId);
   try {
     const result = yield call(loadCurrFileAPI, action.data.fileId);
-    console.log("result.data: ", result.data);
-    // result.data has both file and revisions
     yield put({
       type: LOAD_FILE_SUCCESS,
       data: result.data.revisions
@@ -135,7 +122,6 @@ function* loadCurrFile(action) {
 function* watchLoadCurrFile() {
   yield takeLatest(LOAD_FILE_REQUEST, loadCurrFile);
 }
-
 
 
 export default function* fileSaga() {

@@ -225,10 +225,10 @@ const ModalPreview = ({ onClose, fileJson }) => {
   }; 
   // console.log('in showModal show is ', show);
   // console.log('data ', data);
-  // console.log('fileJson ', fileJson);
+  console.log('fileJson ', fileJson);
   // console.log('rendering modal ssv ', fileJson);
   if(fileJson) {
-    // console.log('in if', fileJson);
+    console.log('in if', fileJson);
     // console.log('fileJson ', JSON.parse(fileJson));
   }
 

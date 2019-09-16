@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Menu, Icon, Button } from 'antd';
 import Link from 'next/link';
 import { LOG_OUT_REQUEST } from '../../reducers/user';
-import Router from 'next/router';
 const { SubMenu } = Menu;
+import Router from 'next/router';
 
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState('1');
-  const { me } = useSelector(state => state.user);
   const handleClick = (e) => {
     setCurrent(e.key);
   }
 
+  const { me } = useSelector(state => state.user);
   useEffect(() => {
     if(!me) {
       alert("Please login. Redirecting to login page...");
@@ -23,7 +23,6 @@ const MainNavigation = () => {
   }, [me])
 
   const onLogout = useCallback(() => {
-    console.log("log out fn");
     dispatch({
       type: LOG_OUT_REQUEST
     })
