@@ -24,7 +24,7 @@ app.use(morgan('dev'));
 //   credentials: true,
 // }));
 app.use(function(req, res, next) { // ! this works
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Origin', 'http://ec2-3-91-156-213.compute-1.amazonaws.com'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', true);
   next();
@@ -53,7 +53,7 @@ app.use('/api/file', fileAPIRouter);
 
 
 // TODO: maybe remove this as it could cause confusion. It is needed for npm run dev to work but does not faithfully represent how code runs in cloud. sls offline command is preferred as it emulates cloud behavior more closely. It actually evaluates serverless.yml doc  (with env vars) and invokes your fn with apiGateway event as if it were a AWSlambda fn
-app.listen(3000, () => { 
+app.listen(3000, () => {
   console.log('server is running on http://localhost:3000');
 });
 
