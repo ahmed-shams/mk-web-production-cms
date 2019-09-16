@@ -1,4 +1,4 @@
-import { updateState } from '../utils';
+import { updateState, udpateStateAfterRemoveFile } from '../utils';
 
 export const initialState = {
   Files: {},
@@ -21,6 +21,10 @@ export const EDIT_FILE_FAILURE = 'EDIT_FILE_FAILURE';
 export const LOAD_FILE_REQUEST = 'LOAD_FILE_REQUEST';
 export const LOAD_FILE_SUCCESS = 'LOAD_FILE_SUCCESS';
 export const LOAD_FILE_FAILURE = 'LOAD_FILE_FAILURE';
+
+export const REMOVE_FILE_REQUEST = 'REMOVE_FILE_REQUEST';
+export const REMOVE_FILE_SUCCESS = 'REMOVE_FILE_SUCCESS';
+export const REMOVE_FILE_FAILURE = 'REMOVE_FILE_FAILURE';
 
 export const LOAD_ALL_FILE_REQUEST = 'LOAD_ALL_FILE_REQUEST';
 export const LOAD_ALL_FILE_SUCCESS = 'LOAD_ALL_FILE_SUCCESS';
@@ -416,6 +420,23 @@ export default (state = initialState, action) => {
         fileLoadded: false
       };
     };
+    case REMOVE_FILE_REQUEST: {
+      return {
+        ...state,
+      }
+    }
+    case REMOVE_FILE_SUCCESS: {
+      const newFiles = udpateStateAfterRemoveFile(state.Files, action.data.id, action.data.parentId);
+      return {
+        ...state,
+        Files: newFiles
+      }
+    }
+    case REMOVE_FILE_FAILURE: {
+      return {
+        ...state,
+      }
+    }
     default: {
       return {
         ...state

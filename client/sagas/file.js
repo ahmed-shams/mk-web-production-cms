@@ -12,6 +12,9 @@ import {
   EDIT_FILE_FAILURE,
   EDIT_FILE_REQUEST,
   EDIT_FILE_SUCCESS,
+  REMOVE_FILE_REQUEST,
+  REMOVE_FILE_SUCCESS,
+  REMOVE_FILE_FAILURE
 } from '../reducers/file';
 import axios from 'axios';
 
@@ -124,11 +127,42 @@ function* watchLoadCurrFile() {
 }
 
 
+function removeFileAPI(id) {
+  return axios.delete(`/file/${id}`, {
+    withCredentials: true,
+  });
+}
+
+function* removeFile(action) {
+  try {
+    const parentId = action.data.parentId;
+    const result = yield call(removeFileAPI, action.data.fileId);
+    yield put({
+      type: REMOVE_FILE_SUCCESS,
+      data: {
+        id: result.data,
+        parentId: parentId
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: REMOVE_FILE_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchRemoveFile() {
+  yield takeLatest(REMOVE_FILE_REQUEST, removeFile);
+}
+
 export default function* fileSaga() {
   yield all([
     fork(watchAddFile),
     fork(watchLoadFile),
     fork(watchEditFile),
-    fork(watchLoadCurrFile)
+    fork(watchLoadCurrFile),
+    fork(watchRemoveFile)
   ]);
 }

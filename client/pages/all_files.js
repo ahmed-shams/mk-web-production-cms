@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_ALL_FILE_REQUEST, LOAD_FILE_REQUEST, EDIT_FILE_REQUEST } from '../reducers/file';
+import { LOAD_ALL_FILE_REQUEST, LOAD_FILE_REQUEST, EDIT_FILE_REQUEST, REMOVE_FILE_REQUEST } from '../reducers/file';
 import { Treebeard } from 'react-treebeard';
 import { Layout, Form, Input, Button } from 'antd';
 const { Content, Sider } = Layout;
@@ -12,7 +12,7 @@ import DiffModal from  '../components/app/DiffModal.jsx';
 const AllFiles = () => {
   const dispatch = useDispatch();
   const { Files, revisions, fileEditted } = useSelector(state => state.file);
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
   const [cursor, setCursor] = useState(false);
   const [filename, setFilename] = useState('');
   const [fileContent, setFileContent] = useState('');
@@ -22,6 +22,9 @@ const AllFiles = () => {
   const [showDiffModal, setShowDiffModal] = useState(false);
   const [prevJson, setPrevJson] = useState('');
   const [currJson, setCurrJson] = useState('');
+  const [parentId, setParentId] = useState('');
+  
+  // Delete ..
 
   useEffect(() => { // after successful file edit 
     if (fileEditted) {
@@ -67,6 +70,7 @@ const AllFiles = () => {
     setCursor(node);
     setFilename(node.name);
     setFileId(node.id);
+    setParentId(node.parentId)
     if (node.content) { setFileContent(JSON.stringify(JSON.parse(node.content), null, 4));}
     dispatch({ // set revision 
       type: LOAD_FILE_REQUEST,
@@ -100,7 +104,6 @@ const AllFiles = () => {
       return;
     } 
 
-    console.log("filename: ", filename);
     dispatch({
       type: EDIT_FILE_REQUEST,
       data: {
@@ -125,6 +128,18 @@ const AllFiles = () => {
     setfileJson(content);
     setShowModal(true);  
   }, []);
+
+  const deleteFile = useCallback((e) => {
+    if (confirm(`are you sure you want to delete  ${filename}?`)) { // ok
+      dispatch({
+        type: REMOVE_FILE_REQUEST,
+        data: {
+          fileId: fileId,
+          parentId: parentId
+        }
+      })
+    }
+  })
   
   return (
     <Layout hasSider={true}>
@@ -141,6 +156,7 @@ const AllFiles = () => {
           <Button type='primary' style={{marginRight: '10px'}} onClick={openModal}>Preview</Button>
           <Button type='danger' style={{marginRight: '10px'}} onClick={copyText} >Copy JSON</Button>
           <Button htmlType='submit'>Save</Button>
+          <Button type='danger' onClick={deleteFile} style={{float: 'right'}} >Delete</Button>
         </Form>
 
         <h2 style={{paddingTop: '50px'}} >Revision History</h2>

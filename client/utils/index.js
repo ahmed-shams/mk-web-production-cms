@@ -35,3 +35,18 @@ export const updateState = (original, newData) => {
 export const isEmpty = (obj) => {
   return Object.keys(obj).length === 0;
 }
+
+export const udpateStateAfterRemoveFile = (original, id, parentId) => {
+  let i;
+  if (original.id === parentId) {
+    original.children = original.children.filter(el => el.id !== id);
+    return original 
+  } else {
+    if (original.children) {
+      for (i=0; i < original.children.length; i++) {
+        udpateStateAfterRemoveFile(original.children[i], id, parentId);
+      }
+    }
+  }
+  return original;
+}
