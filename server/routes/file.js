@@ -95,14 +95,15 @@ router.put('/', isLoggedIn, async (req, res, next) => {
 
 // Delete a file
 // request body parameters: fileId
-router.delete('/', isLoggedIn, async (req, res, next) => {
+router.delete('/:id', isLoggedIn, async (req, res, next) => {
   try {
 	const file = await db.File.update(
 	  {deleted: 1},
-	  {where: { id: req.body.fileId }
+	  {where: { id: req.params.id }
 	});
 
-	return res.status(200).json({'entriesDeleted': file[0]});
+	// return res.status(200).json({'entriesDeleted': file});
+	res.send(req.params.id);
   } catch (e) {
 	console.error(e);
 	// TODO: error handler
