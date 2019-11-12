@@ -31,7 +31,7 @@
     "serverless-http": "^2.3.0"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb": "^17.1.1",
     "nodemon": "^1.19.1",
     "serverless": "^1.39.1",
