@@ -28,7 +28,7 @@
     "next-aws-lambda": "^2.0.5-alpha.0",
     "next-redux-saga": "^4.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-aria-modal": "^4.0.0",
